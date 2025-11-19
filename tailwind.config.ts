@@ -12,7 +12,6 @@ const config: Config = {
       md: '768px',
       lg: '992px',
       xl: '1280px',
-      '2xl': '1320px',
     },
     extend: {
       colors: {
