@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { FormRegister } from './FormRegister';
+import { FormRegisterCompany } from './FormRegister';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -123,7 +123,7 @@ export default function CompanyRegisterPage() {
             </div>
 
             {/* Form */}
-            <FormRegister />
+            <FormRegisterCompany />
 
             {/* Login link */}
             <p className="mt-4 text-xs text-slate-700">

@@ -45,32 +45,32 @@ export const FormLoginCompany = () => {
         },
       ])
       .onSuccess((event: any) => {
-        const fullName = event.target.fullName.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-        // console.log(fullName, email, password);
 
         const dataFinal = {
-          fullName: fullName,
           email: email,
           password: password,
         };
 
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/users/register`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/companies/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(dataFinal),
+          credentials: 'include', // Quan trọng: Giữ cookie
         })
           .then((res) => res.json())
-          .then((data: any) => {
-            if (data.code == 'error') {
-              alert(data.message);
+          .then((res) => {
+            console.log('Response from server:', res);
+            if (res.success === false) {
+              alert(res.message);
             }
 
-            if (data.code == 'success') {
-              router.push('/user/login');
+            if (res.success === true) {
+              router.push('/');
+              cookieStore.set('companyToken', res.data.accessToken);
             }
           });
       });
@@ -86,6 +86,7 @@ export const FormLoginCompany = () => {
           <input
             type="email"
             id="email"
+            name="email"
             placeholder="Enter email address"
             className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           />
@@ -99,6 +100,7 @@ export const FormLoginCompany = () => {
             type="password"
             placeholder="Enter password"
             id="password"
+            name="password"
             className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           />
         </div>

@@ -2,26 +2,26 @@
 import JustValidate from 'just-validate';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-export const FormRegister = () => {
+export const FormRegisterCompany = () => {
   const router = useRouter();
   useEffect(() => {
     const validator = new JustValidate('#registerForm');
 
     validator
-      .addField('#fullName', [
+      .addField('#companyName', [
         {
           rule: 'required',
-          errorMessage: 'Vui lòng nhập họ tên!',
+          errorMessage: 'Vui lòng nhập tên công ty!',
         },
         {
           rule: 'minLength',
           value: 5,
-          errorMessage: 'Họ tên phải có ít nhất 5 ký tự!',
+          errorMessage: 'Tên công ty phải có ít nhất 5 ký tự!',
         },
         {
           rule: 'maxLength',
           value: 50,
-          errorMessage: 'Họ tên không được vượt quá 50 ký tự!',
+          errorMessage: 'Tên công ty không được vượt quá 50 ký tự!',
         },
       ])
       .addField('#email', [
@@ -61,18 +61,18 @@ export const FormRegister = () => {
         },
       ])
       .onSuccess((event: any) => {
-        const fullName = event.target.fullName.value;
+        const companyName = event.target.companyName.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-        // console.log(fullName, email, password);
+        // console.log(companyName, email, password);
 
         const dataFinal = {
-          fullName: fullName,
+          companyName: companyName,
           email: email,
           password: password,
         };
 
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/users/register`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/companies/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -81,12 +81,13 @@ export const FormRegister = () => {
         })
           .then((res) => res.json())
           .then((data: any) => {
-            if (data.code == 'error') {
+            if ((data.success = false)) {
               alert(data.message);
             }
 
-            if (data.code == 'success') {
-              router.push('/user/login');
+            if ((data.success = true)) {
+              router.push('/company/login');
+              cookieStore.set('companyToken', data.accessToken);
             }
           });
       });
@@ -97,12 +98,13 @@ export const FormRegister = () => {
       <form id="registerForm" className="space-y-4">
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1">
-            Full name
+            Company name
           </label>
           <input
             type="text"
-            placeholder="Enter your full name"
-            id="fullName"
+            placeholder="Enter your company name"
+            id="companyName"
+            name="companyName"
             className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           />
         </div>
