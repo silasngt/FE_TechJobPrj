@@ -71,7 +71,7 @@ export const FormRegister = () => {
           email: email,
           password: password,
         };
-
+        console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/users/register`, {
           method: 'POST',
           headers: {
@@ -80,13 +80,14 @@ export const FormRegister = () => {
           body: JSON.stringify(dataFinal),
         })
           .then((res) => res.json())
-          .then((data: any) => {
-            if (data.code == 'error') {
-              alert(data.message);
+          .then((res: any) => {
+            console.log('Response data:', res);
+            if ((res.success = false)) {
+              alert(res.message);
             }
 
-            if (data.code == 'success') {
-              router.push('/user/login');
+            if ((res.success = true)) {
+              router.push('/job_seeker/login');
             }
           });
       });
@@ -103,6 +104,7 @@ export const FormRegister = () => {
             type="text"
             placeholder="Enter your full name"
             id="fullName"
+            name="fullName"
             className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           />
         </div>
@@ -114,6 +116,7 @@ export const FormRegister = () => {
           <input
             type="email"
             id="email"
+            name="email"
             placeholder="Enter email address"
             className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           />
@@ -127,6 +130,7 @@ export const FormRegister = () => {
             type="password"
             placeholder="Enter password"
             id="password"
+            name="password"
             className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           />
         </div>

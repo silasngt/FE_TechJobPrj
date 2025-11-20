@@ -47,30 +47,33 @@ export const FormLogin = () => {
       .onSuccess((event: any) => {
         const email = event.target.email.value;
         const password = event.target.password.value;
-        // console.log(fullName, email, password);
 
         const dataFinal = {
           email: email,
           password: password,
         };
 
-        // fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/users/register`, {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify(dataFinal),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data: any) => {
-        //     if (data.code == 'error') {
-        //       alert(data.message);
-        //     }
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/users/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataFinal),
+          credentials: 'include', // Giữ cookie
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log('Response data:', res);
+            if ((res.success = false)) {
+              alert(res.message);
+            }
 
-        //     if (data.code == 'success') {
-        //       router.push('/user/login');
-        //     }
-        //   });
+            if ((res.success = true)) {
+              router.push('/');
+              cookieStore.set('token', res.data.accessToken);
+              // console.log('Chuyển sang trang chủ...');
+            }
+          });
       });
   }, []);
 
