@@ -11,7 +11,6 @@ export default function Home() {
   })
     .then((res) => res.json())
     .then((data) => console.log(data.message));
-
   const topEmployers = [
     { id: 1, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
     { id: 2, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
