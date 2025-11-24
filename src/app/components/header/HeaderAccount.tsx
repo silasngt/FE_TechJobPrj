@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import Link from 'next/link';
@@ -9,11 +8,11 @@ export const HeaderAccount = () => {
   const route = useRouter();
   const handleLogout = (linkRedirect: string) => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
-      credentials: 'include', //Giúp có thể gửi kèm token trong cookies lên cho BE
+      credentials: 'include', // gửi kèm token trong cookies
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.code == 'success') {
+      .then((res) => {
+        if (res.success === true) {
           route.push(linkRedirect);
         }
       });
@@ -21,9 +20,9 @@ export const HeaderAccount = () => {
 
   return (
     <>
-      {/* Nếu đăng nhập bằng tài khoản USER */}
-      <div className="relative">
-        {/* DESKTOP VIEW */}
+      {/* Nếu đăng nhập bằng tài khoản USER  */}
+      <div className="hidden md:inline-flex items-center gap-x-[8px] text-white font-[600] sm:text-[16px] text-[12px] relative group/sub-1">
+        {/* USER */}
         {isLogin ? (
           <>
             {infoUser && (
@@ -31,44 +30,45 @@ export const HeaderAccount = () => {
                 <Link href="/user-manage/profile" className="">
                   {infoUser.fullName}
                 </Link>
-                {/* Thẻ con có tên là group-hover/sub-1 */}
-                <ul className="absolute top-[100%] right-[0px] w-[200px] bg-[#000065] hidden group-hover/sub-1:block">
-                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#000096] relative group/sub-2">
+                <ul className="absolute top-[100%] right-[0px] w-[200px] bg-[#8ABEB9] hidden group-hover/sub-1:block">
+                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
                     <Link
                       href="/user-manage/profile"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Thông tin cá nhân
+                      Dashboard
                     </Link>
                   </li>
-                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#000096] relative group/sub-2">
+                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
                     <Link
                       href="/user-manage/cv/list"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Quản lý CV đã gửi
+                      TechJob User Profile
                     </Link>
                   </li>
-                  <li
-                    className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#000096] relative group/sub-2 cursor-pointer"
-                    onClick={() => handleLogout('/user/login')}
-                  >
-                    Đăng xuất
+                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
+                    <Link
+                      href="/user-manage/cv/list"
+                      className="text-white font-[600] text-[16px]"
+                    >
+                      My Applications
+                    </Link>
                   </li>
                 </ul>
               </>
             )}
           </>
         ) : (
-          // Chưa đăng nhập
+          // Chưa đăng nhập -> hiện nút Login/Register trên header desktop
           <>
             <div className="space-y-0 flex gap-2" id="desktop-login-btns">
-              <a
+              {/* <a
                 href="/company/login"
                 className="text-white  text-sm hover:underline whitespace-nowrap "
               >
                 For Employers
-              </a>
+              </a> */}
               <a
                 href="/job_seeker/login"
                 className="border border-white/70 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/10 transition"
@@ -84,7 +84,8 @@ export const HeaderAccount = () => {
             </div>
           </>
         )}
-        {/* Nếu đăng nhập bằng tài khoản COMPANT */}
+
+        {/* COMPANY */}
         {isLogin ? (
           <>
             {infoCompany && (
@@ -92,73 +93,57 @@ export const HeaderAccount = () => {
                 <Link href="/user-manage/profile" className="">
                   {infoCompany.fullName}
                 </Link>
-                {/* Thẻ con có tên là group-hover/sub-1 */}
-                <ul className="absolute top-[100%] right-[0px] w-[200px] bg-[#000065] hidden group-hover/sub-1:block">
-                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#000096] relative group/sub-2">
+                <ul className="absolute top-[100%] right-[0px] w-[200px] bg-[#8ABEB9] hidden group-hover/sub-1:block">
+                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
                     <Link
-                      href="/user-manage/profile"
+                      href="/company-manage/profile"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Thông tin cá nhân
+                      Dashboard
                     </Link>
                   </li>
-                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#000096] relative group/sub-2">
+                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
                     <Link
-                      href="/user-manage/cv/list"
+                      href="/company-manage/profile"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Quản lý CV đã gửi
+                      TechJob Company Profile
                     </Link>
                   </li>
-                  <li
-                    className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#000096] relative group/sub-2 cursor-pointer"
-                    onClick={() => handleLogout('/user/login')}
-                  >
-                    Đăng xuất
+                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
+                    <Link
+                      href="/company-manage/job/list"
+                      className="text-white font-[600] text-[16px]"
+                    >
+                      Job Management
+                    </Link>
+                  </li>
+                  <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
+                    <Link
+                      href="/company-manage/job/list"
+                      className="text-white font-[600] text-[16px]"
+                    >
+                      Candidate Applications
+                    </Link>
                   </li>
                 </ul>
               </>
             )}
           </>
         ) : (
-          // Chưa đăng nhập
-          <>
-            <div className="space-y-0 flex gap-2" id="desktop-login-btns">
-              <a
-                href="/company/login"
-                className="text-white  text-sm hover:underline whitespace-nowrap "
-              >
-                For Employers
-              </a>
-              <a
-                href="/job_seeker/login"
-                className="border border-white/70 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/10 transition"
-              >
-                Login
-              </a>
-              <a
-                href="/job_seeker/register"
-                className="bg-white text-emerald-500 text-sm font-semibold px-4 py-2 rounded-full hover:bg-emerald-50 transition"
-              >
-                Sign Up
-              </a>
-            </div>
-          </>
+          // Chưa đăng nhập: KHÔNG render gì thêm để tránh trùng Login
+          <></>
         )}
 
-        {/* MOBILE VIEW */}
-        {/* <div className="md:hidden flex items-center gap-2">
-          <button className="w-10 h-10 rounded-full bg-white/10 border border-white/70 flex items-center justify-center text-white text-lg">
-            👤
+        {/* NÚT ĐĂNG XUẤT TRÊN HEADER (DESKTOP) */}
+        {isLogin && (
+          <button
+            className="ml-3 border border-white/70 text-white text-sm font-semibold px-3 py-1.5 rounded-full hover:bg-white/10 transition"
+            onClick={() => handleLogout('/job_seeker/login')}
+          >
+            Đăng xuất
           </button>
-
-          <div className="absolute top-12 right-0 bg-emerald-600 rounded-lg shadow-lg p-3 w-48 z-50">
-            <p className="text-white text-sm mb-2 truncate">Mail</p>
-            <button className="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2 rounded-full transition">
-              Logout
-            </button>
-          </div>
-        </div> */}
+        )}
       </div>
     </>
   );
