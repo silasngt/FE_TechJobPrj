@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { FormRegister } from './FormRegister';
 import Link from 'next/link';
+import { LogoTabUserSection } from '@/src/app/components/sectiontab/LogoTabSection';
 
 export const metadata: Metadata = {
   title: 'Đăng ký (Người tìm việc)',
@@ -74,24 +75,7 @@ export default function UserLoginPage() {
         {/* RIGHT PANEL */}
         <div className="flex-1 flex items-center justify-center px-4 sm:px-8 md:px-16 py-10">
           <div className="w-full max-w-md">
-            <div className="flex items-center  mb-8 justify-center">
-              <img src="../../assets/images/logo_techjob.svg" alt="" />
-            </div>
-            {/* Tabs */}
-            <div className="flex items-center gap-2 mb-8 justify-center  bg-gray-100 p-1 rounded-full w-fit mx-auto">
-              <Link
-                href="/job_seeker/register"
-                className="px-5 py-2 rounded-full bg-teal-500 text-white text-sm font-semibold shadow-sm"
-              >
-                👤 Job Seeker
-              </Link>
-              <Link
-                href="/company/register"
-                className="px-5 py-2 rounded-full text-sm font-semibold text-gray-500 hover:text-gray-900"
-              >
-                🏢 Company
-              </Link>
-            </div>
+            <LogoTabUserSection />
 
             <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6 text-center">
               Get more opportunities

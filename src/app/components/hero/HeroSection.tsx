@@ -1,3 +1,5 @@
+import { FcEmptyFilter, FcSearch } from 'react-icons/fc';
+
 export const HeroContent = () => {
   return (
     <>
@@ -39,7 +41,7 @@ export const HeroContent = () => {
             <div className="bg-white rounded-full shadow-lg px-4 py-3 flex flex-col gap-3 md:flex-row md:items-center md:gap-0">
               {/* Job title */}
               <div className="flex-1 flex items-center gap-2 md:border-r md:border-gray-200 md:pr-4">
-                <span className="text-gray-400 text-sm">🔍</span>
+                <FcSearch className="inline-flex mx-[5px] text-[16px]" />{' '}
                 <input
                   type="text"
                   placeholder="Job title or keyword"
@@ -49,7 +51,7 @@ export const HeroContent = () => {
 
               {/* Location */}
               <div className="flex-1 flex items-center gap-2 md:px-4">
-                <span className="text-gray-400 text-sm">📍</span>
+                <FcEmptyFilter className="inline-flex mx-[5px] text-[16px]" />{' '}
                 <button
                   type="button"
                   className="w-full flex items-center justify-between text-sm text-gray-700"
