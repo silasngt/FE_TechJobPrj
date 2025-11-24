@@ -8,7 +8,6 @@ export const useAuth = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log(cookieStore.get('token'));
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/check`, {
       credentials: 'include',
     })

@@ -5,9 +5,11 @@ import Link from 'next/link';
 
 export const HeaderAccount = () => {
   const { isLogin, infoUser, infoCompany } = useAuth();
+  console.log(infoUser);
   const route = useRouter();
   const handleLogout = (linkRedirect: string) => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+      method: 'POST',
       credentials: 'include', // gửi kèm token trong cookies
     })
       .then((res) => res.json())
@@ -91,7 +93,7 @@ export const HeaderAccount = () => {
             {infoCompany && (
               <>
                 <Link href="/user-manage/profile" className="">
-                  {infoCompany.fullName}
+                  {infoCompany.companyName}
                 </Link>
                 <ul className="absolute top-[100%] right-[0px] w-[200px] bg-[#8ABEB9] hidden group-hover/sub-1:block">
                   <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
@@ -134,15 +136,15 @@ export const HeaderAccount = () => {
           // Chưa đăng nhập: KHÔNG render gì thêm để tránh trùng Login
           <></>
         )}
-
         {/* NÚT ĐĂNG XUẤT TRÊN HEADER (DESKTOP) */}
         {isLogin && (
-          <button
-            className="ml-3 border border-white/70 text-white text-sm font-semibold px-3 py-1.5 rounded-full hover:bg-white/10 transition"
+          // hover:bg-white/10 transition
+          <a
+            className="ml-3 border border-white/70 text-white text-sm font-semibold px-3 py-1.5 rounded-full "
             onClick={() => handleLogout('/job_seeker/login')}
           >
             Đăng xuất
-          </button>
+          </a>
         )}
       </div>
     </>

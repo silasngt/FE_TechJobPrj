@@ -26,7 +26,7 @@ export const SiderUser = () => {
         </a>
 
         <a
-          href="/user-manage/cv"
+          href="/user-manage/cv/list"
           className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
             '/user-manage/cv'
           )}`}
