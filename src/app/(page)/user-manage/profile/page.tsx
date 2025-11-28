@@ -26,7 +26,7 @@ export default function UserProfilePage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-xl font-semibold text-gray-900">
-              My Public Profile
+              Hồ sơ công khai của tôi
             </h2>
             <p className="text-sm text-gray-500">
               Bạn có thể cập nhật thông tin bất cứ lúc nào.
@@ -36,7 +36,7 @@ export default function UserProfilePage() {
             href="/"
             className="px-4 py-2 text-sm border border-emerald-500 text-emerald-600 rounded-md hover:bg-emerald-50 transition"
           >
-            Back to homepage
+            Quay lại trang chủ
           </a>
         </div>
 
@@ -45,7 +45,7 @@ export default function UserProfilePage() {
           {/* Basic Info */}
           <section className="mb-6">
             <h3 className="text-sm font-semibold text-gray-900 mb-1">
-              Basic Information
+              Thông tin cơ bản
             </h3>
             <p className="text-xs text-gray-500">
               Thông tin này hiển thị công khai.
@@ -56,9 +56,7 @@ export default function UserProfilePage() {
           <section className="border-t border-gray-100 pt-6 pb-6 mb-6">
             <div className="flex flex-col md:flex-row md:items-center gap-6">
               <div className="text-sm text-gray-600 md:w-1/3">
-                <p className="font-semibold text-gray-900 mb-1">
-                  Profile Photo
-                </p>
+                <p className="font-semibold text-gray-900 mb-1">Ảnh đại diện</p>
                 <p className="text-xs text-gray-500">
                   Ảnh đại diện giúp nhà tuyển dụng nhận ra bạn.
                 </p>
@@ -74,7 +72,7 @@ export default function UserProfilePage() {
                     className="text-xs text-emerald-600 hover:underline"
                     type="button"
                   >
-                    Change photo
+                    Thay đổi ảnh
                   </button>
                 </div>
 
@@ -95,13 +93,13 @@ export default function UserProfilePage() {
           {/* Personal detail */}
           <section className="pt-4 border-t border-gray-100">
             <p className="text-sm font-semibold text-gray-900 mb-4">
-              Personal Details
+              Thông tin cá nhân
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Full Name *
+                  Họ và tên *
                 </label>
                 <input
                   type="text"
@@ -113,7 +111,7 @@ export default function UserProfilePage() {
 
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Phone Number *
+                  Số điện thoại *
                 </label>
                 <input
                   type="tel"
@@ -137,7 +135,7 @@ export default function UserProfilePage() {
 
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Date of Birth *
+                  Ngày sinh *
                 </label>
                 <input
                   type="date"
@@ -149,7 +147,7 @@ export default function UserProfilePage() {
 
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Gender *
+                  Giới tính *
                 </label>
                 <select
                   name="gender"
@@ -170,7 +168,7 @@ export default function UserProfilePage() {
                 type="submit"
                 className="px-6 py-2.5 bg-emerald-500 text-white text-sm font-semibold rounded-md hover:bg-emerald-600 transition"
               >
-                Save Profile
+                Cập nhật thông tin
               </button>
             </div>
           </section>

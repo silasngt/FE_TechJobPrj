@@ -1,4 +1,4 @@
-export const SiderUser = () => {
+export const SiderCompany = () => {
   const currentPath =
     typeof window !== 'undefined' ? window.location.pathname : '';
 
@@ -17,30 +17,38 @@ export const SiderUser = () => {
       {/* MENU */}
       <nav className="flex-1 px-4 py-4 space-y-1 text-sm">
         <a
-          href="/user-manage/dashboard"
+          href="/company-manage/dashboard"
           className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
-            '/user-manage/dashboard'
+            '/company-manage/dashboard'
           )}`}
         >
-          Bảng điều khiển người dùng
+          Bảng điều khiển
         </a>
 
         <a
-          href="/user-manage/cv/list"
+          href="/company-manage/cv/list"
           className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
-            '/user-manage/cv'
+            '/company-manage/cv'
           )}`}
         >
-          Công việc đã ứng tuyển
+          Quản lý CV Ứng tuyển
+        </a>
+        <a
+          href="/company-manage/job/list"
+          className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
+            '/company-manage/job'
+          )}`}
+        >
+          Quản lý tin tuyển dụng
         </a>
 
         <a
-          href="/user-manage/profile"
+          href="/company-manage/profile"
           className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
-            '/user-manage/profile'
+            '/company-manage/profile'
           )}`}
         >
-          Hồ sơ công khai của tôi
+          Hồ sơ công ty của tôi
         </a>
       </nav>
 

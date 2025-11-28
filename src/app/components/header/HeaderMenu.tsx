@@ -10,12 +10,13 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
 
   const handleLogout = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+      method: 'POST',
       credentials: 'include',
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.code === 'success') {
-          router.push('/user/login');
+          router.push('/job_seeker/login');
         }
       });
   };
@@ -25,13 +26,13 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
       {/* MENU DESKTOP */}
       <nav className="hidden md:flex items-center gap-8 text-white/90 text-[15px]">
         <a href="#" className="hover:text-white">
-          Jobs
+          Việc làm đang tuyển dụng
         </a>
         <a href="#" className="hover:text-white">
-          Companies
+          Công ty nổi bật
         </a>
         <a href="#" className="hover:text-white">
-          Contact
+          Liên hệ
         </a>
       </nav>
 
@@ -46,13 +47,13 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
         <div className="max-w-6xl mx-auto px-4 py-3 space-y-3 text-sm text-white">
           <nav className="flex flex-col gap-2">
             <a href="#" className="hover:text-[#3CF2B6]">
-              Jobs
+              Việc làm đang tuyển dụng
             </a>
             <a href="#" className="hover:text-[#3CF2B6]">
-              Companies
+              Công ty nổi bật
             </a>
             <a href="#" className="hover:text-[#3CF2B6]">
-              Contact
+              Liên hệ
             </a>
           </nav>
 
@@ -101,13 +102,13 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
                 href="/job_seeker/login"
                 className="w-full border border-white/70 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
               >
-                Login
+                Đăng nhập
               </a>
               <a
                 href="/job_seeker/register"
                 className="w-full bg-white text-emerald-500 text-sm font-semibold px-4 py-2 rounded-full hover:bg-emerald-50 transition text-center"
               >
-                Sign Up
+                Đăng ký
               </a>
             </div>
           )}

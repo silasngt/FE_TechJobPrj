@@ -38,7 +38,7 @@ export const HeaderAccount = () => {
                       href="/user-manage/profile"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Dashboard
+                      Bảng điều khiển người dùng
                     </Link>
                   </li>
                   <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
@@ -46,7 +46,7 @@ export const HeaderAccount = () => {
                       href="/user-manage/cv/list"
                       className="text-white font-[600] text-[16px]"
                     >
-                      TechJob User Profile
+                      Hồ sơ công khai của tôi
                     </Link>
                   </li>
                   <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
@@ -54,7 +54,7 @@ export const HeaderAccount = () => {
                       href="/user-manage/cv/list"
                       className="text-white font-[600] text-[16px]"
                     >
-                      My Applications
+                      Công việc đã ứng tuyển
                     </Link>
                   </li>
                 </ul>
@@ -75,13 +75,13 @@ export const HeaderAccount = () => {
                 href="/job_seeker/login"
                 className="border border-white/70 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/10 transition"
               >
-                Login
+                Đăng nhập
               </a>
               <a
                 href="/job_seeker/register"
                 className="bg-white text-emerald-500 text-sm font-semibold px-4 py-2 rounded-full hover:bg-emerald-50 transition"
               >
-                Sign Up
+                Đăng ký
               </a>
             </div>
           </>
@@ -98,10 +98,10 @@ export const HeaderAccount = () => {
                 <ul className="absolute top-[100%] right-[0px] w-[200px] bg-[#8ABEB9] hidden group-hover/sub-1:block">
                   <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
                     <Link
-                      href="/company-manage/profile"
+                      href="/company-manage/dashboard"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Dashboard
+                      Bảng điều khiển
                     </Link>
                   </li>
                   <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
@@ -109,7 +109,7 @@ export const HeaderAccount = () => {
                       href="/company-manage/profile"
                       className="text-white font-[600] text-[16px]"
                     >
-                      TechJob Company Profile
+                      Hồ sơ công ty
                     </Link>
                   </li>
                   <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
@@ -117,7 +117,7 @@ export const HeaderAccount = () => {
                       href="/company-manage/job/list"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Job Management
+                      Quản lý công việc
                     </Link>
                   </li>
                   <li className="py-[10px] px-[16px] rounded-[4px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
@@ -125,7 +125,7 @@ export const HeaderAccount = () => {
                       href="/company-manage/job/list"
                       className="text-white font-[600] text-[16px]"
                     >
-                      Candidate Applications
+                      Quản lý CV Ứng tuyển
                     </Link>
                   </li>
                 </ul>

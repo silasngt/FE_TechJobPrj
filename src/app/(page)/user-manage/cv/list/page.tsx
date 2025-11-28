@@ -3,7 +3,6 @@ import { FcBriefcase, FcCurrencyExchange, FcLeave } from 'react-icons/fc';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 
 export default function MyApplicationPage() {
-  // mock data – sau này bạn thay bằng dữ liệu từ API
   const applications = [
     {
       id: 1,
@@ -65,7 +64,7 @@ export default function MyApplicationPage() {
               href="/"
               className="px-4 py-2 text-sm border border-emerald-500 text-emerald-600 rounded-md hover:bg-emerald-50 transition"
             >
-              Back to homepage
+              Quay lại trang chủ
             </a>
           </div>
           {/* List applications */}
