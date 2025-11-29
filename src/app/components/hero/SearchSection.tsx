@@ -1,6 +1,17 @@
+'use client';
+import { useEffect, useState } from 'react';
 import { FcEmptyFilter, FcSearch } from 'react-icons/fc';
 
 export const Search = () => {
+  const [cityList, setCityList] = useState<any[]>([]);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/cities`, {})
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setCityList(res.data);
+      });
+  }, []);
   return (
     <>
       {/* SEARCH BAR */}
@@ -25,9 +36,15 @@ export const Search = () => {
               className="w-full flex items-center justify-between text-sm text-gray-700"
             >
               <option value="">Tất cả thành phố</option>
-              <option value="Hà Nội">Hà Nội</option>
-              <option value="Đà Nẵng">Đà Nẵng</option>
-              <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+              {cityList && cityList.length > 0 ? (
+                cityList.map((city, index) => (
+                  <option key={index + 1} value={city.id}>
+                    {city.cityName}
+                  </option>
+                ))
+              ) : (
+                <option>Đang tải...</option>
+              )}
             </select>
           </div>
 
