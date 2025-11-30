@@ -167,25 +167,21 @@ export const FormProfileCompany = () => {
                 </div>
 
                 {/* Ô upload */}
-                <div className="flex-1">
-                  <label className="block w-full rounded-lg border-2 border-dashed border-indigo-300 bg-indigo-50/40 py-6 px-4 text-center cursor-pointer hover:bg-indigo-50 transition">
-                    <div className="text-indigo-500 mb-1 text-xl">📤</div>
-                    <p className="text-xs text-gray-700">
-                      <span className="font-semibold text-indigo-600">
-                        Chọn file logo
-                      </span>{' '}
-                      hoặc kéo & thả vào đây
-                    </p>
-                    <p className="text-[11px] text-gray-400 mt-1">
-                      Hỗ trợ: PNG, JPG, SVG (tối đa 2MB)
-                    </p>
-                    <input
-                      type="file"
-                      name="logo"
-                      accept="image/*"
-                      className="hidden"
-                    />
+                <div className="flex flex-col gap-1">
+                  <label className="text-xs font-medium text-gray-700">
+                    Tải lên logo mới
                   </label>
+                  <FilePond
+                    name="image"
+                    allowMultiple={true} //Chỉ chọn nhiều ảnh
+                    allowRemove={true} //Cho phép xóa ảnh
+                    labelIdle="+"
+                    acceptedFileTypes={['image/*']}
+                    maxFiles={1}
+                  />
+                  <p className="text-[11px] text-gray-400">
+                    Định dạng: JPG, PNG. Kích thước tối đa 5MB.
+                  </p>
                 </div>
               </div>
             </div>

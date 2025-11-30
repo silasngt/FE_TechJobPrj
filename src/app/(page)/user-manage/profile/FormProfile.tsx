@@ -125,21 +125,22 @@ export const FormProfileUser = () => {
                 </p>
               </div>
 
-              <div className="flex flex-1 flex-col sm:flex-row items-center gap-6">
-                {/* Avatar */}
-                <div className="flex flex-col items-center gap-2">
-                  {/* <FilePond 
-                    files={avatars}
-                    onupdatefiles={setAvatars}
-                    allowMultiple={false}
-                //   className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center"
-                  >
-                    JG
-                  </FilePond> */}
-                  <button className="text-xs text-emerald-600 hover:underline">
-                    Thay đổi ảnh
-                  </button>
-                </div>
+              {/* Ô upload */}
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-medium text-gray-700">
+                  Tải lên logo mới
+                </label>
+                <FilePond
+                  name="image"
+                  allowMultiple={true} //Chỉ chọn nhiều ảnh
+                  allowRemove={true} //Cho phép xóa ảnh
+                  labelIdle="+"
+                  acceptedFileTypes={['image/*']}
+                  maxFiles={1}
+                />
+                <p className="text-[11px] text-gray-400">
+                  Định dạng: JPG, PNG. Kích thước tối đa 5MB.
+                </p>
               </div>
             </div>
           </section>
