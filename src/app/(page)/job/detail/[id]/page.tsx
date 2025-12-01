@@ -17,9 +17,12 @@ export default function JobDetailPage() {
                 </p>
               </div>
 
-              <button className="inline-flex items-center justify-center px-6 py-2 rounded-full bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600 transition">
+              <a
+                href="/job/apply/1"
+                className="inline-flex items-center justify-center px-6 py-2 rounded-full bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600 transition"
+              >
                 Ứng tuyển ngay
-              </button>
+              </a>
             </div>
 
             {/* Thông tin nhanh */}
@@ -279,9 +282,12 @@ export default function JobDetailPage() {
                   <button className="text-xs text-emerald-600 hover:underline">
                     Xem chi tiết
                   </button>
-                  <button className="px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-600 transition">
+                  <a
+                    href="/job/apply/1"
+                    className="px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-600 transition"
+                  >
                     Ứng tuyển
-                  </button>
+                  </a>
                 </div>
               </article>
             ))}
