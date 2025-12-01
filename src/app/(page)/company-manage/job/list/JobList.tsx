@@ -1,5 +1,9 @@
 'use client';
 
+import {
+  ButtonDeleteForce,
+  ButtonDeleteSoft,
+} from '@/src/app/components/button/ButtonDelete';
 import { workingFormList } from '@/src/config/workingForm';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
@@ -28,9 +32,8 @@ export const JobList = () => {
     setPage(parseInt(value));
   };
   const handleDeleteSuccess = (deleteid: string) => {
-    setJobList((prev) => prev.filter((job) => job.id !== deleteid));
+    setJobList((prev) => prev.filter((job) => job.jobId !== deleteid));
   };
-  console.log('jobList', jobList);
   return (
     <>
       <section className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
@@ -76,21 +79,22 @@ export const JobList = () => {
                   </div>
 
                   <div className="flex gap-2">
+                    <ButtonDeleteSoft
+                      api={`${process.env.NEXT_PUBLIC_API_URL}/companies/jobs/${job.jobId}`}
+                      id={job.jobId}
+                      onDeleteSuccess={handleDeleteSuccess}
+                    />
                     <a
-                      href={`/company/jobs/${job.id}/candidates`}
-                      className="px-3 py-1.5 text-xs rounded-md bg-yellow-500 text-blue-700 font-semibold hover:bg-yellow-600 transition"
-                    >
-                      Đóng tin
-                    </a>
-                    <a
-                      href={`/company-manage/job/edit/${job.id}`}
+                      href={`/company-manage/job/edit/${job.jobId}`}
                       className="px-3 py-1.5 text-xs rounded-md border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition"
                     >
                       Chỉnh sửa
                     </a>
-                    <button className="px-3 py-1.5 text-xs rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition">
-                      Xóa tin
-                    </button>
+                    <ButtonDeleteForce
+                      api={`${process.env.NEXT_PUBLIC_API_URL}/companies/jobs/${job.jobId}/force`}
+                      id={job.jobId}
+                      onDeleteSuccess={handleDeleteSuccess}
+                    />
                   </div>
                 </div>
               </div>
