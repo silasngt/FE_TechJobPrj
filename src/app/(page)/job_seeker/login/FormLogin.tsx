@@ -2,6 +2,7 @@
 import JustValidate from 'just-validate';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { toast, Toaster } from 'sonner';
 export const FormLogin = () => {
   const router = useRouter();
   useEffect(() => {
@@ -64,11 +65,11 @@ export const FormLogin = () => {
           .then((res) => res.json())
           .then((res) => {
             console.log('Response data:', res);
-            if ((res.success = false)) {
-              alert(res.message);
+            if (res.success === false) {
+              toast.error(res.message);
             }
 
-            if ((res.success = true)) {
+            if (res.success === true) {
               router.push('/');
               cookieStore.set('token', res.data.accessToken);
               // console.log('Chuyển sang trang chủ...');
@@ -79,6 +80,7 @@ export const FormLogin = () => {
 
   return (
     <>
+      <Toaster richColors position="top-right" />
       <form id="loginForm" className="space-y-4">
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1">

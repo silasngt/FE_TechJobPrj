@@ -11,7 +11,9 @@ export const SiderUser = () => {
     <aside className="w-64 min-h-screen bg-white border-r border-gray-200 flex flex-col">
       {/* Logo */}
       <div className="px-6 py-5 border-b border-gray-100">
-        <h1 className="text-lg font-semibold text-gray-800">TechJob</h1>
+        <a href="/">
+          <h1 className="text-lg font-semibold text-gray-800">TechJob</h1>
+        </a>
       </div>
 
       {/* MENU */}

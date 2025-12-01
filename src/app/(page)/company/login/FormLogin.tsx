@@ -2,6 +2,7 @@
 import JustValidate from 'just-validate';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { toast, Toaster } from 'sonner';
 export const FormLoginCompany = () => {
   const router = useRouter();
   useEffect(() => {
@@ -63,9 +64,8 @@ export const FormLoginCompany = () => {
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log('Response from server:', res);
             if (res.success === false) {
-              alert(res.message);
+              toast.error(res.message);
             }
 
             if (res.success === true) {
@@ -78,6 +78,7 @@ export const FormLoginCompany = () => {
 
   return (
     <>
+      <Toaster richColors position="top-right" />
       <form id="loginCompanyForm" className="space-y-4">
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1">
