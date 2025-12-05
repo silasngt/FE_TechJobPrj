@@ -1,6 +1,5 @@
 import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import { FcBriefcase, FcCurrencyExchange, FcLeave } from 'react-icons/fc';
-import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 
 export default function MyApplicationPage() {
   const applications = [
@@ -11,7 +10,7 @@ export default function MyApplicationPage() {
       salary: '2.000$ - 5.000$',
       level: 'Manager',
       workType: 'Linh hoạt',
-      status: 'Chưa duyệt', // 'Chưa duyệt' | 'Đã duyệt' | 'Từ chối'
+      status: 'Chưa duyệt',
     },
     {
       id: 2,
@@ -47,8 +46,8 @@ export default function MyApplicationPage() {
   return (
     <>
       <div className="min-h-screen bg-[#f5f7fb] flex">
-        {/* SIDEBAR */}
         <SiderUser />
+
         <div className="flex-1 px-10 py-8 bg-[#f5f7fb] min-h-screen">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
@@ -67,6 +66,7 @@ export default function MyApplicationPage() {
               Quay lại trang chủ
             </a>
           </div>
+
           {/* List applications */}
           <div className="space-y-4">
             {applications.map((app) => (
@@ -108,7 +108,7 @@ export default function MyApplicationPage() {
                 </div>
 
                 {/* Right: status + actions */}
-                <div className="flex flex-col items-start md:items-end gap-3 min-w-[180px]">
+                <div className="flex flex-col items-start md:items-end gap-3 min-w-[220px]">
                   <span
                     className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${getStatusStyle(
                       app.status
@@ -117,13 +117,20 @@ export default function MyApplicationPage() {
                     Trạng thái: {app.status}
                   </span>
 
-                  <div className="flex gap-2 w-full md:w-auto">
+                  <div className="flex flex-wrap gap-2 w-full md:w-auto">
                     <button className="flex-1 md:flex-none px-4 py-2 text-xs md:text-sm rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition">
                       Xem
                     </button>
                     <button className="flex-1 md:flex-none px-4 py-2 text-xs md:text-sm rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition">
                       Xóa
                     </button>
+                    {/* Nút điều chỉnh CV */}
+                    <a
+                      href="/user-manage/cv/edit"
+                      className="flex-1 md:flex-none px-4 py-2 text-xs md:text-sm rounded-md border border-emerald-500 text-emerald-600 font-semibold hover:bg-emerald-50 transition text-center"
+                    >
+                      Điều chỉnh CV
+                    </a>
                   </div>
                 </div>
               </div>

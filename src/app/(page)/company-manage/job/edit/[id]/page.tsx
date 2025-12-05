@@ -7,7 +7,6 @@ export default async function CompanyJobEditPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  console.log(id);
   return (
     <>
       <div className="min-h-screen bg-[#f5f7fb] flex">

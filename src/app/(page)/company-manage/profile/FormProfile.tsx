@@ -16,9 +16,10 @@ export const FormProfileCompany = () => {
   const { infoCompany } = useAuth();
   const [logos, setLogos] = useState<any[]>([]);
   const [cityList, setCityList] = useState<any[]>([]);
+  const [detailProfile, setDetailProfile] = useState<any>(null);
   const [isValid, setIsValid] = useState(false);
   const editorRef = useRef(null);
-  console.log('infoCompany', infoCompany);
+  // console.log('infoCompany', infoCompany);
 
   // Do danh sách thành phố thì không bao giờ đổi nên chỉ chạy vào đây 1 lần để lấy ra ds thành phố, ds tp là cố định
   useEffect(() => {
@@ -28,13 +29,25 @@ export const FormProfileCompany = () => {
         setCityList(res.data);
       });
   }, []);
+  console.log('cityList', cityList);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/me`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setDetailProfile(res.data);
+      });
+  }, []);
+  // console.log('detailProfile', detailProfile);
 
   useEffect(() => {
-    if (infoCompany) {
-      if (infoCompany.logo) {
+    if (detailProfile) {
+      if (detailProfile.logo) {
         setLogos([
           {
-            source: infoCompany.logo,
+            source: detailProfile.logo,
           },
         ]);
       }
@@ -55,10 +68,6 @@ export const FormProfileCompany = () => {
         ])
         .addField('#email', [
           {
-            rule: 'required',
-            errorMessage: 'Vui lòng nhập email của bạn!',
-          },
-          {
             rule: 'email',
             errorMessage: 'Email không đúng định dạng!',
           },
@@ -70,7 +79,7 @@ export const FormProfileCompany = () => {
           setIsValid(true);
         });
     }
-  }, [infoCompany]);
+  }, [detailProfile]);
   // Xử lý khi submit
   const handleSubmit = (event: any) => {
     if (isValid) {
@@ -80,13 +89,13 @@ export const FormProfileCompany = () => {
       const companyModel = event.target.companyModel.value;
       const companyEmployees = event.target.companyEmployees.value;
       const workingTime = event.target.workingTime.value;
-      const workOvertime = event.target.workOvertime.value;
+      const workOverTime = event.target.workOverTime.value;
       const email = event.target.email.value;
       const phone = event.target.phone.value;
-      let description = '';
-      if (editorRef.current) {
-        description = (editorRef.current as any).getContent();
-      }
+      // let description = event.target.description.value;
+      // if (editorRef.current) {
+      //   description = (editorRef.current as any).getContent();
+      // }
 
       let logo = null;
       if (logos.length > 0) {
@@ -96,30 +105,30 @@ export const FormProfileCompany = () => {
       // Tạo FormData
       const formData = new FormData();
       formData.append('companyName', companyName);
-      formData.append('city', city);
+      formData.append('cityId', city);
       formData.append('address', address);
       formData.append('companyModel', companyModel);
       formData.append('companyEmployees', companyEmployees);
       formData.append('workingTime', workingTime);
-      formData.append('workOvertime', workOvertime);
+      formData.append('workOverTime', workOverTime);
       formData.append('email', email);
       formData.append('phone', phone);
-      formData.append('description', description);
+      // formData.append('description', description);
       formData.append('logo', logo);
 
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/company/profile`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/`, {
         method: 'PATCH',
         body: formData,
         credentials: 'include', // Gửi kèm cookie
       })
         .then((res) => res.json())
-        .then((data) => {
-          if (data.code == 'error') {
-            toast.error(data.message);
+        .then((res) => {
+          if (res.success === false) {
+            toast.error(res.message);
           }
 
-          if (data.code == 'success') {
-            toast.success(data.message);
+          if (res.success === true) {
+            toast.success(res.message);
           }
         });
     }
@@ -129,7 +138,7 @@ export const FormProfileCompany = () => {
       <Toaster richColors position="top-right" />
       {infoCompany && (
         <form
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           id="formProfileCompany"
           className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8"
         >
@@ -159,7 +168,10 @@ export const FormProfileCompany = () => {
                 {/* Logo hiện tại (placeholder) */}
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-lg font-semibold">
-                    LOGO
+                    <img
+                      src={detailProfile?.logo}
+                      alt={detailProfile?.companyName}
+                    />
                   </div>
                   <p className="text-[11px] text-gray-400">
                     Xem trước logo hiện tại
@@ -172,12 +184,13 @@ export const FormProfileCompany = () => {
                     Tải lên logo mới
                   </label>
                   <FilePond
-                    name="image"
-                    allowMultiple={true} //Chỉ chọn nhiều ảnh
+                    name="logo"
+                    allowMultiple={false} //Chỉ chọn 1 ảnh
                     allowRemove={true} //Cho phép xóa ảnh
                     labelIdle="+"
                     acceptedFileTypes={['image/*']}
-                    maxFiles={1}
+                    files={logos}
+                    onupdatefiles={setLogos}
                   />
                   <p className="text-[11px] text-gray-400">
                     Định dạng: JPG, PNG. Kích thước tối đa 5MB.
@@ -197,14 +210,13 @@ export const FormProfileCompany = () => {
               {/* Tên công ty */}
               <div className="flex flex-col gap-1 md:col-span-2">
                 <label className="text-xs font-medium text-gray-700">
-                  Tên công ty <span className="text-red-500">*</span>
+                  Tên công ty
                 </label>
                 <input
                   type="text"
                   name="companyName"
                   id="companyName"
-                  required
-                  defaultValue={infoCompany.companyName}
+                  defaultValue={detailProfile?.companyName}
                   placeholder="VD: Công ty TNHH ABC"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
@@ -212,14 +224,13 @@ export const FormProfileCompany = () => {
               {/* Địa chỉ công ty */}
               <div className="flex flex-col gap-1 md:col-span-2">
                 <label className="text-xs font-medium text-gray-700">
-                  Địa chỉ công ty <span className="text-red-500">*</span>
+                  Địa chỉ công ty
                 </label>
                 <input
                   type="text"
                   name="address"
                   id="address"
-                  required
-                  defaultValue={infoCompany.address}
+                  defaultValue={detailProfile?.address}
                   placeholder="VD: 123 Đường ABC, Phường XYZ, Quận 1"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
@@ -228,14 +239,13 @@ export const FormProfileCompany = () => {
               {/* Số điện thoại */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Số điện thoại công ty <span className="text-red-500">*</span>
+                  Số điện thoại công ty
                 </label>
                 <input
                   type="tel"
                   name="phone"
                   id="phone"
-                  required
-                  defaultValue={infoCompany.phone}
+                  defaultValue={detailProfile?.phone}
                   placeholder="+84 28 3xx xxx xx"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
@@ -244,14 +254,13 @@ export const FormProfileCompany = () => {
               {/* Email công ty */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Email công ty <span className="text-red-500">*</span>
+                  Email công ty
                 </label>
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  defaultValue={infoCompany.email}
-                  required
+                  defaultValue={infoCompany?.email}
                   placeholder="hr@company.com"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
@@ -259,14 +268,13 @@ export const FormProfileCompany = () => {
               {/* Nhân sự công ty */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Quy mô công ty <span className="text-red-500">*</span>
+                  Quy mô công ty
                 </label>
                 <input
                   type="text"
                   name="companyEmployees"
                   id="companyEmployees"
-                  defaultValue={infoCompany.companyEmployees}
-                  required
+                  defaultValue={detailProfile?.companyEmployees}
                   placeholder="VD: 50-100 nhân viên"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
@@ -274,18 +282,18 @@ export const FormProfileCompany = () => {
               {/* Thành phố  */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Thành phố <span className="text-red-500">*</span>
+                  Thành phố
                 </label>
                 <select
                   name="city"
-                  defaultValue={infoCompany.city}
+                  value={detailProfile?.cityId || ''}
                   id="city"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 >
                   <option value="">Tất cả thành phố</option>
                   {cityList && cityList.length > 0 ? (
-                    cityList.map((city) => (
-                      <option key={city.id} value={city.id}>
+                    cityList.map((city, index) => (
+                      <option key={index} value={city._id}>
                         {city.cityName}
                       </option>
                     ))
@@ -297,14 +305,13 @@ export const FormProfileCompany = () => {
               {/* Mô hình công ty */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Mô hình công ty <span className="text-red-500">*</span>
+                  Mô hình công ty
                 </label>
                 <input
                   type="text"
                   name="companyModel"
                   id="companyModel"
-                  defaultValue={infoCompany.companyModel}
-                  required
+                  defaultValue={detailProfile?.companyModel}
                   placeholder="VD: Product-based, Service-based"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
@@ -312,14 +319,13 @@ export const FormProfileCompany = () => {
               {/* Thời gian làm việc */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Thời gian làm việc <span className="text-red-500">*</span>
+                  Thời gian làm việc
                 </label>
                 <input
                   type="text"
                   name="workingTime"
                   id="workingTime"
-                  defaultValue={infoCompany.workingTime}
-                  required
+                  defaultValue={detailProfile?.workingTime}
                   placeholder="VD: Thứ 2 - Thứ 6, 8:00 - 17:00"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
@@ -327,14 +333,13 @@ export const FormProfileCompany = () => {
               {/* Làm việc ngoài giờ */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Làm việc ngoài giờ <span className="text-red-500">*</span>
+                  Làm việc ngoài giờ
                 </label>
                 <input
                   type="text"
                   name="workOverTime"
                   id="workOverTime"
-                  required
-                  defaultValue={infoCompany.workOvertime}
+                  defaultValue={detailProfile?.workOverTime}
                   placeholder="VD: Thỉnh thoảng"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />

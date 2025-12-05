@@ -14,7 +14,7 @@ export const JobList = () => {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/jobs`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/`, {
       method: 'GET',
       credentials: 'include', // Gửi kèm cookie
     })
@@ -27,10 +27,20 @@ export const JobList = () => {
         }
       });
   }, [page]);
+  console.log('jobList', jobList);
   const handlePagination = (event: any) => {
     const value = event.target.value;
     setPage(parseInt(value));
   };
+  // Xử lý cho Delete Soft (Toggle Status)
+  const handleToggleStatusSuccess = (id: string) => {
+    setJobList((prev) =>
+      prev.map((job) =>
+        job.jobId === id ? { ...job, isDeleted: !job.isDeleted } : job
+      )
+    );
+  };
+  // Xử lý cho Delete Force
   const handleDeleteSuccess = (deleteid: string) => {
     setJobList((prev) => prev.filter((job) => job.jobId !== deleteid));
   };
@@ -70,8 +80,14 @@ export const JobList = () => {
                 {/* Right: status, applicants, actions */}
                 <div className="flex flex-col md:items-end gap-2 min-w-[230px]">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="inline-flex px-3 py-1 rounded-full text-[11px] font-medium">
-                      {job.status}
+                    <span
+                      className={`inline-flex px-3 py-1.5 rounded-full text-[11px] font-semibold transition-colors ${
+                        job.isDeleted
+                          ? 'bg-red-100 text-red-700 border border-red-200'
+                          : 'bg-green-100 text-green-700 border border-green-200'
+                      }`}
+                    >
+                      {job.isDeleted ? 'Đã xóa' : 'Đang hoạt động'}
                     </span>
                     <span className="text-xs text-gray-500">
                       {job.totalApplicants} ứng viên
@@ -80,9 +96,10 @@ export const JobList = () => {
 
                   <div className="flex gap-2">
                     <ButtonDeleteSoft
-                      api={`${process.env.NEXT_PUBLIC_API_URL}/companies/jobs/${job.jobId}`}
+                      api={`${process.env.NEXT_PUBLIC_API_URL}/jobs/${job.jobId}`}
                       id={job.jobId}
-                      onDeleteSuccess={handleDeleteSuccess}
+                      isDeleted={job.isDeleted}
+                      onDeleteSuccess={handleToggleStatusSuccess}
                     />
                     <a
                       href={`/company-manage/job/edit/${job.jobId}`}

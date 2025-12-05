@@ -3,11 +3,16 @@ import { toast, Toaster } from 'sonner';
 export const ButtonDeleteSoft = (props: {
   api: string;
   id: string;
+  isDeleted: boolean;
   onDeleteSuccess: (id: string) => void;
 }) => {
-  const { api, id, onDeleteSuccess } = props;
+  const { api, id, isDeleted, onDeleteSuccess } = props;
   const handleDelete = () => {
-    const confirm = window.confirm('Bạn có chắc muốn đóng tin tuyển dụng này');
+    const message = isDeleted
+      ? 'Bạn có chắc muốn mở tin tuyển dụng này'
+      : 'Bạn có chắc muốn đóng tin tuyển dụng này';
+
+    const confirm = window.confirm(message);
     if (confirm) {
       fetch(api, {
         method: 'DELETE',
@@ -25,6 +30,9 @@ export const ButtonDeleteSoft = (props: {
         });
     }
   };
+
+  const buttonText = isDeleted ? 'Mở tin' : 'Đóng tin';
+
   return (
     <>
       <Toaster richColors position="top-right" />
@@ -32,7 +40,7 @@ export const ButtonDeleteSoft = (props: {
         onClick={handleDelete}
         className="px-3 py-1.5 text-xs rounded-md bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition"
       >
-        Đóng tin
+        {buttonText}
       </button>
     </>
   );

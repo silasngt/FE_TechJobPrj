@@ -8,7 +8,7 @@ export const Search = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/cities`, {})
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setCityList(res.data);
       });
   }, []);
