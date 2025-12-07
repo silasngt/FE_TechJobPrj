@@ -25,10 +25,10 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
     <>
       {/* MENU DESKTOP */}
       <nav className="hidden md:flex items-center gap-8 text-white/90 text-[15px]">
-        <a href="#" className="hover:text-white">
+        <a href="/job/list" className="hover:text-white">
           Việc làm đang tuyển dụng
         </a>
-        <a href="#" className="hover:text-white">
+        <a href="/company/list" className="hover:text-white">
           Công ty nổi bật
         </a>
         <a href="#" className="hover:text-white">

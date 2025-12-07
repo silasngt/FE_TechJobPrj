@@ -286,7 +286,7 @@ export const FormProfileCompany = () => {
                 </label>
                 <select
                   name="city"
-                  value={detailProfile?.cityId || ''}
+                  defaultValue={detailProfile.city}
                   id="city"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 >

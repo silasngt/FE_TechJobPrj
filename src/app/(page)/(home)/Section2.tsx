@@ -12,7 +12,7 @@ export const Section2 = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/all`)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success === true) {
           setJobList(res.data || []);
         }
@@ -25,14 +25,14 @@ export const Section2 = () => {
         setIsLoading(false);
       });
   }, []);
-
+  // console.log(jobList);
   return (
     <section className="max-w-6xl mx-auto px-4 pb-16">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-[#141414]">
           Feature <span className="text-[#00B894]">jobs</span>
         </h2>
-        <a href="#" className="text-sm text-[#00B894] font-medium">
+        <a href="/job/list" className="text-sm text-[#00B894] font-medium">
           View all
         </a>
       </div>

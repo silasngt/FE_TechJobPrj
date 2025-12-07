@@ -14,14 +14,30 @@ registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
 export const FormProfileUser = () => {
   const { infoUser } = useAuth();
+  const [detailProfile, setDetailProfile] = useState<any>(null);
   const [avatars, setAvatars] = useState<any>([]);
-
   useEffect(() => {
-    if (infoUser) {
-      if (infoUser.avatar) {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        if (res.success === true) {
+          setDetailProfile(res.data);
+        }
+        if (res.success === false) {
+          toast.error(res.message);
+        }
+      });
+  });
+  useEffect(() => {
+    if (detailProfile) {
+      if (detailProfile.avatar) {
         setAvatars([
           {
-            source: infoUser.avatar,
+            source: detailProfile.avatar,
           },
         ]);
       }
@@ -56,7 +72,7 @@ export const FormProfileUser = () => {
           },
         ]);
     }
-  }, [infoUser]);
+  }, [detailProfile]);
 
   // Xử lý khi submit
   const handleSubmit = (event: any) => {
@@ -64,6 +80,7 @@ export const FormProfileUser = () => {
     const fullName = event.target.fullName.value;
     const email = event.target.email.value;
     const phone = event.target.phone.value;
+    const gender = event.target.gender.value;
     let avatar = null;
 
     if (avatars.length > 0) {
@@ -80,19 +97,21 @@ export const FormProfileUser = () => {
     formData.append('email', email);
     formData.append('phone', phone);
     formData.append('avatar', avatar);
+    formData.append('gender', gender);
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
       method: 'PATCH',
       body: formData,
       credentials: 'include', // Gửi kèm cookie
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.code == 'error') {
-          toast.error(data.message);
+      .then((res) => {
+        // console.log(res);
+        if (res.success === false) {
+          toast.error(res.message);
         }
-        if (data.code == 'success') {
-          toast.success(data.message);
+        if (res.success === true) {
+          toast.success(res.message);
         }
       });
   };
@@ -100,9 +119,10 @@ export const FormProfileUser = () => {
   return (
     <>
       <Toaster richColors position="top-right" />
-      {infoUser && (
+      {infoUser && detailProfile && (
         <form
           id="formProfileUser"
+          onSubmit={handleSubmit}
           className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8"
         >
           {/* Basic Info */}
@@ -126,21 +146,38 @@ export const FormProfileUser = () => {
               </div>
 
               {/* Ô upload */}
-              <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-gray-700">
-                  Tải lên logo mới
-                </label>
-                <FilePond
-                  name="image"
-                  allowMultiple={true} //Chỉ chọn nhiều ảnh
-                  allowRemove={true} //Cho phép xóa ảnh
-                  labelIdle="+"
-                  acceptedFileTypes={['image/*']}
-                  maxFiles={1}
-                />
-                <p className="text-[11px] text-gray-400">
-                  Định dạng: JPG, PNG. Kích thước tối đa 5MB.
-                </p>
+              <div className="flex-1 flex flex-col sm:flex-row items-center gap-6">
+                {/* Logo hiện tại (placeholder) */}
+                <div className="flex flex-col items-center gap-2">
+                  <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-lg font-semibold">
+                    <img
+                      src={detailProfile?.avatar}
+                      alt={detailProfile?.fullName}
+                    />
+                  </div>
+                  <p className="text-[11px] text-gray-400">
+                    Xem trước logo hiện tại
+                  </p>
+                </div>
+
+                {/* Ô upload */}
+                <div className="flex flex-col gap-1">
+                  <label className="text-xs font-medium text-gray-700">
+                    Tải lên logo mới
+                  </label>
+                  <FilePond
+                    name="avatar"
+                    allowMultiple={false} //Chỉ chọn 1 ảnh
+                    allowRemove={true} //Cho phép xóa ảnh
+                    labelIdle="+"
+                    acceptedFileTypes={['image/*']}
+                    files={avatars}
+                    onupdatefiles={setAvatars}
+                  />
+                  <p className="text-[11px] text-gray-400">
+                    Định dạng: JPG, PNG. Kích thước tối đa 5MB.
+                  </p>
+                </div>
               </div>
             </div>
           </section>
@@ -154,41 +191,39 @@ export const FormProfileUser = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Họ và tên *
+                  Họ và tên
                 </label>
                 <input
                   type="text"
                   name="fullName"
                   id="fullName"
-                  required
-                  defaultValue={infoUser.fullName}
+                  defaultValue={detailProfile.fullName}
                   className="h-10 px-3 rounded-md border border-gray-300 focus:ring-emerald-500"
                 />
               </div>
 
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Số điện thoại *
+                  Số điện thoại
                 </label>
                 <input
                   type="tel"
                   name="phone"
-                  required
-                  defaultValue={infoUser.phone}
+                  id="phone"
+                  defaultValue={detailProfile?.phone}
                   className="h-10 px-3 rounded-md border border-gray-300 focus:ring-emerald-500"
                 />
               </div>
 
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-gray-700">
-                  Email *
+                  Email
                 </label>
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  required
-                  defaultValue={infoUser.email}
+                  defaultValue={detailProfile.email}
                   className="h-10 px-3 rounded-md border border-gray-300 focus:ring-emerald-500"
                 />
               </div>
@@ -199,7 +234,7 @@ export const FormProfileUser = () => {
                 </label>
                 <select
                   name="gender"
-                  required
+                  defaultValue={detailProfile.gender}
                   className="h-10 px-3 rounded-md border border-gray-300 focus:ring-emerald-500 bg-white"
                 >
                   <option value="">Select gender</option>

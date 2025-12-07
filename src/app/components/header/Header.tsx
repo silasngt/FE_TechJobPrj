@@ -18,8 +18,9 @@ export const Header = () => {
         }}
       >
         <div className="max-w-6xl mx-auto px-4 py-5 flex items-center justify-between">
-          {/* Logo */}
-          <div className="text-white font-[700] text-[28px]">TechJob</div>
+          <div className="text-white font-[700] text-[28px]">
+            <a href="/">TechJob</a>
+          </div>
 
           <HeaderMenu showMenu={showMenu} />
           <HeaderAccount />

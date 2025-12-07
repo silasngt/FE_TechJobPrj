@@ -1,51 +1,99 @@
 'use client';
-
-const mockJobs = [
-  {
-    id: '1',
-    title: 'Test cloud',
-    company: 'Công ty ABC',
-    location: 'Quận 1 • Ho Chi Minh City',
-    salaryMin: 800,
-    salaryMax: 1500,
-    position: 'Middle',
-    logo: '', // ví dụ chưa có logo
-  },
-  {
-    id: '2',
-    title: 'Frontend Developer (ReactJS)',
-    company: 'Shopee',
-    location: 'District 7 • Ho Chi Minh City',
-    salaryMin: 1200,
-    salaryMax: 2000,
-    position: 'Senior',
-    logo: '',
-  },
-  {
-    id: '3',
-    title: 'Backend Engineer (Node.js)',
-    company: 'Grab',
-    location: 'Cầu Giấy • Ha Noi',
-    salaryMin: 1000,
-    salaryMax: 1800,
-    position: 'Middle',
-    logo: '',
-  },
-];
+import { CardJobItem } from '@/src/app/components/card/CardJobItem';
+import { CardSkeleton } from '@/src/app/components/card/CardSkeleton';
+import { Footer } from '@/src/app/components/footer/Footer';
+import { Header } from '@/src/app/components/header/Header';
+import { useEffect, useState } from 'react';
 
 export default function JobListPage() {
+  const [jobList, setJobList] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/all`)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.success === true) {
+          setJobList(res.data || []);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setJobList([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
   return (
     <main className="min-h-screen bg-[#f5f7fb]">
+      <Header />
       <div className="max-w-6xl mx-auto px-4 py-10">
         {/* Title + intro */}
-        <section className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Việc làm đang tuyển dụng
-          </h1>
-          <p className="mt-2 text-sm text-gray-600 max-w-2xl">
-            Tìm kiếm cơ hội nghề nghiệp phù hợp với kỹ năng và mong muốn của bạn
-            trong lĩnh vực công nghệ.
-          </p>
+        {/* Title + intro */}
+        <section className="mb-10">
+          <div className="relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-white via-emerald-50 to-white px-6 py-7 md:px-8 md:py-9">
+            {/* decorative blur */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-200/30 rounded-full blur-3xl" />
+            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-300/20 rounded-full blur-3xl" />
+
+            <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              {/* Left content */}
+              <div>
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200">
+                  🚀 Cơ hội công nghệ đang mở
+                </span>
+
+                <h1 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+                  Tìm công việc
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-700">
+                    {' '}
+                    phù hợp nhất
+                  </span>
+                  <br className="hidden sm:block" />
+                  cho sự nghiệp của bạn
+                </h1>
+
+                <p className="mt-3 text-sm md:text-base text-gray-600 max-w-2xl">
+                  Khám phá hàng trăm vị trí công nghệ từ các công ty uy tín. Lọc
+                  theo kỹ năng, cấp bậc và địa điểm để nhanh chóng tìm được công
+                  việc đúng với mục tiêu của bạn.
+                </p>
+
+                {/* Quick highlights */}
+                <div className="mt-5 flex flex-wrap items-center gap-4 text-xs md:text-sm">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
+                    💼 Nhiều cấp bậc
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
+                    🌍 Đa khu vực
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
+                    ⏱️ Cập nhật liên tục
+                  </span>
+                </div>
+              </div>
+
+              {/* Right stats */}
+              <div className="flex md:flex-col gap-3">
+                <div className="bg-white rounded-xl border border-emerald-100 px-4 py-3 shadow-sm">
+                  <p className="text-[11px] text-gray-500">Việc làm hiện có</p>
+                  <p className="text-lg font-bold text-emerald-600">
+                    {isLoading ? 'Đang tải...' : jobList.length}
+                  </p>
+                </div>
+
+                <div className="bg-white rounded-xl border border-gray-100 px-4 py-3 shadow-sm">
+                  <p className="text-[11px] text-gray-500">Lĩnh vực nổi bật</p>
+                  <p className="text-xs font-semibold text-gray-700">
+                    Frontend • Backend • DevOps
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Search / filter */}
@@ -73,51 +121,21 @@ export default function JobListPage() {
         </section>
 
         {/* Job cards */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {mockJobs.map((job) => (
-            <a
-              key={job.id}
-              href={`/jobs/${job.id}`}
-              className="group block bg-white rounded-[24px] shadow-sm border border-gray-100 px-5 py-5 hover:shadow-md hover:-translate-y-[2px] transition"
-            >
-              {/* Logo nhỏ ở trên giống mẫu */}
-              <div className="w-10 h-10 rounded-[12px] bg-gray-100 flex items-center justify-center mb-3 overflow-hidden">
-                {job.logo ? (
-                  <img
-                    src={job.logo}
-                    alt={job.company}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className="text-xs text-gray-400">No logo</span>
-                )}
-              </div>
-
-              {/* Title + company/location */}
-              <p className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
-                {job.title}
-              </p>
-              <p className="text-xs text-gray-500 mb-1">{job.company}</p>
-              <p className="text-xs text-gray-500 mb-3">{job.location}</p>
-
-              {/* Salary pill – giống style của bạn */}
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#D9FFF4] text-[12px] font-semibold text-emerald-600 mb-3">
-                <span className="mr-1">💰</span>
-                {job.salaryMin}${' - '}
-                {job.salaryMax}$
-              </div>
-
-              {/* Bottom: level + Apply */}
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-gray-600">{job.position}</span>
-                <span className="text-emerald-500 font-semibold group-hover:underline">
-                  Apply
-                </span>
-              </div>
-            </a>
-          ))}
-        </section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          {isLoading ? (
+            Array.from({ length: 8 }).map((_, idx) => (
+              <CardSkeleton key={idx} />
+            ))
+          ) : jobList.length > 0 ? (
+            <CardJobItem featureJobs={jobList} />
+          ) : (
+            <p className="text-sm text-gray-500 col-span-full">
+              Hiện chưa có việc làm nổi bật.
+            </p>
+          )}
+        </div>
       </div>
+      <Footer />
     </main>
   );
 }

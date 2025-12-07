@@ -15,7 +15,7 @@ export const CVList = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.success === true) {
-          //   console.log(res);
+          // console.log(res);
           setListCV(res.data);
         }
       });
@@ -27,7 +27,7 @@ export const CVList = () => {
     }));
   };
 
-  console.log(listCV);
+  // console.log(listCV);
   return (
     <>
       <section className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
@@ -40,9 +40,9 @@ export const CVList = () => {
 
         <div className="divide-y divide-gray-100">
           {listCV.cvs.length > 0 ? (
-            listCV.cvs.map((item: any) => (
+            listCV.cvs.map((item: any, index: number) => (
               <CVItem
-                key={item.id}
+                key={index}
                 item={item}
                 onDeleteSuccess={handleDeleteSuccess}
               />

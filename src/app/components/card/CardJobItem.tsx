@@ -35,38 +35,42 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
               )}
 
               {/* Logo */}
-              <div className="w-10 h-10 mb-3 rounded-lg border border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden">
-                {job.logo ? (
-                  <img
-                    src={job.logo}
-                    alt={job.companyName || job.title}
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
-                  <span className="text-[10px] text-gray-400">Logo</span>
-                )}
-              </div>
+              <Link href={`/job/detail/${job.jobId}`}>
+                <div className="w-10 h-10 mb-3 rounded-lg border border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden">
+                  {job.logo ? (
+                    <img
+                      src={job.logo}
+                      alt={job.companyName || job.title}
+                      className="w-full h-full object-contain"
+                    />
+                  ) : (
+                    <span className="text-[10px] text-gray-400">Logo</span>
+                  )}
+                </div>
 
-              {/* Title */}
-              <h3 className="text-[14px] font-semibold mb-1 line-clamp-2">
-                {job.title}
-              </h3>
+                {/* Title */}
+                <h3 className="text-[14px] font-semibold mb-1 line-clamp-2">
+                  {job.title}
+                </h3>
 
-              {/* Company & Position */}
-              <p className="text-xs text-gray-500 mb-1">
-                <span className="font-medium text-gray-700">
-                  {job.companyName}
-                </span>{' '}
-                • {job.position}
-              </p>
+                {/* Company & Position */}
+                <p className="text-xs text-gray-500 mb-1">
+                  <span className="font-medium text-gray-700">
+                    {job.companyName}
+                  </span>{' '}
+                  • {job.position}
+                </p>
 
-              {/* Salary */}
-              <div className="mt-2 inline-flex items-center bg-gradient-to-r from-[#E0FFF7] to-[#F0FFFE] px-3 py-2 rounded-lg">
-                <span className="text-xs font-semibold text-[#00B894]">💰</span>
-                <span className="text-xs font-semibold text-[#00B894] ml-1">
-                  {job.salaryMin}$ - {job.salaryMax}$
-                </span>
-              </div>
+                {/* Salary */}
+                <div className="mt-2 inline-flex items-center bg-gradient-to-r from-[#E0FFF7] to-[#F0FFFE] px-3 py-2 rounded-lg">
+                  <span className="text-xs font-semibold text-[#00B894]">
+                    💰
+                  </span>
+                  <span className="text-xs font-semibold text-[#00B894] ml-1">
+                    {job.salaryMin}$ - {job.salaryMax}$
+                  </span>
+                </div>
+              </Link>
             </div>
 
             {/* Bottom: working form + apply */}
@@ -76,9 +80,9 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
               </span>
               <Link
                 href={`/job/apply/${job.jobId}`}
-                className="text-[11px] font-semibold text-[#00B894] hover:underline"
+                className="px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-600 transition"
               >
-                Apply
+                Ứng tuyển
               </Link>
             </div>
           </div>
