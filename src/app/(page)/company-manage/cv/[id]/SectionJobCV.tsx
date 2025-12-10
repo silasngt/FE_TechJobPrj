@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 export const SectionJobCV = (props: { id: string }) => {
   const { id } = props;
   const [jobCV, setJobCV] = useState<any>(null);
+  const [detailCV, setDetailCv] = useState<any>(null);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/cvs/${id}`, {
@@ -12,12 +13,13 @@ export const SectionJobCV = (props: { id: string }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success === true) {
-          setJobCV(res.data);
+          setJobCV(res.data.jobId);
+          setDetailCv(res.data);
         }
       });
-  }, [id]);
+  });
   return (
     <>
       {jobCV && (
@@ -33,7 +35,7 @@ export const SectionJobCV = (props: { id: string }) => {
               </label>
               <input
                 readOnly
-                defaultValue={jobCV.jobId}
+                defaultValue={jobCV.title}
                 className="w-full h-10 px-3 rounded-md border border-gray-200 bg-gray-50 text-sm text-gray-800 cursor-default"
               />
             </div>
@@ -42,10 +44,21 @@ export const SectionJobCV = (props: { id: string }) => {
               <span className="text-xs font-medium text-gray-600">
                 Trạng thái CV
               </span>
-              {/* Ví dụ trạng thái Pending */}
-              <span className="inline-flex px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-600 border border-amber-200">
-                Chưa duyệt
-              </span>
+              {detailCV.status === 'Accepted' && (
+                <span className="inline-flex px-3 py-1.5 rounded-full text-xs font-semibold bg-green-50 text-green-600 border border-green-200">
+                  Đã duyệt
+                </span>
+              )}
+              {detailCV.status === 'Pending' && (
+                <span className="inline-flex px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-600 border border-amber-200">
+                  Chưa duyệt
+                </span>
+              )}
+              {detailCV.status === 'Rejected' && (
+                <span className="inline-flex px-3 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-600 border border-red-200">
+                  Từ chối
+                </span>
+              )}
             </div>
           </div>
         </section>

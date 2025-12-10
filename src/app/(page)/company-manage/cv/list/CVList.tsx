@@ -42,7 +42,7 @@ export const CVList = () => {
           {listCV.cvs.length > 0 ? (
             listCV.cvs.map((item: any, index: number) => (
               <CVItem
-                key={index}
+                key={item._id}
                 item={item}
                 onDeleteSuccess={handleDeleteSuccess}
               />

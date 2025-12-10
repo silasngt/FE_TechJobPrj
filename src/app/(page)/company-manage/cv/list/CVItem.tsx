@@ -1,25 +1,19 @@
 'use client';
-import { ButtonApproved } from '@/src/app/components/button/ButtonChangeStatus';
-import { cvStatusList, getCvStatusConfig } from '@/src/config/cvList';
-import { workingFormList } from '@/src/config/workingForm';
+import { cvStatusList } from '@/src/config/cvList';
 import moment from 'moment';
 import Link from 'next/link';
 import { useState } from 'react';
+import { FaCircleCheck, FaEye } from 'react-icons/fa6';
 
 export const CVItem = (props: {
   item: any;
   onDeleteSuccess: (id: string) => void;
 }) => {
   const { item, onDeleteSuccess } = props;
-  const workingForm = workingFormList.find(
-    (work) => work.value === item.jobWorkingForm
-  )?.label;
-  type CvStatus = (typeof cvStatusList)[number];
-
-  const [status, setStatus] = useState<CvStatus>(() =>
-    getCvStatusConfig(item.status)
+  const statusDefault: any = cvStatusList.find(
+    (itemStatus) => itemStatus.value === item.status
   );
-
+  const [status, setStatus] = useState(statusDefault);
   const handleChangeStatus = (status: string) => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/cvs/status/${item._id}`, {
       method: 'PATCH',
@@ -29,9 +23,11 @@ export const CVItem = (props: {
     })
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
         if (res.success === true) {
-          setStatus(getCvStatusConfig(status)); // dùng lại helper
+          const statusNew = cvStatusList.find(
+            (itemStatus) => itemStatus.value === status
+          );
+          setStatus(statusNew);
         }
       });
   };
@@ -59,44 +55,48 @@ export const CVItem = (props: {
         {/* Status + actions */}
         <div className="flex flex-col md:items-end gap-2 min-w-[220px]">
           <span
-            className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${status.badgeClass}`}
+            className="mt-[6px] flex justify-center items-center gap-[8px] font-[400] text-[14px] text-[#121212]"
+            style={{
+              color: status?.color,
+            }}
           >
-            <p className="text-black mr-[5px]">Trạng thái : </p>
-            {status.label}
+            <FaCircleCheck className="text-[16px]" /> {status?.label}
           </span>
 
+          <div
+            className={
+              'mt-[6px] flex justify-center items-center gap-[8px] font-[400] text-[14px] ' +
+              (item.viewed ? '' : ' text-[#FF0000]')
+            }
+          >
+            <FaEye className="text-[16px]" />{' '}
+            {item.viewed ? 'Đã xem' : 'Chưa xem'}
+          </div>
           <div className="flex gap-2">
             <Link
               href={`/company-manage/cv/${item._id}`}
-              className="px-3 py-1.5 text-xs rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
+              className="inline-block py-[8px] px-[20px] font-[400] text-[14px] rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
             >
               Xem CV
             </Link>
 
             {/* 2 nút đổi trạng thái  */}
-            {(status?.value == 'Peding' || status?.value == 'Rejected') && (
+            {(status?.value === 'Pending' || status?.value === 'Rejected') && (
               <button
-                onClick={() => handleChangeStatus('Approved')}
-                className="bg-[#9FDB7C] rounded-[4px] font-[400] text-[14px] text-black inline-block py-[8px] px-[20px]"
+                onClick={() => handleChangeStatus('Accepted')}
+                className="bg-[#9FDB7C] rounded-[4px] font-[400] text-[14px] text-black inline-block py-[8px] px-[20px] hover:bg-[#9ad37a] transition"
               >
                 Duyệt
               </button>
             )}
-            {(status?.value == 'Peding' || status?.value == 'Approved') && (
+            {(status?.value == 'Pending' || status?.value == 'Approved') && (
               <button
-                onClick={() => handleChangeStatus('rejected')}
-                className="bg-[#FF5100] rounded-[4px] font-[400] text-[14px] text-white inline-block py-[8px] px-[20px]"
+                onClick={() => handleChangeStatus('Rejected')}
+                className="bg-[#FF5100] rounded-[4px] font-[400] text-[14px] text-white inline-block py-[8px] px-[20px] hover:bg-[#da9a7d] transition"
               >
                 Từ chối
               </button>
             )}
-
-            <button
-              onClick={() => handleChangeStatus('Rejected')}
-              className="px-3 py-1.5 text-xs rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition"
-            >
-              Từ chối
-            </button>
           </div>
         </div>
       </div>
