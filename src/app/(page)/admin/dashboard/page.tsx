@@ -2,8 +2,10 @@
 'use client';
 
 import { SiderAdmin } from '@/src/app/components/sider-bar/SiderAdmin';
+import { useAuth } from '@/src/hooks/useAuth';
 
 export default function AdminDashboardPage() {
+  const { infoAdmin } = useAuth();
   const stats = {
     totalCompanies: 42,
     totalUsers: 1200,

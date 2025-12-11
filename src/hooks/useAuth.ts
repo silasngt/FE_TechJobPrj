@@ -5,6 +5,7 @@ export const useAuth = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [infoUser, setInforUser] = useState<any>(null);
   const [infoCompany, setInforCompany] = useState<any>(null);
+  const [infoAdmin, setInfoAdmin] = useState<any>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -23,18 +24,30 @@ export const useAuth = () => {
             setInforUser(null);
             setInforCompany(res.data);
           }
+          if (res.data && res.data.role === 'admin') {
+            setInforUser(null);
+            setInforCompany(null);
+            setInfoAdmin(res.data);
+          }
         } else {
           setIsLogin(false);
           setInforUser(null);
           setInforCompany(null);
+          setInfoAdmin(null);
         }
       })
       .catch(() => {
         setIsLogin(false);
         setInforUser(null);
         setInforCompany(null);
+        setInfoAdmin(null);
       });
   }, [pathname]);
 
-  return { isLogin: isLogin, infoUser: infoUser, infoCompany: infoCompany };
+  return {
+    isLogin: isLogin,
+    infoUser: infoUser,
+    infoCompany: infoCompany,
+    infoAdmin: infoAdmin,
+  };
 };
