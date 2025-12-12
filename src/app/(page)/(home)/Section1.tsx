@@ -4,14 +4,6 @@ import { CardCompanyItem } from '../../components/card/CardCompanyItem';
 import { toast, Toaster } from 'sonner';
 
 export const Section1 = () => {
-  const topEmployers = [
-    { id: 1, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
-    { id: 2, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
-    { id: 3, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
-    { id: 4, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
-    { id: 5, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
-    { id: 6, name: 'Shopee', location: 'Ho Chi Minh City', jobs: '120 jobs' },
-  ];
   const [companyList, setCompanyList] = useState<any[]>([]);
 
   useEffect(() => {
@@ -26,7 +18,7 @@ export const Section1 = () => {
           toast.error(res.message);
         }
       });
-  }, []);
+  });
   return (
     <>
       <Toaster richColors position="top-right" />
@@ -44,7 +36,7 @@ export const Section1 = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <CardCompanyItem topEmployers={topEmployers} />
+          <CardCompanyItem topEmployers={companyList} />
         </div>
       </section>
     </>

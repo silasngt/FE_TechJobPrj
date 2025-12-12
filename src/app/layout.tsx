@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="mdl-js">
+    <html lang="en" className="mdl-js" suppressHydrationWarning={true}>
       <body className={beVietnamPro.className}>{children}</body>
     </html>
   );
