@@ -2,23 +2,6 @@ import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import { FormProfileUser } from './FormProfile';
 
 export default function UserProfilePage() {
-  //   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-
-  //     const formData = new FormData(e.currentTarget);
-
-  //     // ví dụ đọc dữ liệu:
-  //     console.log({
-  //       fullName: formData.get('fullName'),
-  //       phone: formData.get('phone'),
-  //       email: formData.get('email'),
-  //       dob: formData.get('dob'),
-  //       gender: formData.get('gender'),
-  //     });
-
-  //     // TODO: gọi API cập nhật BE bằng fetch hoặc axios
-  //   };
-
   return (
     <div className="min-h-screen bg-[#f5f7fb] flex">
       {/* SIDEBAR */}

@@ -31,7 +31,7 @@ export const FormProfileUser = () => {
           toast.error(res.message);
         }
       });
-  });
+  }, []);
   useEffect(() => {
     if (detailProfile) {
       if (detailProfile.avatar) {
@@ -119,7 +119,7 @@ export const FormProfileUser = () => {
   return (
     <>
       <Toaster richColors position="top-right" />
-      {infoUser && detailProfile && (
+      {detailProfile && (
         <form
           id="formProfileUser"
           onSubmit={handleSubmit}
