@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="mdl-js" suppressHydrationWarning={true}>
-      <body className={beVietnamPro.className}>{children}</body>
+      <body className={beVietnamPro.className || ''}>{children}</body>
     </html>
   );
 }
