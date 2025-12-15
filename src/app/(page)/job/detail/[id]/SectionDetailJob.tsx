@@ -1,4 +1,5 @@
 'use client';
+import { CardJobRelationItem } from '@/src/app/components/card/CardJobRelationItem';
 import moment from 'moment';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -18,6 +19,7 @@ export const SectionDetailJob = (props: { id: string }) => {
     })
       .then((res) => res.json())
       .then((res) => {
+        // console.log(res);
         if (res.success === true) {
           setJobDetail(res.data.job);
           setJobRelation(res.data.relateJobs);
@@ -166,9 +168,12 @@ export const SectionDetailJob = (props: { id: string }) => {
                 <p>🕒 Làm việc: {jobDetail.companyId.workingTime}</p>
               </div>
 
-              <button className="mt-2 w-full px-3 py-2 rounded-full border border-emerald-500 text-emerald-600 text-xs font-semibold hover:bg-emerald-50 transition">
+              <Link
+                href={`/company/detail/${jobDetail.companyId._id}`}
+                className="mt-auto inline-block text-center px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold hover:bg-emerald-100 border border-emerald-100 transition"
+              >
                 Xem trang công ty
-              </button>
+              </Link>
             </aside>
           </section>
 
@@ -203,42 +208,11 @@ export const SectionDetailJob = (props: { id: string }) => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {jobRelation.map((job: any, idx: number) => (
-                <article
+                <CardJobRelationItem
                   key={idx}
-                  className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex flex-col justify-between hover:shadow-md transition-shadow"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-sm font-semibold text-gray-900">
-                        {job.title}
-                      </h3>
-                      <span className="text-[11px] px-2 py-0.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-600">
-                        {job.position}
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-600 mb-1">
-                      📍 {job.workingForm}
-                    </p>
-                    <p className="text-xs text-gray-600 mb-1">
-                      Đăng ngày :{' '}
-                      {moment(job.createdAt).locale('vi').format('DD/MM/YYYY')}
-                    </p>
-                  </div>
-                  <div className="mt-3 flex justify-between items-center">
-                    <Link
-                      href={`/job/detail/${job._id}`}
-                      className="text-xs text-emerald-600 hover:underline"
-                    >
-                      Xem chi tiết
-                    </Link>
-                    <Link
-                      href={`/job/apply/${job._id}`}
-                      className="px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-600 transition"
-                    >
-                      Ứng tuyển
-                    </Link>
-                  </div>
-                </article>
+                  job={job}
+                  address={jobDetail.companyId.address}
+                />
               ))}
             </div>
           </section>

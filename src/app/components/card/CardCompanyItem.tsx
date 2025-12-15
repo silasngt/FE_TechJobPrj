@@ -5,7 +5,8 @@ export const CardCompanyItem = (props: { topEmployers: any }) => {
   return (
     <>
       {topEmployers.map((item: any) => (
-        <div
+        <Link
+          href={`/company/detail/${item._id}`}
           key={item._id}
           className="bg-white rounded-3xl p-5 shadow-[0_15px_40px_rgba(0,0,0,0.04)] flex flex-col items-center text-center"
         >
@@ -22,7 +23,7 @@ export const CardCompanyItem = (props: { topEmployers: any }) => {
           <span className="inline-flex items-center text-xs font-medium text-[#00B894] bg-[#E0FFF7] px-3 py-1 rounded-full">
             {item.totalJob} Công việc
           </span>
-        </div>
+        </Link>
       ))}
     </>
   );

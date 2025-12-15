@@ -3,6 +3,7 @@ import { CardJobItem } from '@/src/app/components/card/CardJobItem';
 import { CardSkeleton } from '@/src/app/components/card/CardSkeleton';
 import { Footer } from '@/src/app/components/footer/Footer';
 import { Header } from '@/src/app/components/header/Header';
+import { JobSearch } from '@/src/app/components/search/JobSearch';
 import { useEffect, useState } from 'react';
 
 export default function JobListPage() {
@@ -14,13 +15,13 @@ export default function JobListPage() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/all`)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success === true) {
           setJobList(res.data || []);
         }
       })
       .catch((err) => {
-        console.error(err);
+        // console.error(err);
         setJobList([]);
       })
       .finally(() => {
@@ -28,114 +29,98 @@ export default function JobListPage() {
       });
   }, []);
   return (
-    <main className="min-h-screen bg-[#f5f7fb]">
-      <Header />
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        {/* Title + intro */}
-        {/* Title + intro */}
-        <section className="mb-10">
-          <div className="relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-white via-emerald-50 to-white px-6 py-7 md:px-8 md:py-9">
-            {/* decorative blur */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-200/30 rounded-full blur-3xl" />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-300/20 rounded-full blur-3xl" />
+    <>
+      <main className="min-h-screen bg-[#f5f7fb]">
+        <Header />
+        <div className="max-w-6xl mx-auto px-4 py-10">
+          {/* Title + intro */}
+          <section className="mb-10">
+            <div className="relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-white via-emerald-50 to-white px-6 py-7 md:px-8 md:py-9">
+              {/* decorative blur */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-200/30 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-300/20 rounded-full blur-3xl" />
 
-            <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-              {/* Left content */}
-              <div>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200">
-                  🚀 Cơ hội công nghệ đang mở
-                </span>
-
-                <h1 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
-                  Tìm công việc
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-700">
-                    {' '}
-                    phù hợp nhất
+              <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                {/* Left content */}
+                <div>
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200">
+                    🚀 Cơ hội công nghệ đang mở
                   </span>
-                  <br className="hidden sm:block" />
-                  cho sự nghiệp của bạn
-                </h1>
 
-                <p className="mt-3 text-sm md:text-base text-gray-600 max-w-2xl">
-                  Khám phá hàng trăm vị trí công nghệ từ các công ty uy tín. Lọc
-                  theo kỹ năng, cấp bậc và địa điểm để nhanh chóng tìm được công
-                  việc đúng với mục tiêu của bạn.
-                </p>
+                  <h1 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+                    Tìm công việc
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-700">
+                      {' '}
+                      phù hợp nhất
+                    </span>
+                    <br className="hidden sm:block" />
+                    cho sự nghiệp của bạn
+                  </h1>
 
-                {/* Quick highlights */}
-                <div className="mt-5 flex flex-wrap items-center gap-4 text-xs md:text-sm">
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
-                    💼 Nhiều cấp bậc
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
-                    🌍 Đa khu vực
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
-                    ⏱️ Cập nhật liên tục
-                  </span>
-                </div>
-              </div>
-
-              {/* Right stats */}
-              <div className="flex md:flex-col gap-3">
-                <div className="bg-white rounded-xl border border-emerald-100 px-4 py-3 shadow-sm">
-                  <p className="text-[11px] text-gray-500">Việc làm hiện có</p>
-                  <p className="text-lg font-bold text-emerald-600">
-                    {isLoading ? 'Đang tải...' : jobList.length}
+                  <p className="mt-3 text-sm md:text-base text-gray-600 max-w-2xl">
+                    Khám phá hàng trăm vị trí công nghệ từ các công ty uy tín.
+                    Lọc theo kỹ năng, cấp bậc và địa điểm để nhanh chóng tìm
+                    được công việc đúng với mục tiêu của bạn.
                   </p>
+
+                  {/* Quick highlights */}
+                  <div className="mt-5 flex flex-wrap items-center gap-4 text-xs md:text-sm">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
+                      💼 Nhiều cấp bậc
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
+                      🌍 Đa khu vực
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">
+                      ⏱️ Cập nhật liên tục
+                    </span>
+                  </div>
                 </div>
 
-                <div className="bg-white rounded-xl border border-gray-100 px-4 py-3 shadow-sm">
-                  <p className="text-[11px] text-gray-500">Lĩnh vực nổi bật</p>
-                  <p className="text-xs font-semibold text-gray-700">
-                    Frontend • Backend • DevOps
-                  </p>
+                {/* Right stats */}
+                <div className="flex md:flex-col gap-3">
+                  <div className="bg-white rounded-xl border border-emerald-100 px-4 py-3 shadow-sm">
+                    <p className="text-[11px] text-gray-500">
+                      Việc làm hiện có
+                    </p>
+                    <p className="text-lg font-bold text-emerald-600">
+                      {isLoading ? 'Đang tải...' : jobList.length}
+                    </p>
+                  </div>
+
+                  <div className="bg-white rounded-xl border border-gray-100 px-4 py-3 shadow-sm">
+                    <p className="text-[11px] text-gray-500">
+                      Lĩnh vực nổi bật
+                    </p>
+                    <p className="text-xs font-semibold text-gray-700">
+                      Frontend • Backend • DevOps
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Search / filter */}
-        <section className="mb-6">
-          <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center">
-            <input
-              type="text"
-              placeholder="Nhập vị trí, kỹ năng hoặc công ty..."
-              className="flex-1 h-11 px-4 rounded-full border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            />
-            <select className="h-11 px-4 rounded-full border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-              <option value="">Tất cả cấp bậc</option>
-              <option>Intern</option>
-              <option>Junior</option>
-              <option>Middle</option>
-              <option>Senior</option>
-            </select>
-            <select className="h-11 px-4 rounded-full border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-              <option value="">Tất cả khu vực</option>
-              <option>Ho Chi Minh City</option>
-              <option>Ha Noi</option>
-              <option>Da Nang</option>
-            </select>
-          </div>
-        </section>
+          {/* Search / filter */}
+          <JobSearch />
 
-        {/* Job cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {isLoading ? (
-            Array.from({ length: 8 }).map((_, idx) => (
-              <CardSkeleton key={idx} />
-            ))
-          ) : jobList.length > 0 ? (
-            <CardJobItem featureJobs={jobList} />
-          ) : (
-            <p className="text-sm text-gray-500 col-span-full">
-              Hiện chưa có việc làm nổi bật.
-            </p>
-          )}
+          {/* Job cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+            {isLoading ? (
+              Array.from({ length: 8 }).map((_, idx) => (
+                <CardSkeleton key={idx} />
+              ))
+            ) : jobList.length > 0 ? (
+              <CardJobItem featureJobs={jobList} />
+            ) : (
+              <p className="text-sm text-gray-500 col-span-full">
+                Hiện chưa có việc làm nổi bật.
+              </p>
+            )}
+          </div>
         </div>
-      </div>
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+    </>
   );
 }
