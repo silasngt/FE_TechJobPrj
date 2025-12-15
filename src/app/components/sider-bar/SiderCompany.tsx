@@ -1,4 +1,11 @@
+'use client';
+import { useAuth } from '@/src/hooks/useAuth';
+import { info } from 'console';
+import { useRouter } from 'next/navigation';
+
 export const SiderCompany = () => {
+  const { isLogin, infoCompany } = useAuth();
+  const route = useRouter();
   const currentPath =
     typeof window !== 'undefined' ? window.location.pathname : '';
 
@@ -6,7 +13,18 @@ export const SiderCompany = () => {
     currentPath.startsWith(path)
       ? 'bg-emerald-50 text-emerald-600 font-semibold'
       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900';
-
+  const handleLogout = (linkRedirect: string) => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+      method: 'POST',
+      credentials: 'include', // gửi kèm token trong cookies
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success === true) {
+          route.push(linkRedirect);
+        }
+      });
+  };
   return (
     <aside className="w-64 min-h-screen bg-white border-r border-gray-200 flex flex-col">
       {/* Logo */}
@@ -55,15 +73,28 @@ export const SiderCompany = () => {
       </nav>
 
       {/* USER MINI CARD */}
-      <div className="px-4 py-4 border-t border-gray-100 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-semibold">
-          JG
+      {infoCompany && (
+        <div className="px-4 py-4 border-t border-gray-100 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-semibold">
+            C
+          </div>
+          <div className="text-xs">
+            <p className="font-semibold text-gray-800">
+              {infoCompany.companyName}
+            </p>
+            <p className="text-gray-500">{infoCompany.email}</p>
+          </div>
         </div>
-        <div className="text-xs">
-          <p className="font-semibold text-gray-800">Jake Gyll</p>
-          <p className="text-gray-500">jakegyll@email.com</p>
-        </div>
-      </div>
+      )}
+
+      {isLogin && (
+        <button
+          onClick={() => handleLogout('/company/login')}
+          className="w-75% px-3 py-2 text-sm rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition"
+        >
+          Đăng xuất
+        </button>
+      )}
     </aside>
   );
 };

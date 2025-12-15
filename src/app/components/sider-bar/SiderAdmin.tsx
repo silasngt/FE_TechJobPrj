@@ -1,22 +1,23 @@
 'use client';
 
+import { useAuth } from '@/src/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import { use } from 'react';
 
 export const SiderAdmin = () => {
+  const { isLogin, infoAdmin } = useAuth();
+  const route = useRouter();
   const router = useRouter();
 
-  const handleLogout = () => {
-    const confirmLogout = window.confirm('Bạn có chắc chắn muốn đăng xuất?');
-    if (!confirmLogout) return;
-
+  const handleLogout = (linkRedirect: string) => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
       method: 'POST',
-      credentials: 'include',
+      credentials: 'include', // gửi kèm token trong cookies
     })
       .then((res) => res.json())
       .then((res) => {
         if (res.success === true) {
-          router.push('/admin/login');
+          route.push(linkRedirect);
         }
       });
   };
@@ -62,13 +63,14 @@ export const SiderAdmin = () => {
             <p className="text-gray-500">admin@techjob.com</p>
           </div>
         </div>
-
-        <button
-          onClick={handleLogout}
-          className="w-full px-3 py-2 text-sm rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition"
-        >
-          Đăng xuất
-        </button>
+        {isLogin && (
+          <button
+            onClick={() => handleLogout('/admin/login')}
+            className="w-full px-3 py-2 text-sm rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition"
+          >
+            Đăng xuất
+          </button>
+        )}
       </div>
     </aside>
   );
