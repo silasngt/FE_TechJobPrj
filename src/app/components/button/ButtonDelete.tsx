@@ -77,7 +77,7 @@ export const ButtonDeleteForce = (props: {
         onClick={handleDelete}
         className="px-3 py-1.5 text-xs rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition"
       >
-        Xóa tin
+        Xóa
       </button>
     </>
   );
