@@ -34,14 +34,6 @@ export default function AdminUserManagementPage() {
           </main>
         </div>
       )}
-
-      {!infoAdmin && (
-        <div className="min-h-screen flex items-center justify-center">
-          <h2 className="text-2xl font-semibold text-gray-900">
-            Bạn không có quyền truy cập trang này.
-          </h2>
-        </div>
-      )}
     </>
   );
 }
