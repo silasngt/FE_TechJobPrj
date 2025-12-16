@@ -18,7 +18,7 @@ export const Section1 = () => {
           toast.error(res.message);
         }
       });
-  });
+  }, []);
   return (
     <>
       <Toaster richColors position="top-right" />

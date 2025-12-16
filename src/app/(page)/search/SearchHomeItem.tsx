@@ -1,32 +1,30 @@
 'use client';
-import { CardJobItem } from '@/src/app/components/card/CardJobItem';
-import { CardSkeleton } from '@/src/app/components/card/CardSkeleton';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { CardJobItem } from '../../components/card/CardJobItem';
+import { CardSkeleton } from '../../components/card/CardSkeleton';
+import { useSearchParams } from 'next/navigation';
+import { CardCompanyItem } from '../../components/card/CardCompanyItem';
 
-export const JobSearchItem = () => {
+export const SearchHomeItem = () => {
   const searchParams = useSearchParams();
   const city = searchParams.get('city') || '';
   const keyword = searchParams.get('keyword') || '';
-  const position = searchParams.get('position') || '';
-  const page = searchParams.get('page') || '';
   const [jobList, setJobList] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
+  const [companyList, setCompanyList] = useState<any[]>([]);
+  const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/jobs/search?keyword=${keyword}&position=${position}&cityId=${city}`
-    )
+    setLoading;
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/search?keyword=${keyword}`)
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setJobList(res.data);
+          setJobList(res.data.jobs);
+          setCompanyList(res.data.companies);
           setLoading(false);
         }
       });
-  }, [city, keyword, position]);
-
+  }, [keyword]);
   return (
     <>
       <section>
@@ -35,16 +33,17 @@ export const JobSearchItem = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {loading ? (
-            Array.from({ length: 8 }).map((_, idx) => (
+          {isLoading ? (
+            Array.from({ length: 10 }).map((_, idx) => (
               <CardSkeleton key={idx} />
             ))
           ) : jobList.length > 0 ? (
             <CardJobItem featureJobs={jobList} />
+          ) : companyList.length > 0 ? (
+            <CardCompanyItem topEmployers={companyList} />
           ) : (
             <p className="text-sm text-gray-500 col-span-full">
-              Không tìm thấy việc làm phù hợp. Hãy thử từ khoá khác hoặc điều
-              chỉnh bộ lọc.
+              Không tìm thấy công việc hoặc công ty nào phù hợp.
             </p>
           )}
         </div>
