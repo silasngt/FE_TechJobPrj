@@ -1,6 +1,43 @@
+'use client';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useEffect, useState } from 'react';
+import { IoIosNotifications } from 'react-icons/io';
+
 export const SectionIntro = () => {
+  const { infoCompany } = useAuth();
+  const [showNotice, setShowNotice] = useState(false);
+
+  useEffect(() => {
+    if (infoCompany) {
+      setShowNotice(true);
+
+      const timer = setTimeout(() => {
+        setShowNotice(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [infoCompany]);
   return (
     <>
+      {showNotice && (
+        <div className="mb-4 flex items-center justify-between gap-4 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-700">
+          <span>
+            <IoIosNotifications />
+          </span>
+          <span>
+            Nếu bạn là <b>nhà tuyển dụng</b>, hãy cập nhật
+            <b> thông tin profile công ty</b> để tăng độ tin cậy. Vui{' '}
+            <b>lòng bỏ qua thông báo này nếu đã cập nhật</b>
+          </span>
+          <button
+            onClick={() => setShowNotice(false)}
+            className="text-xs text-blue-600 hover:underline"
+          >
+            Bỏ qua
+          </button>
+        </div>
+      )}
       <section className="bg-white">
         <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
           <div className="text-center mb-10">
