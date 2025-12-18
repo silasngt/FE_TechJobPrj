@@ -5,6 +5,7 @@ import { FcEmptyFilter, FcSearch } from 'react-icons/fc';
 
 export const Search = () => {
   const [cityList, setCityList] = useState<any[]>([]);
+  const searchParams = useSearchParams();
   const router = useRouter();
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/cities`, {})
@@ -19,11 +20,20 @@ export const Search = () => {
     const city = event.target.city.value;
     const keyword = event.target.keyword.value;
 
-    // const query = `?cityId=${city}&keyword=${encodeURIComponent(keyword)}`;
-    const query = `?keyword=${encodeURIComponent(keyword)}`;
+    const query = `?cityId=${city}&keyword=${encodeURIComponent(keyword)}`;
     router.push(`/search${query}`);
   };
-
+  const handleFilterCity = (event: any) => {
+    event.preventDefault();
+    const value = event.target.value;
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set('city', value);
+    } else {
+      params.delete('city');
+    }
+    router.push(`?${params.toString()}`);
+  };
   return (
     <>
       {/* SEARCH BAR */}
@@ -47,6 +57,7 @@ export const Search = () => {
               name="city"
               defaultValue={'Chọn thành phố'}
               className="w-full flex items-center justify-between text-sm text-gray-700"
+              onChange={handleFilterCity}
             >
               <option value="">Tất cả thành phố</option>
               {cityList && cityList.length > 0 ? (
@@ -64,7 +75,7 @@ export const Search = () => {
           {/* Button */}
           <div className="md:pl-4 md:w-auto w-full">
             <button className="w-full bg-[#00D8A4] text-white font-semibold text-sm px-6 py-2.5 rounded-full hover:bg-[#00b891] transition">
-              Search my job
+              Tìm kiếm
             </button>
           </div>
         </div>

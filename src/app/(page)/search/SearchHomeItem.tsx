@@ -13,8 +13,11 @@ export const SearchHomeItem = () => {
   const [companyList, setCompanyList] = useState<any[]>([]);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading;
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/search?keyword=${keyword}`)
+    setLoading(true);
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/search?keyword=${keyword}&cityId=${city}`,
+      {}
+    )
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
@@ -24,7 +27,7 @@ export const SearchHomeItem = () => {
           setLoading(false);
         }
       });
-  }, [keyword]);
+  }, [keyword, city]);
   return (
     <>
       <section>
@@ -42,7 +45,7 @@ export const SearchHomeItem = () => {
           ) : companyList.length > 0 ? (
             <CardCompanyItem topEmployers={companyList} />
           ) : (
-            <p className="text-sm text-gray-500 col-span-full">
+            <p className="text-sm text-gray-500 col-span-full h-full flex items-center justify-center">
               Không tìm thấy công việc hoặc công ty nào phù hợp.
             </p>
           )}

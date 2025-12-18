@@ -7,21 +7,19 @@ import { SearchHomeItem } from './SearchHomeItem';
 
 export default function JobSearchResultPage() {
   return (
-    <main className="min-h-screen bg-[#f5f7fb]">
+    <div className="min-h-screen flex flex-col">
       <Header />
 
-      <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
-        {/* ====== TOP BAR: tiêu đề + info kết quả ====== */}
-        <SearchHomeHeader />
-
-        {/* <SearchBar /> */}
-        <Search />
-
-        {/* ====== KẾT QUẢ JOB ====== */}
-        <SearchHomeItem />
-      </div>
+      {/* CONTENT */}
+      <main className="flex-1 bg-[#f5f7fb]">
+        <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
+          <SearchHomeHeader />
+          <Search />
+          <SearchHomeItem />
+        </div>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

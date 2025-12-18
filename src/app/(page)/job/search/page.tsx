@@ -9,23 +9,20 @@ import { JobSearchHeader } from './JobSearchHeader';
 export default function SearchJobPage() {
   return (
     <>
-      <main className="min-h-screen bg-[#f5f7fb]">
+      <div className="min-h-screen flex flex-col">
         <Header />
 
-        <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
-          {/* ====== TOP BAR: tiêu đề + info kết quả ====== */}
-
-          <JobSearchHeader />
-
-          {/* <SearchBar /> */}
-          <JobSearch />
-
-          {/* ====== KẾT QUẢ JOB ====== */}
-          <JobSearchItem />
-        </div>
+        {/* CONTENT */}
+        <main className="flex-1 bg-[#f5f7fb]">
+          <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
+            <JobSearchHeader />
+            <JobSearch />
+            <JobSearchItem />
+          </div>
+        </main>
 
         <Footer />
-      </main>
+      </div>
     </>
   );
 }
