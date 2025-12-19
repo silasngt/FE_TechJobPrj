@@ -30,7 +30,7 @@ export const HeaderAccount = () => {
             <>
               {infoUser && (
                 <>
-                  <Link href="/user-manage/profile" className="">
+                  <Link href="/user-manage/dashboard" className="">
                     {infoUser.fullName}
                   </Link>
                   <ul className="absolute top-[100%] right-[0px] w-[220px] bg-[#8ABEB9] hidden group-hover/sub-1:block rounded-b-[4px] overflow-hidden shadow-md">

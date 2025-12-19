@@ -3,6 +3,7 @@ import { workingFormList } from '@/src/config/workingForm';
 import { ItemCvUser } from './ItemCvUser';
 import { useEffect, useState } from 'react';
 import { cvStatusList } from '@/src/config/cvList';
+import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 
 export const ListCvUser = () => {
   const [listCV, setListCV] = useState<any>({
@@ -67,6 +68,7 @@ export const ListCvUser = () => {
           )}
         </div>
       )}
+      <PaginationRole totalPage={listCV.cvs.length} page={0} />
     </>
   );
 };

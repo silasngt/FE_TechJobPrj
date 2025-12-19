@@ -28,9 +28,7 @@ export default function AdminUserManagementPage() {
             </div>
 
             {/* List */}
-            <section className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-              <UserList />
-            </section>
+            <UserList />
           </main>
         </div>
       )}

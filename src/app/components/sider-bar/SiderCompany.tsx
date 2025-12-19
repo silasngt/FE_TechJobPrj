@@ -1,16 +1,15 @@
 'use client';
 import { useAuth } from '@/src/hooks/useAuth';
 import { info } from 'console';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export const SiderCompany = () => {
   const { isLogin, infoCompany } = useAuth();
   const route = useRouter();
-  const currentPath =
-    typeof window !== 'undefined' ? window.location.pathname : '';
+  const pathname = usePathname();
 
   const isActive = (path: string) =>
-    currentPath.startsWith(path)
+    pathname.startsWith(path)
       ? 'bg-emerald-50 text-emerald-600 font-semibold'
       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900';
   const handleLogout = (linkRedirect: string) => {
@@ -48,7 +47,7 @@ export const SiderCompany = () => {
         <a
           href="/company-manage/cv/list"
           className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
-            '/company-manage/cv'
+            '/company-manage/cv/list'
           )}`}
         >
           Quản lý CV Ứng tuyển
@@ -56,7 +55,7 @@ export const SiderCompany = () => {
         <a
           href="/company-manage/job/list"
           className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
-            '/company-manage/job'
+            '/company-manage/job/list'
           )}`}
         >
           Quản lý tin tuyển dụng

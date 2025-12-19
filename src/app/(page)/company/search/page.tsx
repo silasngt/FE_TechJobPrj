@@ -1,11 +1,11 @@
-'use client';
 import { Footer } from '@/src/app/components/footer/Footer';
 import { Header } from '@/src/app/components/header/Header';
-import { JobSearch } from '@/src/app/components/search/JobSearch';
-import { JobSearchItem } from './JobSearchItem';
-import { JobSearchHeader } from './JobSearchHeader';
+import { CompanySearch } from '@/src/app/components/search/CompanySearch';
 
-export default function SearchJobPage() {
+import { CompanySearchHeader } from './CompanySearchHeader';
+import { CompanySearchItem } from './CompanySearchItem';
+
+export default function CompanySearchPage() {
   return (
     <>
       <div className="min-h-screen flex flex-col">
@@ -14,9 +14,9 @@ export default function SearchJobPage() {
         {/* CONTENT */}
         <main className="flex-1 bg-[#f5f7fb]">
           <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
-            <JobSearchHeader />
-            <JobSearch />
-            <JobSearchItem />
+            <CompanySearchHeader />
+            <CompanySearch />
+            <CompanySearchItem />
           </div>
         </main>
 

@@ -17,6 +17,7 @@ export const FormProfileCompany = () => {
   const [logos, setLogos] = useState<any[]>([]);
   const [cityList, setCityList] = useState<any[]>([]);
   const [detailProfile, setDetailProfile] = useState<any>(null);
+  const [images, setImages] = useState<any>([]);
   const [isValid, setIsValid] = useState(false);
   const editorRef = useRef(null);
   // console.log('infoCompany', infoCompany);
@@ -50,6 +51,12 @@ export const FormProfileCompany = () => {
             source: detailProfile.logo,
           },
         ]);
+      }
+      if (detailProfile.images && detailProfile.images.length > 0) {
+        const listImage = detailProfile.images.map((image: string) => {
+          return { source: image };
+        });
+        setImages(listImage);
       }
 
       const validator = new JustValidate('#formProfileCompany');
@@ -92,7 +99,7 @@ export const FormProfileCompany = () => {
       const workOverTime = event.target.workOverTime.value;
       const email = event.target.email.value;
       const phone = event.target.phone.value;
-      // let description = event.target.description.value;
+      let description = event.target.description.value;
       // if (editorRef.current) {
       //   description = (editorRef.current as any).getContent();
       // }
@@ -113,8 +120,17 @@ export const FormProfileCompany = () => {
       formData.append('workOverTime', workOverTime);
       formData.append('email', email);
       formData.append('phone', phone);
-      // formData.append('description', description);
+      formData.append('description', description);
       formData.append('logo', logo);
+      // images
+      if (images.length > 0) {
+        for (const image of images) {
+          if (image.file) {
+            formData.append('images', image.file);
+          }
+        }
+      }
+      // End images
 
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/`, {
         method: 'PATCH',
@@ -136,7 +152,7 @@ export const FormProfileCompany = () => {
   return (
     <>
       <Toaster richColors position="top-right" />
-      {infoCompany && (
+      {detailProfile && (
         <form
           onSubmit={handleSubmit}
           id="formProfileCompany"
@@ -286,7 +302,7 @@ export const FormProfileCompany = () => {
                 </label>
                 <select
                   name="city"
-                  defaultValue={detailProfile.city}
+                  defaultValue={detailProfile.cityId || ''}
                   id="city"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 >
@@ -343,6 +359,38 @@ export const FormProfileCompany = () => {
                   placeholder="VD: Thỉnh thoảng"
                   className="h-10 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 />
+              </div>
+              {/* Mô tả  */}
+              <div className="flex flex-col gap-2 md:col-span-2">
+                <label className="text-xs font-medium text-gray-700">
+                  Làm việc ngoài giờ
+                </label>
+                <textarea
+                  name="description"
+                  id="description"
+                  defaultValue={detailProfile?.description}
+                  placeholder="Mô tả về công ty..."
+                  className="h-24 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm resize-none"
+                ></textarea>
+              </div>
+              {/* Hình ảnh giới thiệu công ty */}
+              <div className="flex flex-col gap-2 md:col-span-2">
+                <label className="text-xs font-medium text-gray-700">
+                  Tải lên logo mới
+                </label>
+                <FilePond
+                  name="images"
+                  allowMultiple={true} //Chọn nhiều ảnh
+                  allowRemove={true} //Cho phép xóa ảnh
+                  labelIdle="+"
+                  acceptedFileTypes={['image/*']}
+                  files={logos}
+                  onupdatefiles={setImages}
+                  maxFiles={5}
+                />
+                <p className="text-[11px] text-gray-400">
+                  Định dạng: JPG, PNG. Kích thước tối đa 5MB.
+                </p>
               </div>
             </div>
 

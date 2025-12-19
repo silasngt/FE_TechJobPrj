@@ -1,13 +1,18 @@
 'use client';
 
 import { useAuth } from '@/src/hooks/useAuth';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { use } from 'react';
 
 export const SiderAdmin = () => {
   const { isLogin, infoAdmin } = useAuth();
   const route = useRouter();
-  const router = useRouter();
+  const pathname = usePathname();
+
+  const isActive = (path: string) =>
+    pathname.startsWith(path)
+      ? 'bg-emerald-50 text-emerald-600 font-semibold'
+      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900';
 
   const handleLogout = (linkRedirect: string) => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
@@ -34,21 +39,27 @@ export const SiderAdmin = () => {
       <nav className="flex-1 px-4 py-4 space-y-1 text-sm">
         <a
           href="/admin/dashboard"
-          className="block w-full px-3 py-2 rounded-md bg-emerald-50 text-emerald-600 font-semibold transition-all"
+          className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
+            '/admin/dashboard'
+          )}`}
         >
-          Dashboard
+          Bảng điều khiển
         </a>
         <a
           href="/admin/company-management"
-          className="block w-full px-3 py-2 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all"
+          className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
+            '/admin/company-management'
+          )}`}
         >
-          Company Management
+          Quản lý nhà tuyển dụng
         </a>
         <a
           href="/admin/user-management"
-          className="block w-full px-3 py-2 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all"
+          className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
+            '/admin/user-management'
+          )}`}
         >
-          User Management
+          Quản lý người tìm việc
         </a>
       </nav>
 

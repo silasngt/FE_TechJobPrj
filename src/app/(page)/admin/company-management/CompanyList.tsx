@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { CompanyItem } from './CompanyItem';
+import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 
 export const CompanyList = () => {
   const [dataCompanies, setDataCompanies] = useState<any>({
@@ -56,6 +57,7 @@ export const CompanyList = () => {
           )}
         </div>
       </section>
+      <PaginationRole totalPage={0} page={0} />
     </>
   );
 };

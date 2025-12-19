@@ -1,6 +1,11 @@
+import { Metadata } from 'next';
 import { SectionDetailCV } from './SectionDetailCV';
 import { SectionJobCV } from './SectionJobCV';
-
+export const metadata: Metadata = {
+  title: 'Chi tiết CV ứng tuyển - TechJob',
+  description:
+    'Xem chi tiết thông tin CV ứng viên cho một vị trí tuyển dụng cụ thể.',
+};
 export default async function CompanyCvDetailPage({
   params,
 }: {

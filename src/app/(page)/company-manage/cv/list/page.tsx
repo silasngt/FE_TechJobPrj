@@ -1,6 +1,11 @@
 import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { CVList } from './CVList';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Quản lý CV Ứng Tuyển - TechJob',
+  description:
+    'Quản lý và xem các CV ứng tuyển từ ứng viên cho công ty của bạn.',
+};
 export default function CompanyCvManage() {
   return (
     <div className="min-h-screen bg-[#f5f7fb] flex">
@@ -25,21 +30,6 @@ export default function CompanyCvManage() {
           >
             Quay lại trang chủ
           </a>
-        </div>
-
-        {/* Filter / search  */}
-        <div className="mb-4 flex flex-wrap gap-3 items-center">
-          <input
-            type="text"
-            placeholder="Tìm theo tên ứng viên hoặc vị trí..."
-            className="h-9 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 w-full md:w-72 bg-white"
-          />
-          <select className="h-9 px-3 rounded-md border border-gray-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
-            <option value="">Tất cả trạng thái</option>
-            <option value="Chưa duyệt">Chưa duyệt</option>
-            <option value="Đã duyệt">Đã duyệt</option>
-            <option value="Từ chối">Từ chối</option>
-          </select>
         </div>
 
         {/* List CV */}

@@ -84,7 +84,7 @@ export const FormLogin = () => {
       <form id="loginForm" className="space-y-4">
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1">
-            Email Address
+            Email
           </label>
           <input
             type="email"
@@ -96,7 +96,7 @@ export const FormLogin = () => {
 
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1">
-            Password
+            Mật khẩu
           </label>
           <input
             type="password"
@@ -110,7 +110,7 @@ export const FormLogin = () => {
           type="submit"
           className="w-full mt-3 bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-3 rounded-lg shadow-md transition"
         >
-          Continue
+          Đăng nhập
         </button>
       </form>
     </>

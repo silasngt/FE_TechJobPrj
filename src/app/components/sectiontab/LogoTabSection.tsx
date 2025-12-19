@@ -14,13 +14,13 @@ export const LogoTabUserSection = () => {
           href="/job_seeker/login"
           className="px-5 py-2 rounded-full bg-teal-500 text-white text-sm font-semibold shadow-sm"
         >
-          👤 Job Seeker
+          👤 Người tìm việc
         </Link>
         <Link
           href="/company/login"
           className="px-5 py-2 rounded-full text-sm font-semibold text-gray-500 hover:text-gray-900"
         >
-          🏢 Company
+          🏢 Nhà tuyển dụng
         </Link>
       </div>
     </>
@@ -40,13 +40,13 @@ export const LogoTabCompanySection = () => {
           href="/job_seeker/login"
           className="px-5 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-gray-900 transition"
         >
-          👤 Job Seeker
+          👤 Người tìm việc
         </Link>
         <Link
           href="/company/login"
           className="px-5 py-2 rounded-full bg-teal-500 text-white text-sm font-semibold shadow-sm transition"
         >
-          🏢 Company
+          🏢 Nhà tuyển dụng
         </Link>
       </div>
     </>

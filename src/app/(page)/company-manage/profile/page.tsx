@@ -1,6 +1,10 @@
 import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { FormProfileCompany } from './FormProfile';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Hồ sơ công ty - TechJob',
+  description: 'Cập nhật một số thông tin cơ bản của công ty.',
+};
 export default function CompanyProfilePage() {
   return (
     <div className="min-h-screen bg-[#f5f7fb] flex">

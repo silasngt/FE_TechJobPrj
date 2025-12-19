@@ -17,11 +17,11 @@ export default function UserLoginPage() {
           {/* Quote Section */}
           <div className="text-center max-w-lg pt-8">
             <p className="text-4xl font-bold text-gray-900 mb-6 leading-relaxed">
-              "Your next career opportunity is just a click away"
+              Cơ hội nghề nghiệp tiếp theo của bạn chỉ cách một cú nhấp chuột
             </p>
             <p className="text-lg text-gray-600 mb-8">
-              Join thousands of professionals finding their dream jobs on
-              TechJob
+              Tham gia cùng hàng nghìn chuyên gia đang tìm kiếm công việc mơ ước
+              của họ trên TechJob
             </p>
           </div>
 
@@ -30,33 +30,39 @@ export default function UserLoginPage() {
             {/* Card 1 - Blue */}
             <div className="bg-blue-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">💼</div>
-              <p className="font-semibold text-gray-900 text-sm">100K+ Jobs</p>
-              <p className="text-xs text-gray-600">Opportunities waiting</p>
+              <p className="font-semibold text-gray-900 text-sm">
+                100K+ Công việc
+              </p>
+              <p className="text-xs text-gray-600">Cơ hội đang chờ đợi</p>
             </div>
 
             {/* Card 2 - Green */}
             <div className="bg-green-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">🎯</div>
               <p className="font-semibold text-gray-900 text-sm">
-                Perfect Match
+                Sự phù hợp hoàn hảo
               </p>
-              <p className="text-xs text-gray-600">Tailored for you</p>
+              <p className="text-xs text-gray-600">
+                Được thiết kế riêng cho bạn
+              </p>
             </div>
 
             {/* Card 3 - Purple */}
             <div className="bg-purple-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">⚡</div>
-              <p className="font-semibold text-gray-900 text-sm">Fast Hiring</p>
-              <p className="text-xs text-gray-600">Quick responses</p>
+              <p className="font-semibold text-gray-900 text-sm">
+                Tuyển dụng nhanh
+              </p>
+              <p className="text-xs text-gray-600">Phản hồi nhanh chóng</p>
             </div>
 
             {/* Card 4 - Orange */}
             <div className="bg-orange-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">🏆</div>
               <p className="font-semibold text-gray-900 text-sm">
-                Top Companies
+                Những công ty hàng đầu
               </p>
-              <p className="text-xs text-gray-600">Lead employers</p>
+              <p className="text-xs text-gray-600">Nhà tuyển dụng hàng đầu</p>
             </div>
           </div>
 
@@ -66,8 +72,8 @@ export default function UserLoginPage() {
               <span className="text-2xl">⭐</span>
             </div>
             <div className="text-left">
-              <p className="font-semibold text-gray-900">4.9/5 Rating</p>
-              <p className="text-sm text-gray-500">From 10,000+ reviews</p>
+              <p className="font-semibold text-gray-900">4.9/5 Sao</p>
+              <p className="text-sm text-gray-500">Từ 10,000+ đánh giá</p>
             </div>
           </div>
         </div>
@@ -78,7 +84,7 @@ export default function UserLoginPage() {
             <LogoTabUserSection />
 
             <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6 text-center">
-              Get more opportunities
+              Hãy trở thành một phần của cộng đồng TechJob!
             </h1>
 
             {/* Sign up with Google */}
@@ -87,14 +93,14 @@ export default function UserLoginPage() {
               className="w-full border border-gray-200 rounded-lg py-3 px-4 flex items-center justify-center gap-2 text-sm font-medium text-gray-700 hover:bg-gray-50 mb-5"
             >
               <span className="text-lg">+</span>
-              <span>Sign Up with Google</span>
+              <span>Đăng ký với Google</span>
             </button>
 
             {/* Divider */}
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px flex-1 bg-gray-200" />
               <span className="text-xs text-gray-400">
-                Or sign up with email
+                Hoặc đăng ký với email
               </span>
               <div className="h-px flex-1 bg-gray-200" />
             </div>
@@ -104,20 +110,20 @@ export default function UserLoginPage() {
 
             {/* Login link */}
             <p className="mt-4 text-xs text-gray-600">
-              Already have an account?{' '}
+              Bạn đã có tài khoản?{' '}
               <a
                 href="/job_seeker/login"
                 className="text-teal-500 font-medium hover:underline"
               >
-                Login
+                Đăng nhập
               </a>
             </p>
 
             {/* Terms */}
             <p className="mt-4 text-[10px] leading-relaxed text-gray-400">
-              By clicking ‘Continue’, you acknowledge that you have read and
-              accept the <span className="text-teal-500">Terms of Service</span>{' '}
-              and <span className="text-teal-500">Privacy Policy</span>.
+              Bằng việc đăng ký, bạn đồng ý với{' '}
+              <span className="text-teal-500">Điều khoản Dịch vụ</span> và{' '}
+              <span className="text-teal-500">Chính sách Bảo mật</span>.
             </p>
           </div>
         </div>

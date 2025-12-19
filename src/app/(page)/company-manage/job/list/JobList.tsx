@@ -1,37 +1,48 @@
 'use client';
-
 import {
   ButtonDeleteForce,
   ButtonDeleteSoft,
 } from '@/src/app/components/button/ButtonDelete';
+import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 import { workingFormList } from '@/src/config/workingForm';
 import moment from 'moment';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const JobList = () => {
   const [jobList, setJobList] = useState<any[]>([]);
   const [totalJob, setTotalJob] = useState(0);
   const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+  const position = searchParams.get('position') || '';
+  const status = searchParams.get('status') || '';
+  const router = useRouter();
   const [totalPage, setTotalPage] = useState(0);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/`, {
-      method: 'GET',
-      credentials: 'include', // Gửi kèm cookie
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/jobs?position=${position}&isDeleted=${status}&page=${page}`,
+      {
+        method: 'GET',
+        credentials: 'include', // Gửi kèm cookie
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
+        console.log('res', res);
         if (res.success === true) {
           setJobList(res.data.jobs || []);
           setTotalJob(res.data.totalJob);
           // setTotalPage(res.totalPage);
         }
       });
-  }, [page]);
-  console.log('jobList', jobList);
-  const handlePagination = (event: any) => {
-    const value = event.target.value;
-    setPage(parseInt(value));
+  }, [status, position]);
+  // console.log('jobList', jobList);
+
+  // Xử lý cho Phân trang
+  const handlePagination = (page: number) => {
+    setPage(page);
   };
+
   // Xử lý cho Delete Soft (Toggle Status)
   const handleToggleStatusSuccess = (id: string) => {
     setJobList((prev) =>
@@ -44,8 +55,54 @@ export const JobList = () => {
   const handleDeleteSuccess = (deleteid: string) => {
     setJobList((prev) => prev.filter((job) => job.jobId !== deleteid));
   };
+  const handleFilterPosition = (event: any) => {
+    event.preventDefault();
+    const value = event.target.value;
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set('position', value);
+    } else {
+      params.delete('position');
+    }
+    router.push(`?${params.toString()}`);
+  };
+  const handleFilterStatus = (event: any) => {
+    event.preventDefault();
+    const value = event.target.value;
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      // Chuyển "true"/"false" string thành boolean
+      const boolValue = value === 'true';
+      params.set('status', boolValue.toString());
+    } else {
+      params.delete('status');
+    }
+    router.push(`?${params.toString()}`);
+  };
   return (
     <>
+      <div className="mb-4 flex flex-wrap gap-2 items-center">
+        {/* Filter Postion */}
+        <select
+          onChange={handleFilterPosition}
+          className="h-9 px-3 rounded-md border border-gray-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+        >
+          <option value="">Cấp bậc</option>
+          <option value="Intern">Intern</option>
+          <option value="Fresher">Fresher</option>
+          <option value="Middle">Middle</option>
+          <option value="Senior">Senior</option>
+        </select>
+        {/* Filter Status */}
+        <select
+          onChange={handleFilterStatus}
+          className="h-9 px-3 rounded-md border border-gray-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+        >
+          <option value="">Tất cả trạng thái</option>
+          <option value="false">Đang mở</option>
+          <option value="true">Đã đóng</option>
+        </select>
+      </div>
       <section className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-100 flex justify-between items-center">
           <h3 className="text-sm font-semibold text-gray-900">
@@ -125,6 +182,11 @@ export const JobList = () => {
           )}
         </div>
       </section>
+      <PaginationRole
+        totalPage={totalPage}
+        page={page}
+        onPageChange={handlePagination}
+      />
     </>
   );
 };

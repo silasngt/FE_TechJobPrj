@@ -1,6 +1,10 @@
 import moment from 'moment';
 import { FormApply } from './FormApply';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Ứng tuyển công việc - TechJob',
+  description: 'Gửi đơn ứng tuyển cho công việc bạn quan tâm.',
+};
 export default async function JobApplyPage({
   params,
 }: {

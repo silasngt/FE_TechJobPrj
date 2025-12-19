@@ -1,6 +1,12 @@
 import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { FcAddRow, FcDocument } from 'react-icons/fc';
-
+import { CompanyStatis } from './CompanyStatis';
+import { CvCompanyRecent } from './CvCompanyRecent';
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Bảng điều khiển công ty - TechJob',
+  description: 'Tổng quan nhanh về hoạt động tuyển dụng của công ty bạn.',
+};
 export default function CompanyDashBoard() {
   return (
     <div className="min-h-screen bg-[#f5f7fb] flex">
@@ -27,104 +33,12 @@ export default function CompanyDashBoard() {
           </a>
         </div>
 
-        {/* Overview cards */}
-        <section className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-100">
-            <p className="text-xs text-gray-500 mb-1">Tin tuyển dụng đang mở</p>
-            <p className="text-2xl font-semibold text-gray-900">8</p>
-            <p className="text-xs text-emerald-600 mt-1">+2 bài đăng mới</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-100">
-            <p className="text-xs text-gray-500 mb-1">
-              Ứng viên mới trong tuần
-            </p>
-            <p className="text-2xl font-semibold text-gray-900">23</p>
-            <p className="text-xs text-gray-400 mt-1">
-              Hãy xem và sàng lọc hồ sơ
-            </p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-100">
-            <p className="text-xs text-gray-500 mb-1">Lịch phỏng vấn sắp tới</p>
-            <p className="text-2xl font-semibold text-gray-900">5</p>
-            <p className="text-xs text-gray-400 mt-1">
-              Buổi gần nhất trong 2 ngày tới
-            </p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-100">
-            <p className="text-xs text-gray-500 mb-1">
-              Mức độ hoàn thiện hồ sơ công ty
-            </p>
-            <div className="flex items-center justify-between mt-1">
-              <p className="text-2xl font-semibold text-gray-900">82%</p>
-              <span className="text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
-                Đề xuất
-              </span>
-            </div>
-            <p className="text-xs text-gray-400 mt-1">
-              Cập nhật thêm mô tả công ty để đạt 100%.
-            </p>
-          </div>
-        </section>
+        {/* Thống kê */}
+        <CompanyStatis />
 
-        {/* Middle section: Recent apps + Quick actions */}
+        {/* Hiển thị các CV ứng tuyển vào công ty gần đây */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Recent Applications */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-100">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-900">
-                Ứng viên gần đây
-              </h3>
-              <button className="text-xs text-emerald-600 hover:underline">
-                Xem tất cả ứng viên
-              </button>
-            </div>
-            <div className="divide-y divide-gray-100">
-              {[
-                {
-                  title: 'Frontend Developer',
-                  company: 'Ứng viên: Nguyễn Văn A',
-                  status: 'Đã lên lịch phỏng vấn',
-                  date: 'Apr 20, 2025',
-                },
-                {
-                  title: 'Backend Engineer',
-                  company: 'Ứng viên: Trần Thị B',
-                  status: 'Đang sàng lọc',
-                  date: 'Apr 18, 2025',
-                },
-                {
-                  title: 'Fullstack Developer',
-                  company: 'Ứng viên: Lê Văn C',
-                  status: 'Ứng viên mới',
-                  date: 'Apr 16, 2025',
-                },
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="px-5 py-3 flex items-center justify-between text-sm"
-                >
-                  <div>
-                    <p className="font-semibold text-gray-800">{item.title}</p>
-                    <p className="text-xs text-gray-500">{item.company}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-gray-400 mb-1">{item.date}</p>
-                    <span
-                      className={`inline-flex px-2 py-1 rounded-full text-[11px] ${
-                        item.status === 'Đã lên lịch phỏng vấn'
-                          ? 'bg-blue-50 text-blue-600'
-                          : item.status === 'Đang sàng lọc'
-                          ? 'bg-amber-50 text-amber-600'
-                          : 'bg-gray-50 text-gray-600'
-                      }`}
-                    >
-                      {item.status}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <CvCompanyRecent />
 
           {/* Quick actions / reminders */}
           <div className="space-y-4">
@@ -133,11 +47,17 @@ export default function CompanyDashBoard() {
                 Hành động nhanh
               </h3>
               <div className="space-y-2 text-sm flex flex-wrap">
-                <a className="w-full text-left px-3 py-2 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                <a
+                  href="/company-manage/job/create"
+                  className="w-full text-left px-3 py-2 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer"
+                >
                   <FcAddRow className="inline-flex mx-[5px] text-[16px]" /> Đăng
                   tin tuyển dụng mới
                 </a>
-                <a className="w-full text-left px-3 py-2 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                <a
+                  href="/company-manage/cv/list"
+                  className="w-full text-left px-3 py-2 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer"
+                >
                   <FcDocument className="inline-flex mx-[5px] text-[16px]" />{' '}
                   Xem & quản lý hồ sơ ứng viên
                 </a>
@@ -155,34 +75,6 @@ export default function CompanyDashBoard() {
               <button className="text-xs text-emerald-600 hover:underline">
                 Đọc thêm mẹo tuyển dụng
               </button>
-            </div>
-          </div>
-        </section>
-
-        {/* Bottom: stats */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-gray-900">
-              Hoạt động tuần này
-            </h3>
-            <span className="text-xs text-gray-400">7 ngày gần nhất</span>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-            <div>
-              <p className="text-xs text-gray-500">Lượt xem tin tuyển dụng</p>
-              <p className="text-lg font-semibold text-gray-900">120</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500">Tổng số ứng viên</p>
-              <p className="text-lg font-semibold text-gray-900">37</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500">Tin nhắn từ ứng viên</p>
-              <p className="text-lg font-semibold text-gray-900">9</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500">Lượt xem trang công ty</p>
-              <p className="text-lg font-semibold text-gray-900">56</p>
             </div>
           </div>
         </section>

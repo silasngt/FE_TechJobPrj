@@ -1,15 +1,14 @@
 'use client';
 import { useAuth } from '@/src/hooks/useAuth';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export const SiderUser = () => {
   const route = useRouter();
   const { isLogin, infoUser } = useAuth();
-  const currentPath =
-    typeof window !== 'undefined' ? window.location.pathname : '';
+  const pathname = usePathname();
 
   const isActive = (path: string) =>
-    currentPath.startsWith(path)
+    pathname.startsWith(path)
       ? 'bg-emerald-50 text-emerald-600 font-semibold'
       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900';
   const handleLogout = (linkRedirect: string) => {
@@ -48,7 +47,7 @@ export const SiderUser = () => {
           <a
             href="/user-manage/cv/list"
             className={`block w-full px-3 py-2 rounded-md transition-all ${isActive(
-              '/user-manage/cv'
+              '/user-manage/cv/list'
             )}`}
           >
             Công việc đã ứng tuyển

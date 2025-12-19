@@ -2,12 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/src/hooks/useAuth';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type Skill = { name: string; slug: string };
 type City = { name: string; slug: string };
 type Company = { name: string; slug?: string; id?: string };
 
 export const HeaderMenu = (props: { showMenu: boolean }) => {
+  const route = useRouter();
   const { showMenu } = props;
   const { isLogin, infoUser, infoCompany } = useAuth();
 
@@ -19,35 +21,46 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
     companies: false,
   });
 
-  useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? '';
+  // useEffect(() => {
+  //   const base = process.env.NEXT_PUBLIC_API_URL ?? '';
 
-    fetch(`${base}/job/skills`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setSkills(data);
-        else if (data.success && Array.isArray(data.data)) setSkills(data.data);
-      })
-      .catch(() => {});
+  //   fetch(`${base}/job/skills`)
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       if (Array.isArray(data)) setSkills(data);
+  //       else if (data.success && Array.isArray(data.data)) setSkills(data.data);
+  //     })
+  //     .catch(() => {});
 
-    fetch(`${base}/job/cities`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setCities(data);
-        else if (data.success && Array.isArray(data.data)) setCities(data.data);
-      })
-      .catch(() => {});
+  //   fetch(`${base}/job/cities`)
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       if (Array.isArray(data)) setCities(data);
+  //       else if (data.success && Array.isArray(data.data)) setCities(data.data);
+  //     })
+  //     .catch(() => {});
 
-    fetch(`${base}/company/list?limit=8`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setCompanies(data);
-        else if (data.success && Array.isArray(data.data))
-          setCompanies(data.data);
-      })
-      .catch(() => {});
-  }, []);
-
+  //   fetch(`${base}/company/list?limit=8`)
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       if (Array.isArray(data)) setCompanies(data);
+  //       else if (data.success && Array.isArray(data.data))
+  //         setCompanies(data.data);
+  //     })
+  //     .catch(() => {});
+  // }, []);
+  const handleLogout = (linkRedirect: string) => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+      method: 'POST',
+      credentials: 'include', // gửi kèm token trong cookies
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success === true) {
+          route.push(linkRedirect);
+        }
+      });
+  };
   const toggleMobile = (key: keyof typeof mobileOpen) => {
     setMobileOpen((s) => ({ ...s, [key]: !s[key] }));
   };
@@ -307,19 +320,74 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
 
             {/* login/profile  */}
             {isLogin ? (
-              <div className="flex flex-col gap-2">
-                <a
-                  href="/user-manage/profile"
-                  className="w-full border border-white/60 text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
-                >
-                  Thông tin cá nhân
-                </a>
-                <a
-                  href="/user-manage/cv/list"
-                  className="w-full border border-white/60 text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
-                >
-                  Quản lý CV đã gửi
-                </a>
+              <div className="flex flex-col gap-4">
+                {/* USER ROLE */}
+                {infoUser && (
+                  <div className="space-y-2 flex flex-wrap gap-2">
+                    <p className="text-xs text-white/60 px-1">
+                      Tài khoản ứng viên
+                    </p>
+                    <a
+                      href="/user-manage/dashboard"
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Bảng điều khiển người dùng
+                    </a>
+                    <a
+                      href="/user-manage/profile"
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Hồ sơ công khai
+                    </a>
+                    <a
+                      href="/user-manage/applications"
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Công việc đã ứng tuyển
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => handleLogout('/job_seeker/login')}
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Đăng xuất
+                    </button>
+                  </div>
+                )}
+
+                {/* COMPANY ROLE */}
+                {infoCompany && (
+                  <div className="space-y-2 flex flex-wrap gap-2">
+                    <p className="text-xs text-white/60 px-1">
+                      Tài khoản nhà tuyển dụng
+                    </p>
+                    <a
+                      href="/company-manage/dashboard"
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Bảng điều khiển công ty
+                    </a>
+                    <a
+                      href="/company-manage/profile"
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Hồ sơ công ty
+                    </a>
+                    <a
+                      href="/company-manage/job/list"
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Quản lý công việc & CV
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => handleLogout('/company/login')}
+                      className="w-full border border-white/60 text-white text-sm px-4 py-2 rounded-full hover:bg-white/10 transition text-center"
+                    >
+                      Đăng xuất
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="flex flex-col gap-2">

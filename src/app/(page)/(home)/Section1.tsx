@@ -12,7 +12,7 @@ export const Section1 = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setCompanyList(res.data || []);
+          setCompanyList((res.data || []).slice(0, 9));
         }
         if (res.success === false) {
           toast.error(res.message);
@@ -31,7 +31,7 @@ export const Section1 = () => {
             href="/company/list"
             className="text-sm text-[#00B894] font-medium"
           >
-            View all
+            Xem tất cả
           </a>
         </div>
 

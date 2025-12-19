@@ -19,8 +19,8 @@ export const Footer = () => {
                 className="mb-[10px]"
               />
               <p className="text-sm text-white/80 max-w-xs">
-                Great platform for job seekers passionate about startups and new
-                opportunities around Viet Nam.
+                TechJob - Nền tảng tuyển dụng và tìm việc làm hàng đầu dành cho
+                cộng đồng IT Việt Nam.
               </p>
             </div>
 
@@ -29,10 +29,10 @@ export const Footer = () => {
               <h4 className="font-semibold mb-3 text-sm">About</h4>
               <ul className="space-y-3 text-sm text-white/80">
                 <li>
-                  <a href="#">About us</a>
+                  <a href="#">Về chúng tôi</a>
                 </li>
                 <li>
-                  <a href="#">Careers</a>
+                  <a href="#">Tuyển dụng</a>
                 </li>
                 <li>
                   <a href="#">Blog</a>
@@ -41,23 +41,23 @@ export const Footer = () => {
             </div>
             {/* Resources */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm">Resources</h4>
+              <h4 className="font-semibold mb-3 text-sm">Tài nguyên</h4>
               <ul className="space-y-3 text-sm text-white/80">
                 <li>
-                  <a href="#">Help Docs</a>
+                  <a href="#">Tài liệu hướng dẫn</a>
                 </li>
                 <li>
-                  <a href="#">Guide</a>
+                  <a href="#">Hướng dẫn</a>
                 </li>
                 <li>
-                  <a href="#">Update</a>
+                  <a href="#">Điều khoản sử dụng</a>
                 </li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm">Contact</h4>
+              <h4 className="font-semibold mb-3 text-sm">Liên hệ</h4>
               <ul className="space-y-3 text-sm text-white/80">
                 <li>010412600016 - Thực tập tốt nghiệp </li>
                 <li>2251120049 - Nguyễn Giang Thành Tài</li>

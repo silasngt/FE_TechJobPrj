@@ -1,6 +1,10 @@
 import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import { FormProfileUser } from './FormProfile';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Hồ sơ công khai - TechJob',
+  description: 'Quản lý hồ sơ công khai của bạn tại TechJob.',
+};
 export default function UserProfilePage() {
   return (
     <div className="min-h-screen bg-[#f5f7fb] flex">

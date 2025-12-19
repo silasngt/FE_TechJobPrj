@@ -14,12 +14,12 @@ export const HeroContent = () => {
           <div className="max-w-xl space-y-6 text-white">
             {/* Title */}
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-              <span className="block text-[#003161]">Discover</span>
-              <span className="block text-[#003161]">more than</span>
+              <span className="block text-[#003161]">Khám phá</span>
+              <span className="block text-[#003161]">với hơn</span>
 
               <span className="mt-2 inline-block relative">
                 <span className="text-[#4FB7B3]">+5000</span>{' '}
-                <span className="text-[#4FB7B3]">tech jobs</span>
+                <span className="text-[#4FB7B3]">công việc</span>
                 <span>
                   <img
                     src="../../assets/images/underline.svg"
@@ -31,8 +31,8 @@ export const HeroContent = () => {
 
             {/* Description */}
             <p className="text-sm md:text-base text-gray-700 max-w-md">
-              Great platform for the job seeker that searching for new career
-              heights and passionate about startups.
+              Nền tảng tuyệt vời cho những người tìm việc đang tìm kiếm cơ hội
+              nghề nghiệp mới và đam mê làm việc tại các công ty khởi nghiệp.
             </p>
           </div>
 

@@ -1,13 +1,12 @@
 import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import { Toaster, toast } from 'sonner';
 import { FormEditCv } from './FormEditCv';
+import { Metadata } from 'next';
 
-interface UserCvInfo {
-  fullName: string;
-  email: string;
-  phone: string;
-  fileName?: string;
-}
+export const metadata: Metadata = {
+  title: 'Chỉnh sửa hồ sơ - TechJob',
+  description: 'Cập nhật thông tin hồ sơ của bạn tại TechJob.',
+};
 
 export default async function UserCvEditPage({
   params,

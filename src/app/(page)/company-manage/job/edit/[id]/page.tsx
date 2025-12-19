@@ -1,6 +1,10 @@
 import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { FormEdit } from './FormEdit';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Chỉnh sửa tin tuyển dụng - TechJob',
+  description: 'Chỉnh sửa thông tin tin tuyển dụng của công ty bạn.',
+};
 export default async function CompanyJobEditPage({
   params,
 }: {

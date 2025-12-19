@@ -1,17 +1,12 @@
 import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { FcAddRow } from 'react-icons/fc';
 import { JobList } from './JobList';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Quản lý tin tuyển dụng - TechJob',
+  description: 'Quản lý và xem các tin tuyển dụng của công ty bạn.',
+};
 export default function CompanyJobManage() {
-  const getJobStatusClass = (status: string) => {
-    switch (status) {
-      case 'Đang mở':
-        return 'bg-emerald-50 text-emerald-600 border border-emerald-200';
-      default:
-        return 'bg-gray-50 text-gray-600 border border-gray-200';
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#f5f7fb] flex">
       {/* SIDEBAR */}
@@ -44,20 +39,6 @@ export default function CompanyJobManage() {
               Quay lại trang chủ
             </a>
           </div>
-        </div>
-
-        {/* Filter */}
-        <div className="mb-4 flex flex-wrap gap-3 items-center">
-          <input
-            type="text"
-            placeholder="Tìm theo tên vị trí..."
-            className="h-9 px-3 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 w-full md:w-72 bg-white"
-          />
-          <select className="h-9 px-3 rounded-md border border-gray-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
-            <option value="">Tất cả trạng thái</option>
-            <option value="Đang mở">Đang mở</option>
-            <option value="Đã đóng">Đã đóng</option>
-          </select>
         </div>
 
         {/* Job list */}

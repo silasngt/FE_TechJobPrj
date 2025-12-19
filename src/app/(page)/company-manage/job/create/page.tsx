@@ -1,6 +1,10 @@
 import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { FormCreate } from './FormCreate';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Đăng tin tuyển dụng mới - TechJob',
+  description: 'Đăng tin tuyển dụng mới cho công ty của bạn.',
+};
 export default function CompanyJobCreatePage() {
   return (
     <div className="min-h-screen bg-[#f5f7fb] flex">

@@ -1,7 +1,11 @@
 import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import Link from 'next/link';
 import { DetailCv } from './DetailCv';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Chi tiết hồ sơ - TechJob',
+  description: 'Xem chi tiết hồ sơ ứng tuyển của bạn tại TechJob.',
+};
 export default async function DetailCvUserPage({
   params,
 }: {

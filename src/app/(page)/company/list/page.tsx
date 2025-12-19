@@ -4,7 +4,8 @@ import { Footer } from '../../../components/footer/Footer';
 import { Header } from '../../../components/header/Header';
 import { toast } from 'sonner';
 import { CardCompanyItem } from '@/src/app/components/card/CardCompanyItem';
-
+import { PaginationGuest } from '@/src/app/components/pagination/PaginationGuest';
+import { CompanySearch } from '@/src/app/components/search/CompanySearch';
 export default function CompanyListPage() {
   const [companyList, setCompanyList] = useState<any[]>([]);
 
@@ -93,27 +94,14 @@ export default function CompanyListPage() {
             </div>
           </section>
 
-          {/* Search / filter (simple) */}
-          <section className="mb-6">
-            <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center">
-              <input
-                type="text"
-                placeholder="Tìm theo tên công ty..."
-                className="flex-1 h-11 px-4 rounded-full border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
-              <select className="h-11 px-4 rounded-full border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <option value="">Tất cả thành phố</option>
-                <option>Ho Chi Minh City</option>
-                <option>Ha Noi</option>
-                <option>Da Nang</option>
-              </select>
-            </div>
-          </section>
+          {/* Search / filter  */}
+          <CompanySearch />
 
           {/* Company cards */}
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             <CardCompanyItem topEmployers={companyList} />
           </section>
+          <PaginationGuest page={0} totalPage={10} />
         </div>
         <Footer />
       </main>

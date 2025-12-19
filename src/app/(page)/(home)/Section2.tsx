@@ -14,7 +14,7 @@ export const Section2 = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setJobList(res.data || []);
+          setJobList((res.data || []).slice(0, 11));
         }
       })
       .catch((err) => {
@@ -33,7 +33,7 @@ export const Section2 = () => {
           Feature <span className="text-[#00B894]">jobs</span>
         </h2>
         <a href="/job/list" className="text-sm text-[#00B894] font-medium">
-          View all
+          Xem tất cả
         </a>
       </div>
 

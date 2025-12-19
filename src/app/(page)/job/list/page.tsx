@@ -3,7 +3,9 @@ import { CardJobItem } from '@/src/app/components/card/CardJobItem';
 import { CardSkeleton } from '@/src/app/components/card/CardSkeleton';
 import { Footer } from '@/src/app/components/footer/Footer';
 import { Header } from '@/src/app/components/header/Header';
+import { PaginationGuest } from '@/src/app/components/pagination/PaginationGuest';
 import { JobSearch } from '@/src/app/components/search/JobSearch';
+import { Metadata } from 'next';
 import { useEffect, useState } from 'react';
 
 export default function JobListPage() {
@@ -118,7 +120,9 @@ export default function JobListPage() {
               </p>
             )}
           </div>
+          <PaginationGuest page={0} totalPage={10} />
         </div>
+
         <Footer />
       </main>
     </>

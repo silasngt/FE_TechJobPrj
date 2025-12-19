@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { UserItem } from './UserItem';
+import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 
 export const UserList = () => {
   const [listUser, setListUser] = useState<any>({
@@ -29,30 +30,33 @@ export const UserList = () => {
   };
   return (
     <>
-      <div className="px-5 py-3 border-b border-gray-100 flex justify-between items-center">
-        <h3 className="text-sm font-semibold text-gray-900">
-          Danh sách người dùng
-        </h3>
-        <span className="text-xs text-gray-500">
-          Tổng: {listUser.totalUser} user
-        </span>
-      </div>
-      <div className="divide-y divide-gray-100">
-        {listUser.user.map((user: any) => (
-          <div
-            key={user._id}
-            className="px-5 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-sm"
-          >
-            <UserItem user={user} onDeleteSuccess={handleDeleteSuccess} />
-          </div>
-        ))}
+      <section className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+        <div className="px-5 py-3 border-b border-gray-100 flex justify-between items-center">
+          <h3 className="text-sm font-semibold text-gray-900">
+            Danh sách người dùng
+          </h3>
+          <span className="text-xs text-gray-500">
+            Tổng: {listUser.totalUser} user
+          </span>
+        </div>
+        <div className="divide-y divide-gray-100">
+          {listUser.user.length > 0 ? (
+            listUser.user.map((item: any, index: number) => (
+              <UserItem
+                key={index}
+                user={item}
+                onDeleteSuccess={handleDeleteSuccess}
+              />
+            ))
+          ) : (
+            <div className="px-5 py-6 text-sm text-gray-500">
+              Chưa có người dùng nào.
+            </div>
+          )}
+        </div>
+      </section>
 
-        {listUser.user.length === 0 && (
-          <div className="px-5 py-6 text-sm text-gray-500">
-            Chưa có người dùng nào.
-          </div>
-        )}
-      </div>
+      <PaginationRole totalPage={0} page={0} />
     </>
   );
 };

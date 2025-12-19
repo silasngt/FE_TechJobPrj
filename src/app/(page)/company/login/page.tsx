@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { FormLoginCompany } from './FormLogin';
 import { LogoTabCompanySection } from '@/src/app/components/sectiontab/LogoTabSection';
 
@@ -17,11 +16,11 @@ export default function CompanyLoginPage() {
           {/* Quote Section */}
           <div className="text-center max-w-lg pt-8">
             <p className="text-4xl font-bold text-slate-900 mb-6 leading-relaxed">
-              "Post jobs & hire talent"
+              Đăng tuyển dụng & tuyển nhân tài
             </p>
             <p className="text-lg text-slate-700 mb-8">
-              Connect with thousands of skilled developers and tech
-              professionals
+              Kết nối với hàng nghìn nhà phát triển và chuyên gia công nghệ có
+              kỹ năng
             </p>
           </div>
 
@@ -31,36 +30,40 @@ export default function CompanyLoginPage() {
             <div className="bg-blue-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">💼</div>
               <p className="font-semibold text-slate-900 text-sm">
-                50K+ Talent
+                50K+ Nhà tuyển dụng hàng đầu
               </p>
-              <p className="text-xs text-slate-700">Ready to join</p>
+              <p className="text-xs text-slate-700">
+                Sẵn sàng tham gia với chúng tôi
+              </p>
             </div>
 
             {/* Card 2 */}
             <div className="bg-green-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">🎯</div>
               <p className="font-semibold text-slate-900 text-sm">
-                Perfect Match
+                Sự phù hợp hoàn hảo
               </p>
-              <p className="text-xs text-slate-700">Tailored for you</p>
+              <p className="text-xs text-slate-700">
+                Được thiết kế riêng cho bạn
+              </p>
             </div>
 
             {/* Card 3 */}
             <div className="bg-purple-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">⚡</div>
               <p className="font-semibold text-slate-900 text-sm">
-                Fast Hiring
+                Tuyển dụng nhanh
               </p>
-              <p className="text-xs text-slate-700">Quick responses</p>
+              <p className="text-xs text-slate-700">Phản hồi nhanh chóng</p>
             </div>
 
             {/* Card 4 */}
             <div className="bg-orange-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-3">👑</div>
               <p className="font-semibold text-slate-900 text-sm">
-                Top Companies
+                Tuyển dụng đỉnh cao
               </p>
-              <p className="text-xs text-slate-700">Lead employers</p>
+              <p className="text-xs text-slate-700">Nhà tuyển dụng hàng đầu</p>
             </div>
           </div>
 
@@ -70,8 +73,8 @@ export default function CompanyLoginPage() {
               <span className="text-2xl">⭐</span>
             </div>
             <div className="text-left">
-              <p className="font-semibold text-slate-900">4.9/5 Rating</p>
-              <p className="text-sm text-gray-500">From 10,000+ reviews</p>
+              <p className="font-semibold text-slate-900">4.9/5 Sao</p>
+              <p className="text-sm text-gray-500">Từ 10,000+ đánh giá</p>
             </div>
           </div>
         </div>
@@ -82,10 +85,10 @@ export default function CompanyLoginPage() {
             <LogoTabCompanySection />
 
             <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-2 text-center">
-              Post jobs & hire talent
+              Đăng tuyển dụng & thuê nhân tài
             </h1>
             <p className="text-slate-700 text-sm text-center mb-6">
-              Build your dream team with TechJob
+              Xây dựng đội ngũ mơ ước với TechJob
             </p>
 
             {/* Sign up with Google */}
@@ -94,13 +97,15 @@ export default function CompanyLoginPage() {
               className="w-full border border-gray-200 rounded-lg py-3 px-4 flex items-center justify-center gap-2 text-sm font-medium text-slate-700 hover:bg-blue-50 mb-5 transition"
             >
               <span className="text-lg">+</span>
-              <span>Login with Google</span>
+              <span>Đăng nhập với Google</span>
             </button>
 
             {/* Divider */}
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px flex-1 bg-gray-200" />
-              <span className="text-xs text-gray-400">Or login with email</span>
+              <span className="text-xs text-gray-400">
+                Hoặc đăng nhập bằng Email
+              </span>
               <div className="h-px flex-1 bg-gray-200" />
             </div>
 
@@ -109,20 +114,20 @@ export default function CompanyLoginPage() {
 
             {/* Login link */}
             <p className="mt-4 text-xs text-slate-700">
-              You don't have an account yet, join us?{' '}
+              Bạn chưa có tài khoản? Tham gia cùng chúng tôi?{' '}
               <a
                 href="/company/register"
                 className="text-teal-500 font-medium hover:underline"
               >
-                Sign Up
+                Đăng ký
               </a>
             </p>
 
             {/* Terms */}
             <p className="mt-4 text-[10px] leading-relaxed text-slate-500">
-              By clicking 'Continue', you acknowledge that you have read and
-              accept the <span className="text-teal-500">Terms of Service</span>{' '}
-              and <span className="text-teal-500">Privacy Policy</span>.
+              Bằng việc đăng nhập, bạn đồng ý với{' '}
+              <span className="text-teal-500">Điều khoản Dịch vụ</span> và{' '}
+              <span className="text-teal-500">Chính sách Bảo mật</span>.
             </p>
           </div>
         </div>
