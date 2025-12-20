@@ -5,10 +5,7 @@ import { useEffect, useState } from 'react';
 import { FcAddRow, FcDocument } from 'react-icons/fc';
 
 export const CvCompanyRecent = () => {
-  const [listCV, setListCV] = useState<any>({
-    totalCV: 0,
-    cvs: [],
-  });
+  const [listCV, setListCV] = useState<any[]>([]);
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/cvs/all`, {
       method: 'GET',
@@ -18,7 +15,7 @@ export const CvCompanyRecent = () => {
       .then((res) => {
         if (res.success === true) {
           console.log(res);
-          setListCV(res.data);
+          setListCV(res.dataCV);
         }
       });
   }, []);
@@ -38,7 +35,7 @@ export const CvCompanyRecent = () => {
           </Link>
         </div>
         <div className="divide-y divide-gray-100">
-          {listCV.cvs.map((item: any, idx: number) => (
+          {listCV.map((item: any, idx: number) => (
             <div
               key={idx}
               className="px-5 py-3 flex items-center justify-between text-sm"

@@ -5,10 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export const CvUserRecent = () => {
-  const [listCV, setListCV] = useState<any>({
-    totalCV: 0,
-    cvs: [],
-  });
+  const [listCV, setListCV] = useState<any[]>([]);
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/cvs/me`, {
       method: 'GET',
@@ -18,7 +15,7 @@ export const CvUserRecent = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setListCV(res.data);
+          setListCV(res.data.data || []);
         }
       });
   }, []);
@@ -38,7 +35,7 @@ export const CvUserRecent = () => {
             </Link>
           </div>
           <div className="divide-y divide-gray-100">
-            {listCV.cvs.map((item: any, idx: number) => {
+            {listCV.map((item: any, idx: number) => (
               <div
                 key={idx}
                 className="px-5 py-3 flex items-center justify-between text-sm"
@@ -67,8 +64,8 @@ export const CvUserRecent = () => {
                     </span>
                   )}
                 </div>
-              </div>;
-            })}
+              </div>
+            ))}
           </div>
         </div>
       )}

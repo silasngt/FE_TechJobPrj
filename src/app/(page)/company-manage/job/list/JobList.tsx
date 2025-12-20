@@ -30,17 +30,18 @@ export const JobList = () => {
       .then((res) => {
         console.log('res', res);
         if (res.success === true) {
-          setJobList(res.data.jobs || []);
-          setTotalJob(res.data.totalJob);
-          // setTotalPage(res.totalPage);
+          setJobList(res.data || []);
+          setTotalJob(res.totalJob);
+          setTotalPage(res.totalPage);
         }
       });
   }, [status, position]);
   // console.log('jobList', jobList);
 
   // Xử lý cho Phân trang
-  const handlePagination = (page: number) => {
-    setPage(page);
+  const handlePagination = (event: any) => {
+    const value = event.target.value;
+    setPage(parseInt(value));
   };
 
   // Xử lý cho Delete Soft (Toggle Status)
@@ -182,11 +183,22 @@ export const JobList = () => {
           )}
         </div>
       </section>
-      <PaginationRole
-        totalPage={totalPage}
-        page={page}
-        onPageChange={handlePagination}
-      />
+      {totalPage > 0 && (
+        <div className="mt-[30px]">
+          <select
+            onChange={handlePagination}
+            className="border border-[#DEDEDE] rounded-[8px] py-[12px] px-[18px] font-[400] text-[16px] text-[#414042] outline-none"
+          >
+            {Array(totalPage)
+              .fill('')
+              .map((_, index) => (
+                <option key={index} value={index + 1}>
+                  Trang {index + 1}
+                </option>
+              ))}
+          </select>
+        </div>
+      )}
     </>
   );
 };

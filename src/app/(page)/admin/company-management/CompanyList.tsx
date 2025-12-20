@@ -5,23 +5,26 @@ import { CompanyItem } from './CompanyItem';
 import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 
 export const CompanyList = () => {
-  const [dataCompanies, setDataCompanies] = useState<any>({
-    totalCompany: 0,
-    company: [],
-  });
+  const [dataCompanies, setDataCompanies] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/companies/all`, {
-      method: 'GET',
-      credentials: 'include',
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/companies/all?page=${page}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.success === true) {
           setDataCompanies(res.data);
+          setTotalPage(res.totalPage || 0);
         }
       });
-  });
+  }, [page]);
   const handleDeleteSuccess = (deleteid: string) => {
     // setListCV((prev: any) => ({
     //   ...prev,
@@ -29,6 +32,10 @@ export const CompanyList = () => {
     // }));
   };
   // console.log(dataCompanies);
+  const handlePagination = (event: any) => {
+    const value = event.target.value;
+    setPage(parseInt(value));
+  };
   return (
     <>
       <section className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
@@ -37,13 +44,13 @@ export const CompanyList = () => {
             Danh sách công ty
           </h3>
           <span className="text-xs text-gray-500">
-            Tổng: {dataCompanies.totalCompany} công ty
+            Tổng: {dataCompanies.length} công ty
           </span>
         </div>
 
         <div className="divide-y divide-gray-100">
-          {dataCompanies.company.length > 0 ? (
-            dataCompanies.company.map((item: any, index: number) => (
+          {dataCompanies.length > 0 ? (
+            dataCompanies.map((item: any, index: number) => (
               <CompanyItem
                 key={index}
                 item={item}
@@ -57,7 +64,22 @@ export const CompanyList = () => {
           )}
         </div>
       </section>
-      <PaginationRole totalPage={0} page={0} />
+      {totalPage > 0 && (
+        <div className="mt-[30px]">
+          <select
+            onChange={handlePagination}
+            className="border border-[#DEDEDE] rounded-[8px] py-[12px] px-[18px] font-[400] text-[16px] text-[#414042] outline-none"
+          >
+            {Array(totalPage)
+              .fill('')
+              .map((_, index) => (
+                <option key={index} value={index + 1}>
+                  Trang {index + 1}
+                </option>
+              ))}
+          </select>
+        </div>
+      )}
     </>
   );
 };

@@ -5,31 +5,31 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 
 export const CVList = () => {
-  const [listCV, setListCV] = useState<any>({
-    totalCV: 0,
-    cvs: [],
-  });
+  const [listCV, setListCV] = useState<any[]>([]);
   const searchParams = useSearchParams();
   const status = searchParams.get('status') || '';
   const router = useRouter();
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/cvs/all?status=${status}`, {
-      method: 'GET',
-      credentials: 'include',
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/cvs/all?status=${status}&page=${page}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
         if (res.success === true) {
           // console.log(res);
-          setListCV(res.data);
+          setListCV(res.dataCV);
+          setTotalPage(res.totalPageCv || 0);
         }
       });
-  }, [status]);
+  }, [status, page]);
   const handleDeleteSuccess = (deleteid: string) => {
-    setListCV((prev: any) => ({
-      ...prev,
-      cvs: prev.cvs.filter((cv: any) => cv.id !== deleteid),
-    }));
+    setListCV((prev: any) => prev.filter((cv: any) => cv.id !== deleteid));
   };
 
   const handleFilterStatus = (event: any) => {
@@ -42,6 +42,10 @@ export const CVList = () => {
       params.delete('status');
     }
     router.push(`?${params.toString()}`);
+  };
+  const handlePagination = (event: any) => {
+    const value = event.target.value;
+    setPage(parseInt(value));
   };
   return (
     <>
@@ -61,13 +65,13 @@ export const CVList = () => {
         <div className="px-5 py-3 border-b border-gray-100 flex justify-between items-center">
           <h3 className="text-sm font-semibold text-gray-900">Danh sách CV</h3>
           <span className="text-xs text-gray-500">
-            Tổng: {listCV.totalCV} ứng viên
+            Tổng: {listCV.length} ứng viên
           </span>
         </div>
 
         <div className="divide-y divide-gray-100">
-          {listCV.cvs.length > 0 ? (
-            listCV.cvs.map((item: any, index: number) => (
+          {listCV.length > 0 ? (
+            listCV.map((item: any, index: number) => (
               <CVItem
                 key={item._id}
                 item={item}
@@ -81,7 +85,22 @@ export const CVList = () => {
           )}
         </div>
       </section>
-      <PaginationRole totalPage={listCV.length} page={0} />
+      {totalPage > 0 && (
+        <div className="mt-[30px]">
+          <select
+            onChange={handlePagination}
+            className="border border-[#DEDEDE] rounded-[8px] py-[12px] px-[18px] font-[400] text-[16px] text-[#414042] outline-none"
+          >
+            {Array(totalPage)
+              .fill('')
+              .map((_, index) => (
+                <option key={index} value={index + 1}>
+                  Trang {index + 1}
+                </option>
+              ))}
+          </select>
+        </div>
+      )}
     </>
   );
 };

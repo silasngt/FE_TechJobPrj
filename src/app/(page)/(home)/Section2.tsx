@@ -14,7 +14,7 @@ export const Section2 = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setJobList((res.data || []).slice(0, 11));
+          setJobList((res.data.data || []).slice(0, 11));
         }
       })
       .catch((err) => {

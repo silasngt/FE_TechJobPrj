@@ -12,7 +12,7 @@ export const Section1 = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setCompanyList((res.data || []).slice(0, 9));
+          setCompanyList((res.data.data || []).slice(0, 9));
         }
         if (res.success === false) {
           toast.error(res.message);

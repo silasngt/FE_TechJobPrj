@@ -11,15 +11,18 @@ import { useEffect, useState } from 'react';
 export default function JobListPage() {
   const [jobList, setJobList] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/all`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/all?page=${page}`)
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setJobList(res.data || []);
+          setJobList(res.data.data || []);
+          setTotalPage(res.data.totalPage || 0);
         }
       })
       .catch((err) => {
@@ -29,7 +32,11 @@ export default function JobListPage() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [page]);
+  const handlePagination = (event: any) => {
+    const value = event.target.value;
+    setPage(parseInt(value));
+  };
   return (
     <>
       <main className="min-h-screen bg-[#f5f7fb]">
@@ -120,7 +127,22 @@ export default function JobListPage() {
               </p>
             )}
           </div>
-          <PaginationGuest page={0} totalPage={10} />
+          {totalPage && (
+            <div className="mt-[30px]">
+              <select
+                onChange={handlePagination}
+                className="border border-[#DEDEDE] rounded-[8px] py-[12px] px-[18px] font-[400] text-[16px] text-[#414042] outline-none"
+              >
+                {Array(totalPage)
+                  .fill('')
+                  .map((_, index) => (
+                    <option key={index} value={index + 1}>
+                      Trang {index + 1}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          )}
         </div>
 
         <Footer />

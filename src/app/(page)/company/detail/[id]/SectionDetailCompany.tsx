@@ -20,7 +20,7 @@ export const SectionDetailCompany = (props: { id: string }) => {
       .then((res) => {
         console.log(res);
         if (res.success === true) {
-          setDetailCompany(res.data.company);
+          setDetailCompany(res.company);
           setJobRelation(res.data.jobs);
         }
       });

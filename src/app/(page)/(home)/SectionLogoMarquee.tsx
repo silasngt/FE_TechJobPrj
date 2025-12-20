@@ -10,7 +10,7 @@ export const SectionLogoMarquee = () => {
       .then((res) => {
         console.log(res);
         if (res.success === true) {
-          setLogos(res.data || []);
+          setLogos(res.data.data || []);
         }
       });
   }, []);

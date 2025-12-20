@@ -11,7 +11,7 @@ export const UserStatis = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.success === true) {
           setStatisUser(res.data);
         }

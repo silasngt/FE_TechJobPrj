@@ -18,7 +18,7 @@ export const CompanyItem = (props: {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success === true) {
           toast.success(
             `${item.isDeleted ? 'Mở khóa' : 'Khóa'} công ty thành công`

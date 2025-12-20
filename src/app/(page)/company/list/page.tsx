@@ -8,20 +8,27 @@ import { PaginationGuest } from '@/src/app/components/pagination/PaginationGuest
 import { CompanySearch } from '@/src/app/components/search/CompanySearch';
 export default function CompanyListPage() {
   const [companyList, setCompanyList] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/all`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/all?page=${page}`)
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setCompanyList(res.data || []);
+          setCompanyList(res.data.data || []);
+          setTotalPage(res.data.totalPage || 0);
         }
         if (res.success === false) {
           toast.error(res.message);
         }
       });
-  });
+  }, [page]);
+  const handlePagination = (event: any) => {
+    const value = event.target.value;
+    setPage(parseInt(value));
+  };
   return (
     <>
       {' '}
@@ -101,7 +108,22 @@ export default function CompanyListPage() {
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             <CardCompanyItem topEmployers={companyList} />
           </section>
-          <PaginationGuest page={0} totalPage={10} />
+          {totalPage && (
+            <div className="mt-[30px]">
+              <select
+                onChange={handlePagination}
+                className="border border-[#DEDEDE] rounded-[8px] py-[12px] px-[18px] font-[400] text-[16px] text-[#414042] outline-none"
+              >
+                {Array(totalPage)
+                  .fill('')
+                  .map((_, index) => (
+                    <option key={index} value={index + 1}>
+                      Trang {index + 1}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          )}
         </div>
         <Footer />
       </main>
