@@ -1,14 +1,18 @@
 'use client';
 import { CardJobRelationItem } from '@/src/app/components/card/CardJobRelationItem';
+import { useAuth } from '@/src/hooks/useAuth';
 import moment from 'moment';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 
 export const SectionDetailJob = (props: { id: string }) => {
   const { id } = props;
+  const router = useRouter();
   const [isValid, setIsValid] = useState(false);
   const [images, setImages] = useState<any>([]);
+  const { isLogin } = useAuth();
   const [jobRelation, setJobRelation] = useState<any[]>([]);
   const [jobDetail, setJobDetail] = useState<any>();
   // Lấy ra chi tiết công việc
@@ -30,8 +34,16 @@ export const SectionDetailJob = (props: { id: string }) => {
       });
   });
   // console.log(jobDetail);
+  const handleApply = () => {
+    if (!isLogin) {
+      toast.warning('Vui lòng đăng nhập để ứng tuyển');
+      return;
+    }
+    router.push(`/job/apply/${id}`);
+  };
   return (
     <>
+      {jobDetail && <Toaster position="top-right" richColors closeButton />}
       {jobDetail && (
         <div className="max-w-5xl mx-auto px-4 py-10">
           {/* ====== TOP: JOB + COMPANY ====== */}
@@ -49,12 +61,12 @@ export const SectionDetailJob = (props: { id: string }) => {
                   </p>
                 </div>
 
-                <a
-                  href={`/job/apply/${id}`}
+                <button
+                  onClick={handleApply}
                   className="inline-flex items-center justify-center px-6 py-2 rounded-full bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600 transition"
                 >
                   Ứng tuyển ngay
-                </a>
+                </button>
               </div>
 
               {/* Thông tin nhanh */}
@@ -198,12 +210,6 @@ export const SectionDetailJob = (props: { id: string }) => {
               <h2 className="text-lg font-semibold text-gray-900">
                 Việc làm công ty đang tuyển dụng
               </h2>
-              <Link
-                href={`/job/list`}
-                className="text-xs text-emerald-600 hover:underline"
-              >
-                Xem thêm
-              </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -4,25 +4,36 @@ import { Footer } from '../../../components/footer/Footer';
 import { Header } from '../../../components/header/Header';
 import { toast } from 'sonner';
 import { CardCompanyItem } from '@/src/app/components/card/CardCompanyItem';
-import { PaginationGuest } from '@/src/app/components/pagination/PaginationGuest';
 import { CompanySearch } from '@/src/app/components/search/CompanySearch';
+import { CardSkeleton } from '@/src/app/components/card/CardSkeleton';
 export default function CompanyListPage() {
   const [companyList, setCompanyList] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/all?page=${page}`)
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
+          setIsLoading;
           setCompanyList(res.data.data || []);
           setTotalPage(res.data.totalPage || 0);
         }
         if (res.success === false) {
+          setIsLoading(false);
           toast.error(res.message);
         }
+      })
+      .catch((err) => {
+        console.error(err);
+        setCompanyList([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [page]);
   const handlePagination = (event: any) => {
@@ -106,7 +117,17 @@ export default function CompanyListPage() {
 
           {/* Company cards */}
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-            <CardCompanyItem topEmployers={companyList} />
+            {isLoading ? (
+              Array.from({ length: 8 }).map((_, idx) => (
+                <CardSkeleton key={idx} />
+              ))
+            ) : companyList.length > 0 ? (
+              <CardCompanyItem topEmployers={companyList} />
+            ) : (
+              <p className="text-sm text-gray-500 col-span-full">
+                Hiện chưa có công ty .
+              </p>
+            )}
           </section>
           {totalPage && (
             <div className="mt-[30px]">

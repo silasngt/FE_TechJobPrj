@@ -19,7 +19,7 @@ export const CompanySearchItem = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success === true) {
           setCompanyList(res.data.result);
           setLoading(false);

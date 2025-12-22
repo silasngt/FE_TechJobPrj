@@ -2,11 +2,14 @@
 import { useEffect, useState } from 'react';
 import { CardCompanyItem } from '../../components/card/CardCompanyItem';
 import { toast, Toaster } from 'sonner';
+import { CardSkeleton } from '../../components/card/CardSkeleton';
 
 export const Section1 = () => {
   const [companyList, setCompanyList] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/all`)
       .then((res) => res.json())
       .then((res) => {
@@ -17,6 +20,13 @@ export const Section1 = () => {
         if (res.success === false) {
           toast.error(res.message);
         }
+      })
+      .catch((err) => {
+        console.error(err);
+        setCompanyList([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
   return (
@@ -36,7 +46,17 @@ export const Section1 = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <CardCompanyItem topEmployers={companyList} />
+          {isLoading ? (
+            Array.from({ length: 8 }).map((_, idx) => (
+              <CardSkeleton key={idx} />
+            ))
+          ) : companyList.length > 0 ? (
+            <CardCompanyItem topEmployers={companyList} />
+          ) : (
+            <p className="text-sm text-gray-500 col-span-full">
+              Hiện chưa có công ty nổi bật.
+            </p>
+          )}
         </div>
       </section>
     </>

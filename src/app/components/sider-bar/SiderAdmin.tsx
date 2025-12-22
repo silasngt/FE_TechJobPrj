@@ -1,8 +1,6 @@
 'use client';
-
 import { useAuth } from '@/src/hooks/useAuth';
 import { usePathname, useRouter } from 'next/navigation';
-import { use } from 'react';
 
 export const SiderAdmin = () => {
   const { isLogin, infoAdmin } = useAuth();
@@ -70,8 +68,8 @@ export const SiderAdmin = () => {
             AD
           </div>
           <div className="text-xs">
-            <p className="font-semibold text-gray-800">Admin</p>
-            <p className="text-gray-500">admin@techjob.com</p>
+            <p className="font-semibold text-gray-800">{infoAdmin?.fullName}</p>
+            <p className="text-gray-500">{infoAdmin?.email}</p>
           </div>
         </div>
         {isLogin && (

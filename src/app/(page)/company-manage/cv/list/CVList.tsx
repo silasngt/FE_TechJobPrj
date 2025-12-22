@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { CVItem } from './CVItem';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 
 export const CVList = () => {
   const [listCV, setListCV] = useState<any[]>([]);
@@ -24,7 +23,7 @@ export const CVList = () => {
         if (res.success === true) {
           // console.log(res);
           setListCV(res.dataCV);
-          setTotalPage(res.totalPageCv || 0);
+          setTotalPage(res.totalPageCV || 0);
         }
       });
   }, [status, page]);

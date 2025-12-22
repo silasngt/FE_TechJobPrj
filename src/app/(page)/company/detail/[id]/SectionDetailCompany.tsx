@@ -3,7 +3,7 @@ import { CardJobRelationItem } from '@/src/app/components/card/CardJobRelationIt
 import moment from 'moment';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 
 export const SectionDetailCompany = (props: { id: string }) => {
   const { id } = props;
@@ -21,12 +21,13 @@ export const SectionDetailCompany = (props: { id: string }) => {
         console.log(res);
         if (res.success === true) {
           setDetailCompany(res.company);
-          setJobRelation(res.data.jobs);
+          setJobRelation(res.data);
         }
       });
   }, []);
   return (
     <>
+      {companyDetail && <Toaster position="top-right" richColors closeButton />}
       {companyDetail && (
         <div className="max-w-5xl mx-auto px-4 py-10">
           {/* ====== HERO COMPANY ====== */}
@@ -112,23 +113,8 @@ export const SectionDetailCompany = (props: { id: string }) => {
               <h2 className="text-xl font-semibold text-gray-900 mb-3">
                 Tổng quan về công ty
               </h2>
-              <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                Stripe là nền tảng thanh toán giúp doanh nghiệp mọi quy mô nhận
-                và xử lý giao dịch trực tuyến một cách đơn giản. Tại Việt Nam,
-                Stripe tập trung xây dựng đội ngũ kỹ sư và sản phẩm phù hợp với
-                thị trường Đông Nam Á, tối ưu trải nghiệm thanh toán và bảo mật.
-              </p>
-              <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                Môi trường làm việc đề cao sự chủ động, minh bạch và học hỏi
-                liên tục. Các thành viên có cơ hội tham gia vào những bài toán
-                lớn về scale hệ thống, xử lý dữ liệu và trải nghiệm người dùng
-                với hàng triệu giao dịch mỗi ngày.
-              </p>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Stripe Việt Nam hướng đến việc xây dựng đội ngũ kỹ sư, sản phẩm
-                và vận hành đẳng cấp quốc tế, đồng thời mang lại những giá trị
-                thiết thực cho hệ sinh thái startup, SME và các doanh nghiệp
-                trong khu vực.
+              <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                {companyDetail.description}
               </p>
             </div>
           </section>
@@ -136,19 +122,18 @@ export const SectionDetailCompany = (props: { id: string }) => {
           {/* ====== GALLERY (ẢNH VĂN HÓA) ====== */}
           <section className="mb-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Bạn thay các div này bằng <img src="..."/> sau */}
-              <div className="md:row-span-2 rounded-2xl overflow-hidden bg-gray-200 h-64 md:h-full">
-                <div className="w-full h-full bg-[url('/images/company-1.jpg')] bg-cover bg-center" />
-              </div>
-              <div className="rounded-2xl overflow-hidden bg-gray-200 h-32 md:h-40">
-                <div className="w-full h-full bg-[url('/images/company-2.jpg')] bg-cover bg-center" />
-              </div>
-              <div className="rounded-2xl overflow-hidden bg-gray-200 h-32 md:h-40">
-                <div className="w-full h-full bg-[url('/images/company-3.jpg')] bg-cover bg-center" />
-              </div>
-              <div className="rounded-2xl overflow-hidden bg-gray-200 h-32 md:h-40">
-                <div className="w-full h-full bg-[url('/images/company-4.jpg')] bg-cover bg-center" />
-              </div>
+              {companyDetail.images.map((img: any, idx: number) => (
+                <div
+                  key={idx}
+                  className="w-full h-48 rounded-2xl overflow-hidden"
+                >
+                  <img
+                    src={img}
+                    alt={`Company Image ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </section>
 

@@ -1,8 +1,20 @@
+import { useAuth } from '@/src/hooks/useAuth';
 import moment from 'moment';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export const CardJobRelationItem = (props: { job: any; address: string }) => {
   const { job, address } = props;
+  const router = useRouter();
+  const { isLogin } = useAuth();
+  const handleApply = (id: string) => {
+    if (!isLogin) {
+      toast.warning('Vui lòng đăng nhập để ứng tuyển');
+      return;
+    }
+    router.push(`/job/apply/${id}`);
+  };
   return (
     <>
       <article className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex flex-col justify-between hover:shadow-md transition-shadow">
@@ -21,17 +33,17 @@ export const CardJobRelationItem = (props: { job: any; address: string }) => {
         </div>
         <div className="mt-3 flex justify-between items-center">
           <Link
-            href={`/job/detail/${job._id}`}
+            href={`/job/detail/${job.jobId}`}
             className="text-xs text-emerald-600 hover:underline"
           >
             Xem chi tiết
           </Link>
-          <Link
-            href={`/job/apply/${job.jobId}`}
+          <button
+            onClick={() => handleApply(job.jobId)}
             className="px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-600 transition"
           >
             Ứng tuyển
-          </Link>
+          </button>
         </div>
       </article>
     </>

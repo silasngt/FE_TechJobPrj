@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="mdl-js" suppressHydrationWarning={true}>
-      <body className={beVietnamPro.className || ''}>{children}</body>
+    <html lang="vi" suppressHydrationWarning={true}>
+      <body>{children}</body>
     </html>
   );
 }

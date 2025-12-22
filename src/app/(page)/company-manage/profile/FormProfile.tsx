@@ -376,7 +376,7 @@ export const FormProfileCompany = () => {
               {/* Hình ảnh giới thiệu công ty */}
               <div className="flex flex-col gap-2 md:col-span-2">
                 <label className="text-xs font-medium text-gray-700">
-                  Tải lên logo mới
+                  Tải lên ảnh giới thiệu công ty
                 </label>
                 <FilePond
                   name="images"
@@ -384,7 +384,7 @@ export const FormProfileCompany = () => {
                   allowRemove={true} //Cho phép xóa ảnh
                   labelIdle="+"
                   acceptedFileTypes={['image/*']}
-                  files={logos}
+                  files={images}
                   onupdatefiles={setImages}
                   maxFiles={5}
                 />

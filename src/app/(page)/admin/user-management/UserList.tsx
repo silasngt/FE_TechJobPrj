@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { UserItem } from './UserItem';
-import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 
 export const UserList = () => {
   const [listUser, setListUser] = useState<any>([]);

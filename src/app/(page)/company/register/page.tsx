@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { FormRegisterCompany } from './FormRegister';
-import Link from 'next/link';
 import { LogoTabCompanySection } from '@/src/app/components/sectiontab/LogoTabSection';
 
 export const metadata: Metadata = {

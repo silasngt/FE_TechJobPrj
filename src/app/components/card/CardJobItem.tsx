@@ -1,11 +1,22 @@
+import { useAuth } from '@/src/hooks/useAuth';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export const CardJobItem = (props: { featureJobs: any[] }) => {
   const { featureJobs } = props;
+  const router = useRouter();
+  const { isLogin } = useAuth();
 
   // Lấy tối đa 8 job
   const limitedJobs = (featureJobs || []).slice(0, 8);
-
+  const handleApply = (id: string) => {
+    if (!isLogin) {
+      toast.warning('Vui lòng đăng nhập để ứng tuyển');
+      return;
+    }
+    router.push(`/job/apply/${id}`);
+  };
   return (
     <>
       {limitedJobs.map((job: any, index: number) => {
@@ -78,12 +89,12 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
               <span className="text-[11px] text-gray-500 truncate max-w-[70%]">
                 {job.workingForm}
               </span>
-              <Link
-                href={`/job/apply/${job.jobId}`}
+              <button
+                onClick={() => handleApply(job.jobId)}
                 className="px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-600 transition"
               >
                 Ứng tuyển
-              </Link>
+              </button>
             </div>
           </div>
         );

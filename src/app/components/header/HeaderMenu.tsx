@@ -58,6 +58,7 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
       .then((res) => {
         if (res.success === true) {
           route.push(linkRedirect);
+          route.refresh();
         }
       });
   };

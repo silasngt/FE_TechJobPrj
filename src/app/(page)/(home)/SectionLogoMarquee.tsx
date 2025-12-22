@@ -8,7 +8,7 @@ export const SectionLogoMarquee = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/all`)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success === true) {
           setLogos(res.data.data || []);
         }

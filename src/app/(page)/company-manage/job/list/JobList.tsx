@@ -3,7 +3,6 @@ import {
   ButtonDeleteForce,
   ButtonDeleteSoft,
 } from '@/src/app/components/button/ButtonDelete';
-import { PaginationRole } from '@/src/app/components/pagination/PaginationRole';
 import { workingFormList } from '@/src/config/workingForm';
 import moment from 'moment';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -28,7 +27,7 @@ export const JobList = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log('res', res);
+        // console.log('res', res);
         if (res.success === true) {
           setJobList(res.data || []);
           setTotalJob(res.totalJob);
@@ -166,7 +165,7 @@ export const JobList = () => {
                       Chỉnh sửa
                     </a>
                     <ButtonDeleteForce
-                      api={`${process.env.NEXT_PUBLIC_API_URL}/companies/jobs/${job.jobId}/force`}
+                      api={`${process.env.NEXT_PUBLIC_API_URL}/jobs/${job.jobId}/force`}
                       id={job.jobId}
                       onDeleteSuccess={handleDeleteSuccess}
                     />

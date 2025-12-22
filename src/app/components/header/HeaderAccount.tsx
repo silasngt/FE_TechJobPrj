@@ -33,7 +33,7 @@ export const HeaderAccount = () => {
                   <Link href="/user-manage/dashboard" className="">
                     {infoUser.fullName}
                   </Link>
-                  <ul className="absolute top-[100%] right-[0px] w-[220px] bg-[#8ABEB9] hidden group-hover/sub-1:block rounded-b-[4px] overflow-hidden shadow-md">
+                  <ul className="absolute top-[100%] right-[0px] w-[220px] bg-[#8ABEB9] hidden group-hover/sub-1:block rounded-b-[4px] overflow-hidden shadow-md z-9999">
                     <li className="py-[10px] px-[16px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
                       <Link
                         href="/user-manage/dashboard"
@@ -89,7 +89,7 @@ export const HeaderAccount = () => {
               <Link href="/company-manage/dashboard" className="">
                 {infoCompany.companyName}
               </Link>
-              <ul className="absolute top-[100%] right-[0px] w-[220px] bg-[#8ABEB9] hidden group-hover/sub-1:block rounded-b-[4px] overflow-hidden shadow-md">
+              <ul className="absolute top-[100%] right-[0px] w-[220px] bg-[#8ABEB9] hidden group-hover/sub-1:block rounded-b-[4px] overflow-hidden shadow-md z-9999">
                 <li className="py-[10px] px-[16px] flex items-center justify-between hover:bg-[#B7E5CD] relative group/sub-2">
                   <Link
                     href="/company-manage/dashboard"
