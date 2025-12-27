@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Footer } from '../../components/footer/Footer';
 import { Header } from '../../components/header/Header';
 import { HeroContent } from '../../components/hero/HeroSection';
@@ -21,7 +22,9 @@ export default function Home() {
     <>
       {/* HEADER + HERO */}
       <Header />
-      <HeroContent />
+      <Suspense>
+        <HeroContent />
+      </Suspense>
 
       {/* MAIN CONTENT */}
       <main className="bg-[#F5FBFF]">

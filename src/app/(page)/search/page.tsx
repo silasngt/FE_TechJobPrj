@@ -4,6 +4,7 @@ import { Footer } from '@/src/app/components/footer/Footer';
 import { Search } from '../../components/hero/SearchSection';
 import { SearchHomeHeader } from './SearchHomeHeader';
 import { SearchHomeItem } from './SearchHomeItem';
+import { Suspense } from 'react';
 
 export default function JobSearchResultPage() {
   return (
@@ -14,7 +15,9 @@ export default function JobSearchResultPage() {
       <main className="flex-1 bg-[#f5f7fb]">
         <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
           <SearchHomeHeader />
-          <Search />
+          <Suspense>
+            <Search />
+          </Suspense>
           <SearchHomeItem />
         </div>
       </main>
