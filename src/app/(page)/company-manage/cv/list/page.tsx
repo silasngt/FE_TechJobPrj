@@ -1,6 +1,7 @@
 import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { CVList } from './CVList';
 import { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Quản lý CV Ứng Tuyển - TechJob',
   description:

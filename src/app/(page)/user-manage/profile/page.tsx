@@ -1,6 +1,7 @@
 import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import { FormProfileUser } from './FormProfile';
 import { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Hồ sơ công khai - TechJob',
   description: 'Quản lý hồ sơ công khai của bạn tại TechJob.',

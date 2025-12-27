@@ -4,7 +4,7 @@ import { SiderAdmin } from '@/src/app/components/sider-bar/SiderAdmin';
 import { Toaster, toast } from 'sonner';
 import { UserList } from './UserList';
 import { useAuth } from '@/src/hooks/useAuth';
-
+export const dynamic = 'force-dynamic';
 export default function AdminUserManagementPage() {
   const { infoAdmin } = useAuth();
   return (

@@ -3,7 +3,7 @@ import { workingFormList } from '@/src/config/workingForm';
 import { ItemCvUser } from './ItemCvUser';
 import { useEffect, useState } from 'react';
 import { cvStatusList } from '@/src/config/cvList';
-
+export const dynamic = 'force-dynamic';
 export const ListCvUser = () => {
   const [listCV, setListCV] = useState<any>([]);
   const [page, setPage] = useState(1);

@@ -3,7 +3,7 @@ import { SiderAdmin } from '@/src/app/components/sider-bar/SiderAdmin';
 import { useAuth } from '@/src/hooks/useAuth';
 import { StatisticSection } from './StatisticSection';
 import { SystemInsightSection } from './InsightSection';
-
+export const dynamic = 'force-dynamic';
 export default function AdminDashboardPage() {
   const { infoAdmin } = useAuth();
 

@@ -4,6 +4,7 @@ import { CvUserRecent } from './CvUserRecent';
 import Link from 'next/link';
 import { UserStatis } from './UserStatis';
 import { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Bảng điều khiển người dùng - TechJob',
   description: 'Tổng quan nhanh về các hoạt động tìm việc của bạn.',

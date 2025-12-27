@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { SectionDetailCV } from './SectionDetailCV';
 import { SectionJobCV } from './SectionJobCV';
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Chi tiết CV ứng tuyển - TechJob',
   description:

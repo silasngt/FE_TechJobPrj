@@ -1,7 +1,7 @@
 import { ButtonDeleteForce } from '@/src/app/components/button/ButtonDelete';
 import Link from 'next/link';
 import { FcBriefcase, FcCurrencyExchange, FcLeave } from 'react-icons/fc';
-
+export const dynamic = 'force-dynamic';
 export const ItemCvUser = (props: {
   item: any;
   onDeleteSuccess: (id: string) => void;

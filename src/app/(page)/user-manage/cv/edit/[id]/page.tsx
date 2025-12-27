@@ -2,7 +2,7 @@ import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import { Toaster, toast } from 'sonner';
 import { FormEditCv } from './FormEditCv';
 import { Metadata } from 'next';
-
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Chỉnh sửa hồ sơ - TechJob',
   description: 'Cập nhật thông tin hồ sơ của bạn tại TechJob.',

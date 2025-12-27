@@ -2,6 +2,7 @@ import { SiderUser } from '@/src/app/components/sider-bar/SiderUser';
 import { FcBriefcase, FcCurrencyExchange, FcLeave } from 'react-icons/fc';
 import { ListCvUser } from './ListCvUser';
 import { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Danh sách hồ sơ ứng tuyển - TechJob',
   description: 'Quản lý hồ sơ ứng tuyển của bạn tại TechJob.',
