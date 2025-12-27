@@ -4,6 +4,7 @@ import { CompanySearch } from '@/src/app/components/search/CompanySearch';
 
 import { CompanySearchHeader } from './CompanySearchHeader';
 import { CompanySearchItem } from './CompanySearchItem';
+import { Suspense } from 'react';
 
 export default function CompanySearchPage() {
   return (
@@ -15,7 +16,9 @@ export default function CompanySearchPage() {
         <main className="flex-1 bg-[#f5f7fb]">
           <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
             <CompanySearchHeader />
-            <CompanySearch />
+            <Suspense>
+              <CompanySearch />
+            </Suspense>
             <CompanySearchItem />
           </div>
         </main>

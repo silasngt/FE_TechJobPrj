@@ -4,6 +4,7 @@ import { Header } from '@/src/app/components/header/Header';
 import { JobSearch } from '@/src/app/components/search/JobSearch';
 import { JobSearchItem } from './JobSearchItem';
 import { JobSearchHeader } from './JobSearchHeader';
+import { Suspense } from 'react';
 
 export default function SearchJobPage() {
   return (
@@ -15,7 +16,9 @@ export default function SearchJobPage() {
         <main className="flex-1 bg-[#f5f7fb]">
           <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
             <JobSearchHeader />
-            <JobSearch />
+            <Suspense>
+              <JobSearch />
+            </Suspense>
             <JobSearchItem />
           </div>
         </main>
