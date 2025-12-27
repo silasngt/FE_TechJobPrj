@@ -5,7 +5,7 @@ import { Footer } from '@/src/app/components/footer/Footer';
 import { Header } from '@/src/app/components/header/Header';
 import { JobSearch } from '@/src/app/components/search/JobSearch';
 import { Metadata } from 'next';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 export default function JobListPage() {
   const [jobList, setJobList] = useState<any[]>([]);
@@ -109,9 +109,10 @@ export default function JobListPage() {
               </div>
             </div>
           </section>
-
-          {/* Search / filter */}
-          <JobSearch />
+          <Suspense>
+            {/* Search / filter */}
+            <JobSearch />
+          </Suspense>
 
           {/* Job cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">

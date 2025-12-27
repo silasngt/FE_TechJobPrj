@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Footer } from '../../../components/footer/Footer';
 import { Header } from '../../../components/header/Header';
 import { toast } from 'sonner';
@@ -112,9 +112,10 @@ export default function CompanyListPage() {
               </div>
             </div>
           </section>
-
-          {/* Search / filter  */}
-          <CompanySearch />
+          <Suspense>
+            {/* Search / filter  */}
+            <CompanySearch />
+          </Suspense>
 
           {/* Company cards */}
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
