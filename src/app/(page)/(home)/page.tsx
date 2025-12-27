@@ -5,6 +5,7 @@ import { Section1 } from './Section1';
 import { Section2 } from './Section2';
 import { SectionIntro } from './SectionIntro';
 import { SectionLogoMarquee } from './SectionLogoMarquee';
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   // fetch('http://localhost:3001', {
