@@ -2,6 +2,7 @@ import { SiderCompany } from '@/src/app/components/sider-bar/SiderCompany';
 import { FcAddRow } from 'react-icons/fc';
 import { JobList } from './JobList';
 import { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Quản lý tin tuyển dụng - TechJob',
   description: 'Quản lý và xem các tin tuyển dụng của công ty bạn.',
