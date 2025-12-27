@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { CardCompanyItem } from '@/src/app/components/card/CardCompanyItem';
 import { CompanySearch } from '@/src/app/components/search/CompanySearch';
 import { CardSkeleton } from '@/src/app/components/card/CardSkeleton';
+export const dynamic = 'force-dynamic';
 export default function CompanyListPage() {
   const [companyList, setCompanyList] = useState<any[]>([]);
   const [page, setPage] = useState(1);
