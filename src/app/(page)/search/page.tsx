@@ -14,11 +14,11 @@ export default function JobSearchResultPage() {
       {/* CONTENT */}
       <main className="flex-1 bg-[#f5f7fb]">
         <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
-          <SearchHomeHeader />
           <Suspense>
+            <SearchHomeHeader />
             <Search />
+            <SearchHomeItem />
           </Suspense>
-          <SearchHomeItem />
         </div>
       </main>
 
