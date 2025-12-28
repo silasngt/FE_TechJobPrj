@@ -2,12 +2,9 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const cookieHeader = request.headers.get('cookie') || '';
+  const cookie = request.headers.get('cookie') || '';
 
-  // chỉ cần tồn tại token
-  const hasToken = cookieHeader.includes('token=');
-
-  if (!hasToken) {
+  if (!cookie.includes('token=')) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
