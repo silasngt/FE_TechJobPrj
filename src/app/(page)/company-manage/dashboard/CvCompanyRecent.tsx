@@ -15,7 +15,7 @@ export const CvCompanyRecent = () => {
       .then((res) => {
         if (res.success === true) {
           console.log(res);
-          setListCV(res.dataCV);
+          setListCV(res.dataCV.slice(0, 5));
         }
       });
   }, []);

@@ -15,7 +15,7 @@ export const CvUserRecent = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setListCV(res.data.data || []);
+          setListCV(res.data.data.slice(0, 5) || []);
         }
       });
   }, []);

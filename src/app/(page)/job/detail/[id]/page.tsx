@@ -2,6 +2,8 @@ import { Header } from '@/src/app/components/header/Header';
 import { SectionDetailJob } from './SectionDetailJob';
 import { Footer } from '@/src/app/components/footer/Footer';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
+import { CardDetailSkeleton } from '@/src/app/components/card/CardDetailSkeleton';
 export const metadata: Metadata = {
   title: 'Chi tiết công việc - TechJob',
   description: 'Xem chi tiết thông tin công việc và ứng tuyển ngay hôm nay!',
@@ -11,16 +13,20 @@ export default async function JobDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const resolvedParams = await params;
-
-  const { id } = resolvedParams;
-  console.log(id);
+  const { id } = await params;
 
   return (
-    <main className="min-h-screen bg-[#eaf7f4]">
+    <div className="min-h-screen flex flex-col bg-[#eaf7f4]">
       <Header />
-      <SectionDetailJob id={id} />
+
+      {/* CONTENT */}
+      <main className="flex-1">
+        <Suspense fallback={<CardDetailSkeleton />}>
+          <SectionDetailJob id={id} />
+        </Suspense>
+      </main>
+
       <Footer />
-    </main>
+    </div>
   );
 }

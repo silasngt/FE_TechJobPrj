@@ -26,7 +26,7 @@ export const Footer = () => {
 
             {/* About */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm">About</h4>
+              <h4 className="font-semibold mb-3 text-sm">Thông tin</h4>
               <ul className="space-y-3 text-sm text-white/80">
                 <li>
                   <a href="#">Về chúng tôi</a>

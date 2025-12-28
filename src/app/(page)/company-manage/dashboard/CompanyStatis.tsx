@@ -28,10 +28,11 @@ export const CompanyStatis = () => {
     totalJobs > 0 ? (statisCompany.totalLockJobs / totalJobs) * 100 : 0;
 
   const pendingCVPercent =
-    statisCompany.totalJobs > 0
-      ? (statisCompany.totalPendingCVs / statisCompany.totalJobs) * 100
+    statisCompany.totalCVs > 0
+      ? (statisCompany.totalPendingCVs / statisCompany.totalCVs) * 100
       : 0;
-
+  // Chặn phần trăm trong khoảng 0-100
+  const safePercent = (value: number) => Math.min(100, Math.max(0, value));
   return (
     <section className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
       {/* Tổng job */}
@@ -82,7 +83,10 @@ export const CompanyStatis = () => {
         <div className="mt-3 h-2 w-full bg-gray-100 rounded">
           <div
             className="h-2 rounded bg-amber-500 transition-all duration-500"
-            style={{ width: `${pendingCVPercent}%` }}
+            style={{
+              width: `${Math.min(100, pendingCVPercent)}%`,
+              minWidth: pendingCVPercent > 0 ? '12px' : '0',
+            }}
           />
         </div>
       </div>

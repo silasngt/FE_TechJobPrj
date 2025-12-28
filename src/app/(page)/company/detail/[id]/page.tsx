@@ -2,6 +2,8 @@ import { Footer } from '@/src/app/components/footer/Footer';
 import { Header } from '@/src/app/components/header/Header';
 import { SectionDetailCompany } from './SectionDetailCompany';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
+import { CardDetailSkeleton } from '@/src/app/components/card/CardDetailSkeleton';
 export const metadata: Metadata = {
   title: 'Chi tiết công ty tuyển dụng - TechJob',
   description:
@@ -12,15 +14,20 @@ export default async function CompanyDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const resolvedParams = await params;
+  const { id } = await params;
 
-  const { id } = resolvedParams;
-  // console.log(id);
   return (
-    <main className="min-h-screen bg-[#eaf7f4]">
+    <div className="min-h-screen flex flex-col bg-[#eaf7f4]">
       <Header />
-      <SectionDetailCompany id={id} />
+
+      {/* CONTENT */}
+      <main className="flex-1">
+        <Suspense fallback={<CardDetailSkeleton />}>
+          <SectionDetailCompany id={id} />
+        </Suspense>
+      </main>
+
       <Footer />
-    </main>
+    </div>
   );
 }
