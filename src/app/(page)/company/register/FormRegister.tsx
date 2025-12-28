@@ -87,7 +87,7 @@ export const FormRegisterCompany = () => {
 
             if ((data.success = true)) {
               router.push('/company/login');
-              cookieStore.set('companyToken', data.accessToken);
+              // cookieStore.set('companyToken', data.accessToken);
             }
           });
       });

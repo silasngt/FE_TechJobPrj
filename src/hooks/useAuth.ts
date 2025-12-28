@@ -16,6 +16,7 @@ export const useAuth = () => {
       .then((res) => {
         if (res.success === true) {
           setIsLogin(true);
+          // console.log('Auth check data:', res.data);
           if (res.data && res.data.role === 'user') {
             setInforUser(res.data);
             setInforCompany(null);

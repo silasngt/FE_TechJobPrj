@@ -64,14 +64,14 @@ export const FormLogin = () => {
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log('Response data:', res);
+            // console.log('Response data:', res);
             if (res.success === false) {
               toast.error(res.message);
             }
 
             if (res.success === true) {
               router.push('/');
-              cookieStore.set('token', res.data.accessToken);
+              // cookieStore.set('token', res.data.accessToken);
               // console.log('Chuyển sang trang chủ...');
             }
           });

@@ -70,7 +70,7 @@ export const FormLoginCompany = () => {
 
             if (res.success === true) {
               router.push('/');
-              cookieStore.set('token', res.data.accessToken);
+              // cookieStore.set('token', res.data.accessToken);
             }
           });
       });

@@ -35,7 +35,7 @@ export const FormLoginAdmin = () => {
         if (res.success === true && res.data.user.role === 'admin') {
           router.push('/admin/dashboard');
           setIsLoading(false);
-          cookieStore.set('token', res.data.accessToken);
+          // cookieStore.set('token', res.data.accessToken);
         }
       });
   };

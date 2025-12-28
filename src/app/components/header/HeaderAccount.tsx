@@ -2,7 +2,6 @@
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import Link from 'next/link';
-export const dynamic = 'force-dynamic';
 
 export const HeaderAccount = () => {
   const { isLogin, infoUser, infoCompany } = useAuth();
