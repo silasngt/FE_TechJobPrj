@@ -363,7 +363,7 @@ export const FormProfileCompany = () => {
               {/* Mô tả  */}
               <div className="flex flex-col gap-2 md:col-span-2">
                 <label className="text-xs font-medium text-gray-700">
-                  Làm việc ngoài giờ
+                  Mô tả về công ty
                 </label>
                 <textarea
                   name="description"

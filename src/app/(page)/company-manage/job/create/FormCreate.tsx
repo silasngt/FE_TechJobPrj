@@ -76,7 +76,7 @@ export const FormCreate = () => {
         }
       }
       //   // End images
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/companies/job`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs`, {
         method: 'POST',
         body: formData,
         credentials: 'include', // Gửi kèm cookie

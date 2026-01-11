@@ -39,7 +39,7 @@ export const Section2 = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {isLoading ? (
-          Array.from({ length: 8 }).map((_, idx) => <CardSkeleton key={idx} />)
+          Array.from({ length: 9 }).map((_, idx) => <CardSkeleton key={idx} />)
         ) : jobList.length > 0 ? (
           <CardJobItem featureJobs={jobList} />
         ) : (
