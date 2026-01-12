@@ -21,7 +21,7 @@ export const CardCompanyItem = (props: { topEmployers: any }) => {
           <h3 className="font-semibold text-[15px] mb-1">{item.companyName}</h3>
           <p className="text-xs text-gray-500 mb-3">{item.cityName}</p>
           <span className="inline-flex items-center text-xs font-medium text-[#00B894] bg-[#E0FFF7] px-3 py-1 rounded-full">
-            {item.totalJob} Công việc
+            {item.totalJobs} Công việc
           </span>
         </Link>
       ))}

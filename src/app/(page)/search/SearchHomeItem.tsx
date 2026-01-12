@@ -36,18 +36,25 @@ export const SearchHomeItem = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {isLoading ? (
+          {isLoading &&
             Array.from({ length: 10 }).map((_, idx) => (
               <CardSkeleton key={idx} />
-            ))
-          ) : jobList.length > 0 ? (
-            <CardJobItem featureJobs={jobList} />
-          ) : companyList.length > 0 ? (
-            <CardCompanyItem topEmployers={companyList} />
-          ) : (
-            <p className="text-sm text-gray-500 col-span-full h-full flex items-center justify-center">
-              Không tìm thấy công việc hoặc công ty nào phù hợp.
-            </p>
+            ))}
+
+          {!isLoading && (
+            <>
+              {jobList.length > 0 && <CardJobItem featureJobs={jobList} />}
+
+              {companyList.length > 0 && (
+                <CardCompanyItem topEmployers={companyList} />
+              )}
+
+              {jobList.length === 0 && companyList.length === 0 && (
+                <p className="text-sm text-gray-500 col-span-full h-full flex items-center justify-center">
+                  Không tìm thấy công việc hoặc công ty nào phù hợp.
+                </p>
+              )}
+            </>
           )}
         </div>
       </section>

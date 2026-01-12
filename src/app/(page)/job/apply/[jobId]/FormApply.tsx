@@ -1,11 +1,20 @@
 'use client';
 import JustValidate from 'just-validate';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { FilePond, registerPlugin } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { toast, Toaster } from 'sonner';
-
+import type { FilePond as FilePondType } from 'react-filepond';
+// Đăng ký plugin
+registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 export const FormApply = (props: { jobId: string }) => {
   const { jobId } = props;
   const [isValid, setIsValid] = useState(false);
+  // Liên quan đến validation cho file của FilePond
+  const pondRef = useRef<FilePondType | null>(null);
 
   useEffect(() => {
     const validator = new JustValidate('#formApply');
@@ -50,21 +59,24 @@ export const FormApply = (props: { jobId: string }) => {
       ])
       .addField('#fileCV', [
         {
-          rule: 'minFilesCount',
-          value: 1,
-          errorMessage: 'Vui lòng nhập file CV!',
+          validator: () => {
+            return pondRef.current?.getFiles().length === 1;
+          },
+          errorMessage: 'Vui lòng chọn file CV!',
         },
         {
-          rule: 'files',
-          value: {
-            files: {
-              extensions: ['pdf'],
-              maxSize: 5 * 1024 * 1024,
-              minSize: 0,
-              types: ['application/pdf'],
-            },
+          validator: () => {
+            const file = pondRef.current?.getFiles()[0]?.file;
+            return file ? file.type === 'application/pdf' : true;
           },
-          errorMessage: 'Dung lượng file không được vượt quá 5MB!',
+          errorMessage: 'CV chỉ chấp nhận định dạng PDF!',
+        },
+        {
+          validator: () => {
+            const file = pondRef.current?.getFiles()[0]?.file;
+            return file ? file.size <= 5 * 1024 * 1024 : true;
+          },
+          errorMessage: 'Dung lượng file tối đa là 5MB!',
         },
       ])
       .onFail(() => {
@@ -79,7 +91,13 @@ export const FormApply = (props: { jobId: string }) => {
       const fullName = event.target.fullName.value;
       const email = event.target.email.value;
       const phone = event.target.phone.value;
-      const fileCV = event.target.fileCV.files[0];
+      const fileCV = pondRef.current?.getFiles()[0]?.file;
+
+      if (!fileCV) {
+        toast.error('Vui lòng đính kèm CV!');
+        return;
+      }
+
       // Tạo FormData
       const formData = new FormData();
       formData.append('jobId', jobId);
@@ -103,6 +121,7 @@ export const FormApply = (props: { jobId: string }) => {
           if (res.success === true) {
             toast.success(res.message);
             event.target.reset();
+            pondRef.current?.removeFiles(); // Xóa file đã chọn sau khi submit thành công
           }
         });
     }
@@ -162,26 +181,20 @@ export const FormApply = (props: { jobId: string }) => {
 
         {/* Attach resume */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs font-medium text-gray-700">
+          <label htmlFor="fileCV" className="text-xs font-medium text-gray-700">
             Đính kèm CV <span className="text-red-500">*</span>
           </label>
-          <label className="mt-1 flex items-center justify-center w-full h-24 border-2 border-dashed border-emerald-200 rounded-lg bg-emerald-50/40 cursor-pointer hover:bg-emerald-50 transition">
-            <div className="text-center">
-              <p className="text-xs font-medium text-emerald-700">
-                Nhấn để chọn CV hoặc kéo thả vào đây
-              </p>
-              <p className="text-[11px] text-gray-500 mt-1">
-                Hỗ trợ PDF, DOC, DOCX · Tối đa 5MB
-              </p>
-            </div>
-            <input
-              type="file"
-              name="fileCV"
-              id="fileCV"
-              accept="application/pdf"
-              className="hidden"
-            />
-          </label>
+
+          <FilePond
+            ref={pondRef}
+            name="fileCV"
+            id="fileCV"
+            allowMultiple={false}
+            allowRemove={true}
+            maxFiles={1}
+            acceptedFileTypes={['application/pdf']}
+            labelIdle='Kéo & thả CV tại đây hoặc <span class="filepond--label-action">Chọn tệp</span><br/><span class="text-xs">(PDF, tối đa 5MB)</span>'
+          />
         </div>
 
         {/* Terms */}

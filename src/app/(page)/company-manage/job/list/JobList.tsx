@@ -34,7 +34,7 @@ export const JobList = () => {
           setTotalPage(res.totalPage);
         }
       });
-  }, [status, position]);
+  }, [status, position, page]);
   // console.log('jobList', jobList);
 
   // Xử lý cho Phân trang

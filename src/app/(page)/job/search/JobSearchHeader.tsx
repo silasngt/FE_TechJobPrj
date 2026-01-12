@@ -16,7 +16,7 @@ export const JobSearchHeader = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setTotalJob(res.data);
+          setTotalJob(res.data.data);
         }
       });
   }, [city, keyword, position]);

@@ -21,7 +21,7 @@ export const SectionDetailCompany = (props: { id: string }) => {
         console.log(res);
         if (res.success === true) {
           setDetailCompany(res.company);
-          setJobRelation(res.data);
+          setJobRelation(res.jobs);
         }
       });
   }, []);
@@ -48,6 +48,16 @@ export const SectionDetailCompany = (props: { id: string }) => {
                   <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
                     {companyDetail.companyName}
                   </h1>
+                  {/* Trụ sở chính */}
+                  <p>
+                    <span className="text-sm text-gray-500">
+                      (
+                      <span className="font-medium text-gray-700">
+                        Chi nhánh :
+                      </span>{' '}
+                      {companyDetail.cityName})
+                    </span>
+                  </p>
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-600 border border-emerald-100">
                     {companyDetail.companyModel}
                   </span>

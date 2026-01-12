@@ -19,9 +19,9 @@ export const CompanySearchItem = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.success === true) {
-          setCompanyList(res.data.result);
+          setCompanyList(res.data.data);
           setLoading(false);
         }
       });
@@ -31,7 +31,7 @@ export const CompanySearchItem = () => {
     <>
       <section>
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs text-gray-500">Các công việc phù hợp</p>
+          <p className="text-xs text-gray-500">Các công ty phù hợp</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">

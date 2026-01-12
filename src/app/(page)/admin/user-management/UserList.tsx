@@ -7,8 +7,9 @@ export const UserList = () => {
   const [listUser, setListUser] = useState<any>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [totalUser, setTotalUser] = useState(0);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users/all`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users/all?page=${page}`, {
       method: 'GET',
       credentials: 'include',
     })
@@ -18,14 +19,13 @@ export const UserList = () => {
         if (res.success === true) {
           setListUser(res.data);
           setTotalPage(res.totalPage || 0);
+          setTotalUser(res.totalUser || 0);
         }
       });
-  }, [page]);
-  const handleDeleteSuccess = (deleteid: string) => {
-    // setListCV((prev: any) => ({
-    //   ...prev,
-    //   cvs: prev.cvs.filter((cv: any) => cv.id !== deleteid),
-    // }));
+  }, [page, listUser.length]);
+  const handleChangStatus = (deleteid: string) => {
+    const updatedUsers = listUser.filter((user: any) => user._id !== deleteid);
+    setListUser(updatedUsers);
   };
   const handlePagination = (event: any) => {
     const value = event.target.value;
@@ -38,9 +38,7 @@ export const UserList = () => {
           <h3 className="text-sm font-semibold text-gray-900">
             Danh sách người dùng
           </h3>
-          <span className="text-xs text-gray-500">
-            Tổng: {listUser.length} user
-          </span>
+          <span className="text-xs text-gray-500">Tổng: {totalUser} user</span>
         </div>
         <div className="divide-y divide-gray-100">
           {listUser.length > 0 ? (
@@ -48,7 +46,7 @@ export const UserList = () => {
               <UserItem
                 key={index}
                 user={item}
-                onDeleteSuccess={handleDeleteSuccess}
+                onChangeStatus={handleChangStatus}
               />
             ))
           ) : (

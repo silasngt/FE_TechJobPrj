@@ -11,6 +11,7 @@ export const CompanyStatis = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        // console.log( res);
         if (res.success === true) {
           setStatisCompany(res.data);
         }

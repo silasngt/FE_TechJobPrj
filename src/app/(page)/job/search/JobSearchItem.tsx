@@ -21,7 +21,7 @@ export const JobSearchItem = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setJobList(res.data);
+          setJobList(res.data.data);
           setLoading(false);
         }
       });

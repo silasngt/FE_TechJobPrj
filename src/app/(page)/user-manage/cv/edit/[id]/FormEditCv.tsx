@@ -39,11 +39,6 @@ export const FormEditCv = (props: { id: string }) => {
         ])
         .addField('#fileCV', [
           {
-            rule: 'minFilesCount',
-            value: 1,
-            errorMessage: 'Vui lòng nhập file CV!',
-          },
-          {
             rule: 'files',
             value: {
               files: {

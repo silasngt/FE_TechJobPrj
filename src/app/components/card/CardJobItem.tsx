@@ -1,3 +1,5 @@
+import { workingFormList } from '@/src/config/workingForm';
+import { formatVND } from '@/src/hooks/formatUI';
 import { useAuth } from '@/src/hooks/useAuth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -9,7 +11,7 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
   const { isLogin } = useAuth();
 
   // Lấy tối đa 8 job
-  const limitedJobs = (featureJobs || []).slice(0, 8);
+  const limitedJobs = (featureJobs || []).slice(0, 9);
   const handleApply = (id: string) => {
     if (!isLogin) {
       toast.warning('Vui lòng đăng nhập để ứng tuyển');
@@ -17,6 +19,7 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
     }
     router.push(`/job/apply/${id}`);
   };
+
   return (
     <>
       {limitedJobs.map((job: any, index: number) => {
@@ -24,7 +27,9 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
           typeof job.technologies === 'string'
             ? job.technologies.split(',').map((t: string) => t.trim())
             : [];
-
+        const workingForm = workingFormList.find(
+          (work) => work.value === job.workingForm
+        )?.label;
         return (
           <div
             key={index}
@@ -74,11 +79,8 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
 
                 {/* Salary */}
                 <div className="mt-2 inline-flex items-center bg-gradient-to-r from-[#E0FFF7] to-[#F0FFFE] px-3 py-2 rounded-lg">
-                  <span className="text-xs font-semibold text-[#00B894]">
-                    💰
-                  </span>
                   <span className="text-xs font-semibold text-[#00B894] ml-1">
-                    {job.salaryMin}$ - {job.salaryMax}$
+                    {formatVND(job.salaryMin)} - {formatVND(job.salaryMax)}
                   </span>
                 </div>
               </Link>
@@ -87,7 +89,7 @@ export const CardJobItem = (props: { featureJobs: any[] }) => {
             {/* Bottom: working form + apply */}
             <div className="mt-3 flex items-center justify-between">
               <span className="text-[11px] text-gray-500 truncate max-w-[70%]">
-                {job.workingForm}
+                {workingForm}
               </span>
               <button
                 onClick={() => handleApply(job.jobId)}

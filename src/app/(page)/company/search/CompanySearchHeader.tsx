@@ -16,7 +16,7 @@ export const CompanySearchHeader = () => {
       .then((res) => {
         // console.log(res);
         if (res.success === true) {
-          setTotalCompany(res.data.result);
+          setTotalCompany(res.data.data);
         }
       });
   }, [city, keyword]);

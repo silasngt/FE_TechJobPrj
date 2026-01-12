@@ -130,7 +130,6 @@ export const FormCreate = () => {
               id="salaryMin"
               type="text"
               required
-              placeholder="VD: 1000$"
               className="h-10 px-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-emerald-500"
             />
           </div>
@@ -143,7 +142,6 @@ export const FormCreate = () => {
               id="salaryMax"
               type="text"
               required
-              placeholder="VD: 2000$"
               className="h-10 px-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-emerald-500"
             />
           </div>

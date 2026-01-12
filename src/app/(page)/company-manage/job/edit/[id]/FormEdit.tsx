@@ -26,8 +26,9 @@ export const FormEdit = (props: { id: string }) => {
     })
       .then((res) => res.json())
       .then((res) => {
+        // console.log(res);
         if (res.success === true) {
-          setJobDetail(res.data);
+          setJobDetail(res.data.job);
         }
         if (res.success === false) {
           toast.error(res.message);
@@ -181,7 +182,7 @@ export const FormEdit = (props: { id: string }) => {
               <select
                 name="position"
                 id="position"
-                defaultValue={jobDetail.position}
+                defaultValue={jobDetail?.position}
                 className="h-10 px-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="">-- Chọn cấp bậc --</option>

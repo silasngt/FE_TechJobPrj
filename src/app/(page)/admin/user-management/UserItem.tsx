@@ -1,26 +1,12 @@
+import { ButtonChangeStatus } from '@/src/app/components/button/ButtonChangeStatus';
 import { toast, Toaster } from 'sonner';
 
 export const UserItem = (props: {
   user: any;
-  onDeleteSuccess: (id: string) => void;
+  onChangeStatus: (id: string) => void;
 }) => {
-  const { user, onDeleteSuccess } = props;
-  const handleChangeStatus = () => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users/${user._id}/toggle`, {
-      method: 'PATCH',
-      credentials: 'include',
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res);
-        if (res.success === true) {
-          toast.success(
-            `${user.isDeleted ? 'Mở khóa' : 'Khóa'} tài khoản thành công`
-          );
-          onDeleteSuccess(user._id);
-        }
-      });
-  };
+  const { user, onChangeStatus } = props;
+
   return (
     <>
       <Toaster richColors position="top-right" />
@@ -65,16 +51,12 @@ export const UserItem = (props: {
             </span>
           </div>
 
-          <button
-            onClick={handleChangeStatus}
-            className={`px-3 py-1.5 text-xs rounded-md font-semibold transition ${
-              user.isDeleted
-                ? 'bg-emerald-500 text-white hover:bg-emerald-600'
-                : 'bg-red-500 text-white hover:bg-red-600'
-            }`}
-          >
-            {user.isDeleted ? 'Mở khóa tài khoản' : 'Khóa tài khoản'}
-          </button>
+          <ButtonChangeStatus
+            api={`${process.env.NEXT_PUBLIC_API_URL}/admin/users/${user._id}/toggle`}
+            id={user._id}
+            isDeleted={user.isDeleted}
+            onChangeStatus={onChangeStatus}
+          />
         </div>
       </div>
     </>

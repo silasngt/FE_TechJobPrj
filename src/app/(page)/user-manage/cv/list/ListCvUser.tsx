@@ -27,10 +27,8 @@ export const ListCvUser = () => {
       });
   });
   const handleDeleteSuccess = (deleteid: string) => {
-    setListCV((prev: any) => ({
-      ...prev,
-      cvs: prev.cvs.filter((cv: any) => cv._id !== deleteid),
-    }));
+    const updatedList = listCV.filter((cv: any) => cv._id !== deleteid);
+    setListCV(updatedList);
   };
   return (
     <>

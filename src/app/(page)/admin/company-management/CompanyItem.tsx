@@ -1,32 +1,14 @@
+import { ButtonChangeStatus } from '@/src/app/components/button/ButtonChangeStatus';
 import { cvStatusList } from '@/src/config/cvList';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 export const CompanyItem = (props: {
   item: any;
-  onDeleteSuccess: (id: string) => void;
+  onChangeStatus: (id: string) => void;
 }) => {
-  const { item, onDeleteSuccess } = props;
+  const { item, onChangeStatus } = props;
 
-  const handleChangeStatus = () => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/companies/${item._id}/toggle`,
-      {
-        method: 'PATCH',
-        credentials: 'include',
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res);
-        if (res.success === true) {
-          toast.success(
-            `${item.isDeleted ? 'Mở khóa' : 'Khóa'} công ty thành công`
-          );
-          onDeleteSuccess(item._id);
-        }
-      });
-  };
   return (
     <>
       <div
@@ -73,22 +55,13 @@ export const CompanyItem = (props: {
               {item.isDeleted ? 'Đã khóa' : 'Đang hoạt động'}
             </span>
           </div>
-          {/* nút đổi trạng thái  */}
-          {item.isDeleted ? (
-            <button
-              onClick={handleChangeStatus}
-              className="px-3 py-1.5 text-xs rounded-md font-semibold transition bg-emerald-500 text-white hover:bg-emerald-600"
-            >
-              Mở khóa tài khoản
-            </button>
-          ) : (
-            <button
-              onClick={handleChangeStatus}
-              className="px-3 py-1.5 text-xs rounded-md font-semibold transition bg-red-500 text-white hover:bg-red-600"
-            >
-              Khóa tài khoản
-            </button>
-          )}
+
+          <ButtonChangeStatus
+            api={`${process.env.NEXT_PUBLIC_API_URL}/admin/companies/${item._id}/toggle`}
+            id={item._id}
+            isDeleted={item.isDeleted}
+            onChangeStatus={onChangeStatus}
+          />
         </div>
       </div>
     </>

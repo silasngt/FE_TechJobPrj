@@ -17,7 +17,7 @@ export const SearchHomeHeader = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.success === true) {
           setJobList(res.data.jobs);
           setCompanyList(res.data.companies);

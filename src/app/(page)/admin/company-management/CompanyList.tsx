@@ -5,6 +5,7 @@ import { CompanyItem } from './CompanyItem';
 
 export const CompanyList = () => {
   const [dataCompanies, setDataCompanies] = useState<any[]>([]);
+  const [totalCompanies, setTotalCompanies] = useState<number>(0);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   useEffect(() => {
@@ -17,18 +18,19 @@ export const CompanyList = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success === true) {
           setDataCompanies(res.data);
           setTotalPage(res.totalPage || 0);
+          setTotalCompanies(res.totalCompany || 0);
         }
       });
-  }, [page]);
-  const handleDeleteSuccess = (deleteid: string) => {
-    // setListCV((prev: any) => ({
-    //   ...prev,
-    //   cvs: prev.cvs.filter((cv: any) => cv.id !== deleteid),
-    // }));
+  }, [page, dataCompanies.length]);
+  const handleChangStatus = (deleteid: string) => {
+    const updatedCompanies = dataCompanies.filter(
+      (company) => company._id !== deleteid
+    );
+    setDataCompanies(updatedCompanies);
   };
   // console.log(dataCompanies);
   const handlePagination = (event: any) => {
@@ -43,7 +45,7 @@ export const CompanyList = () => {
             Danh sách công ty
           </h3>
           <span className="text-xs text-gray-500">
-            Tổng: {dataCompanies.length} công ty
+            Tổng: {totalCompanies} công ty
           </span>
         </div>
 
@@ -53,7 +55,7 @@ export const CompanyList = () => {
               <CompanyItem
                 key={index}
                 item={item}
-                onDeleteSuccess={handleDeleteSuccess}
+                onChangeStatus={handleChangStatus}
               />
             ))
           ) : (

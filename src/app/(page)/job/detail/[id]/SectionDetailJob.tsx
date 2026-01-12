@@ -1,5 +1,7 @@
 'use client';
 import { CardJobRelationItem } from '@/src/app/components/card/CardJobRelationItem';
+import { workingFormList } from '@/src/config/workingForm';
+import { formatVND } from '@/src/hooks/formatUI';
 import { useAuth } from '@/src/hooks/useAuth';
 import moment from 'moment';
 import Link from 'next/link';
@@ -41,6 +43,7 @@ export const SectionDetailJob = (props: { id: string }) => {
     }
     router.push(`/job/apply/${id}`);
   };
+
   return (
     <>
       {jobDetail && <Toaster position="top-right" richColors closeButton />}
@@ -57,7 +60,7 @@ export const SectionDetailJob = (props: { id: string }) => {
                     {jobDetail.title}
                   </h1>
                   <p className="text-xs text-gray-500 mt-1">
-                    {jobDetail.companyId.companyName}
+                    {jobDetail.companyName}
                   </p>
                 </div>
 
@@ -79,13 +82,18 @@ export const SectionDetailJob = (props: { id: string }) => {
                   <span className="font-semibold text-gray-800">
                     Hình thức làm việc:
                   </span>{' '}
-                  {jobDetail.workingForm}
+                  {
+                    workingFormList.find(
+                      (work) => work.value === jobDetail.workingForm
+                    )?.label
+                  }
                 </p>
                 <p>
                   <span className="font-semibold text-gray-800">
                     Mức lương:
                   </span>{' '}
-                  {jobDetail.salaryMin}$ – {jobDetail.salaryMin}$
+                  {formatVND(jobDetail.salaryMin)} -{' '}
+                  {formatVND(jobDetail.salaryMax)}
                 </p>
                 <p>
                   <span className="font-semibold text-gray-800">
@@ -135,29 +143,27 @@ export const SectionDetailJob = (props: { id: string }) => {
               <div className="flex items-center gap-3">
                 <div className="w-14 h-14 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center overflow-hidden">
                   <img
-                    src={jobDetail.companyId.logo}
-                    alt={jobDetail.companyId.companyName}
+                    src={jobDetail.logo}
+                    alt={jobDetail.companyName}
                     className="w-full h-full object-contain p-2"
                   />
                 </div>
                 <div>
                   <h2 className="text-sm font-semibold text-gray-900">
-                    {jobDetail.companyId.companyName}
+                    {jobDetail.companyName}
                   </h2>
                   <p className="text-[11px] text-gray-500">
-                    {jobDetail.companyId.companyModel}
+                    {jobDetail.companyModel}
                   </p>
                 </div>
               </div>
 
               <div className="space-y-2 text-xs text-gray-600">
-                {jobDetail.companyId.cityId.cityName ? (
+                {jobDetail.cityName ? (
                   <>
                     <p>
                       📍{' '}
-                      <span className="font-medium">
-                        {jobDetail.companyId.cityId.cityName}
-                      </span>
+                      <span className="font-medium">{jobDetail.cityName}</span>
                     </p>
                   </>
                 ) : (
@@ -174,18 +180,18 @@ export const SectionDetailJob = (props: { id: string }) => {
                 <p>
                   👥 Quy mô:{' '}
                   <span className="font-medium">
-                    {jobDetail.companyId.companyEmployees}
+                    {jobDetail.companyEmployees}
                   </span>
                 </p>
-                <p>🕒 Làm việc: {jobDetail.companyId.workingTime}</p>
+                <p>🕒 Làm việc: {jobDetail.workingTime}</p>
               </div>
 
-              <Link
+              {/* <Link
                 href={`/company/detail/${jobDetail.companyId._id}`}
                 className="mt-auto inline-block text-center px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold hover:bg-emerald-100 border border-emerald-100 transition"
               >
                 Xem trang công ty
-              </Link>
+              </Link> */}
             </aside>
           </section>
 
@@ -217,7 +223,7 @@ export const SectionDetailJob = (props: { id: string }) => {
                 <CardJobRelationItem
                   key={idx}
                   job={job}
-                  address={jobDetail.companyId.address}
+                  address={jobDetail.cityName}
                 />
               ))}
             </div>

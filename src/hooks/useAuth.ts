@@ -9,7 +9,7 @@ export const useAuth = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsLogin(null); // 🔥 reset về trạng thái "đang check"
+    setIsLogin(null); // reset về trạng thái "đang check"
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/check`, {
       credentials: 'include',
