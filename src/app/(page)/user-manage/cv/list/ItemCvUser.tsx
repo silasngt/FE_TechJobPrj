@@ -1,4 +1,5 @@
 import { ButtonDeleteForce } from '@/src/app/components/button/ButtonDelete';
+import { formatVND } from '@/src/hooks/formatUI';
 import Link from 'next/link';
 import { FcBriefcase, FcCurrencyExchange, FcLeave } from 'react-icons/fc';
 export const dynamic = 'force-dynamic';
@@ -29,7 +30,7 @@ export const ItemCvUser = (props: {
             <FcCurrencyExchange className="inline-flex mx-[5px] text-[16px]" />
             Mức lương:{' '}
             <span className="font-semibold text-emerald-600">
-              {item.salaryMin} - {item.salaryMax} USD
+              {formatVND(item.salaryMin)} - {formatVND(item.salaryMax)}
             </span>
           </p>
           <p>
