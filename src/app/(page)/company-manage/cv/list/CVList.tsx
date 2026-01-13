@@ -26,7 +26,7 @@ export const CVList = () => {
           setTotalPage(res.totalPageCV || 0);
         }
       });
-  }, [status, page]);
+  }, [status, page, listCV.length]);
   const handleDeleteSuccess = (deleteid: string) => {
     setListCV((prev: any) => prev.filter((cv: any) => cv.id !== deleteid));
   };

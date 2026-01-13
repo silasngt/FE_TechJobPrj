@@ -25,7 +25,7 @@ export const SectionDetailJob = (props: { id: string }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.success === true) {
           setJobDetail(res.data.job);
           setJobRelation(res.data.relateJobs);
@@ -186,12 +186,12 @@ export const SectionDetailJob = (props: { id: string }) => {
                 <p>🕒 Làm việc: {jobDetail.workingTime}</p>
               </div>
 
-              {/* <Link
-                href={`/company/detail/${jobDetail.companyId._id}`}
+              <Link
+                href={`/company/detail/${jobDetail.companyId}`}
                 className="mt-auto inline-block text-center px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold hover:bg-emerald-100 border border-emerald-100 transition"
               >
                 Xem trang công ty
-              </Link> */}
+              </Link>
             </aside>
           </section>
 
